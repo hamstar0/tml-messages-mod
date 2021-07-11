@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.UI;
+using ModLibsCore.Classes.PlayerData;
 using ModLibsCore.Libraries.Debug;
 using ModControlPanel.Internals.ControlPanel;
 using Messages.Definitions;
-using ModLibsCore.Libraries.TModLoader;
-using ModLibsCore.Classes.PlayerData;
+
 
 namespace Messages.UI {
 	partial class UIMessagesTab : UIControlPanelTab {
@@ -13,15 +14,7 @@ namespace Messages.UI {
 			var newMsgElem = new UIMessage( message );
 			newMsgElem.OnOpen += () => this.OnOpenMessage( newMsgElem );
 
-			int idx;
-			int count = this.MessagesElemsList.Count;
-
-			for( idx=0; idx<count; idx++ ) {
-				var elem = this.MessagesElemsList[idx] as UIMessage;
-				if( elem.CompareTo(newMsgElem) > 0 ) {
-					break;
-				}
-			}
+			int idx = UIMessage.GetMessageIndexInList( this.MessagesElemsList, newMsgElem );
 
 			//
 

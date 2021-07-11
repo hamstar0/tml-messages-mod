@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.UI;
 using Terraria.ModLoader;
+using ModLibsCore.Libraries.Debug;
 using ModLibsUI.Classes.UI.Elements;
 using ModLibsUI.Classes.UI.Theme;
-using ModLibsCore.Libraries.Debug;
 using Messages.Definitions;
 using Messages.Logic;
 
@@ -23,8 +25,37 @@ namespace Messages.UI {
 
 		////////////////
 
+		public static int GetMessageIndexInList( IList<UIElement> list, UIMessage element ) {
+			int idx;
+			int count = list.Count;
+
+			for( idx = 0; idx < count; idx++ ) {
+				var elem = list[idx] as UIMessage;
+				if( elem.CompareTo( element ) > 0 ) {
+					break;
+				}
+			}
+
+			return idx;
+		}
+
+
+
+		////////////////
+
 		private UIThemedText TitleElem;
+
 		private UIThemedText DescriptionElem;
+
+		private UIElement DescriptionContainerElem;
+
+		private UIElement NestedMessagesElem;
+
+		////
+
+		private IList<UIMessage> NestedMessages = new List<UIMessage>();
+
+		////
 
 		private float DescriptionHeight;
 
@@ -59,11 +90,18 @@ namespace Messages.UI {
 			this.TitleElem.Width.Set( 0f, 1f );
 			this.Append( this.TitleElem );
 
+			this.DescriptionContainerElem = new UIElement();
+			this.DescriptionContainerElem.Top.Set( UIMessage.DefaultHeight, 0f );
+			this.Append( this.DescriptionContainerElem );
+
 			this.DescriptionElem = new UIThemedText( this.Theme, false, this.Message.Description, UIMessage.DefaultDescScale );
 			this.DescriptionElem.TextColor = Color.White;
-			this.DescriptionElem.Top.Set( UIMessage.DefaultHeight, 0f );
 			this.DescriptionElem.Width.Set( 0f, 1f );
 			//this.Append( this.DescriptionElem );
+
+			this.NestedMessagesElem = new UIElement();
+			this.NestedMessagesElem.Top.Set( UIMessage.DefaultHeight, 0f );
+			this.Append( this.NestedMessagesElem );
 
 			//
 
@@ -73,41 +111,45 @@ namespace Messages.UI {
 
 		////////////////
 		
-		public void ToggleOpen() {
+		public float CalculateInnerHeight( bool open ) {
+			if( open ) {
+				return UIMessage.DefaultHeight + (this.DescriptionHeight * UIMessage.DefaultDescScale) + 8f;
+			}
+			return UIMessage.DefaultHeight;
+		}
+		
+		public float CalculateNestedMessagesHeight() {
+			float height = 0f;
+
+			foreach( UIMessage elem in this.NestedMessages ) {
+				height += elem.CalculateInnerHeight( elem.IsOpen ) + 8f;
+			}
+
+			return height;
+		}
+
+
+		////////////////
+		
+		public void AddNestedMessage( UIMessage messageElem ) {
+			var list = this.NestedMessages
+				.Select( e => (UIElement)e )
+				.ToList();
+			int idx = UIMessage.GetMessageIndexInList( list, messageElem );
+
+			this.NestedMessages.Insert( idx, messageElem );
+
+			//
+
 			if( this.IsOpen ) {
-				this.Close( true );
-			} else {
-				this.Open( true );
+				this.NestedMessagesElem.RemoveAllChildren();
+
+				foreach( UIMessage msgElem in this.NestedMessages ) {
+					this.NestedMessagesElem.Append( msgElem );
+				}
+
+				this.Recalculate();
 			}
-		}
-
-		////
-
-		internal void Open( bool viaInterface ) {
-			this.IsOpen = true;
-			this.Message.IsRead = true;
-
-			this.Append( this.DescriptionElem );
-
-			if( viaInterface ) {
-				this.OnOpen?.Invoke();
-			}
-
-			this.Recalculate();
-
-			float addedHeight = (this.DescriptionHeight * UIMessage.DefaultDescScale) + 8f;
-
-			this.Height.Set( UIMessage.DefaultHeight + addedHeight, 0f );
-		}
-
-		internal void Close( bool viaInterface ) {
-			this.IsOpen = false;
-
-			this.RemoveChild( this.DescriptionElem );
-
-			this.Recalculate();
-
-			this.Height.Set( UIMessage.DefaultHeight, 0f );
 		}
 
 
@@ -125,26 +167,6 @@ namespace Messages.UI {
 				return -1;
 			} else {
 				return this.Message.Title.CompareTo( that.Message.Title );
-			}
-		}
-
-
-		////////////////
-
-		public override void Update( GameTime gameTime ) {
-			var mngr = ModContent.GetInstance<MessageManager>();
-			if( !mngr.CurrentMessages.ContainsKey(this.Message.Title) ) {
-				return;
-			}
-
-			if( mngr.CurrentMessages[ this.Message.Title ].IsRead ) {
-				if( MessagesMod.Instance.MessagesTabUI?.RecentMessage != this ) {
-					this.TitleElem.TextColor = Color.Gray;
-					this.DescriptionElem.TextColor = Color.Gray;
-				}
-			} else {
-				this.TitleElem.TextColor = Color.Yellow;
-				this.DescriptionElem.TextColor = Color.White;
 			}
 		}
 	}
