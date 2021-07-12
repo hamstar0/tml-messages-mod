@@ -75,7 +75,7 @@ namespace Messages.UI {
 			}
 
 			var myplayer = CustomPlayerData.GetPlayerData<MessagesCustomPlayer>( Main.myPlayer );
-			myplayer.RecordReadMessage( messageElem.Message.Title );
+			myplayer.RecordReadMessage( messageElem.Message.ID );
 		}
 	}
 }

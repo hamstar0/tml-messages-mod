@@ -50,22 +50,25 @@ namespace Messages {
 		////////////////
 
 		/// <summary>Adds a message to the list.</summary>
-		/// <param name="message"></param>
-		/// <param name="alertPlayer">Creates an inbox message. Only alerts players for non-completed objectives.</param>
-		/// <param name="result">Output message to indicate error type, or else `Success.`</param>
-		/// <returns>`true` if objective isn't already defined and is being given a valid order index.</returns>
-		public static bool AddMessage( Message message, bool alertPlayer, out string result ) {
-			if( message == null ) {
-				throw new ModLibsException( "Non-null message required." );
-			}
-
+		/// <param name="title"></param>
+		/// <param name="description"></param>
+		/// <param name="id">Allows for duplicate messages. Defaults to using `title` if null.</param>
+		/// <param name="alertPlayer"></param>
+		/// <returns>A non-null `Message` if message was registered successfully (i.e. no duplicates found).</returns>
+		public static Message AddMessage( string title, string description, string id = null, bool alertPlayer = true ) {
 			if( Main.netMode == NetmodeID.Server ) {
-				throw new ModLibsException( "Server message not allowed." );
+				throw new ModLibsException( "Server messages not allowed." );
 			}
 
 			var mngr = ModContent.GetInstance<MessageManager>();
 
-			return mngr.AddMessage( message, alertPlayer, out result );
+			Message msg = mngr.AddMessage( title, description, id );
+
+			if( alertPlayer ) {
+				f
+			}
+
+			return msg;
 		}
 
 		////
@@ -73,14 +76,14 @@ namespace Messages {
 		/// <summary></summary>
 		/// <param name="title"></param>
 		/// <param name="forceIncomplete"></param>
-		public static void RemoveMessage( string title, bool forceIncomplete ) {
+		public static void RemoveMessage( Message message, bool forceIncomplete ) {
 			if( Main.netMode == NetmodeID.Server ) {
-				throw new ModLibsException( "Server objectives not allowed." );
+				throw new ModLibsException( "Server messages not allowed." );
 			}
 
 			var mngr = ModContent.GetInstance<MessageManager>();
 
-			mngr.RemoveMessage( title, forceIncomplete );
+			mngr.RemoveMessage( message, forceIncomplete );
 		}
 
 		////

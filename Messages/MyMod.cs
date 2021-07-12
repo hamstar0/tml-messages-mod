@@ -48,12 +48,5 @@ namespace Messages {
 				ControlPanelTabs.AddTab( MessagesMod.ControlPanelName, this.MessagesTabUI );
 			}
 		}
-
-
-		////////////////
-
-		public override void PostUpdateEverything() {
-			ModContent.GetInstance<MessageManager>()?.Update_Internal();
-		}
 	}
 }

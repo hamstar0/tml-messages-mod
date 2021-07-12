@@ -23,48 +23,33 @@ namespace Messages.Commands {
 			string _;
 
 			MessagesAPI.AddMessage(
-				message: new Message(
-					title: "Kill A Blue Slime",
-					description: "What even is a slime?"
-				),
-				alertPlayer: false,
-				result: out _
+				title: "Kill A Blue Slime",
+				description: "What even is a slime?",
+				alertPlayer: false
 			);
 
 			MessagesAPI.AddMessage(
-				message: new Message(
-					title: "Collect 50 Rings",
-					description: "Wrong game.\n \n...might be a fun mod, though?"
-				),
-				alertPlayer: false,
-				result: out _
+				title: "Collect 50 Rings",
+				description: "Wrong game.\n \n...might be a fun mod, though?",
+				alertPlayer: true
 			);
 
 			MessagesAPI.AddMessage(
-				message: new Message(
-					title: "Order Pizza",
-					description: "Can't be done."
-				),
-				alertPlayer: false,
-				result: out _
+				title: "Order Pizza",
+				description: "Can't be done.",
+				alertPlayer: false
 			);
 
 			MessagesAPI.AddMessage(
-				message: new Message(
-					title: "Collect A Blueberry",
-					description: "Don't ask."
-				),
-				alertPlayer: false,
-				result: out _
+				title: "Collect A Blueberry",
+				description: "Don't ask.",
+				alertPlayer: true
 			);
 
 			MessagesAPI.AddMessage(
-				message: new Message(
-					title: "Craft A Molotov",
-					description: "Viva la revolution!"
-				),
-				alertPlayer: false,
-				result: out _
+				title: "Craft A Molotov",
+				description: "Viva la revolution!",
+				alertPlayer: false
 			);
 		}
 	}
