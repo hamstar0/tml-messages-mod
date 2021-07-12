@@ -78,13 +78,6 @@ namespace Messages.UI {
 
 
 		////////////////
-		
-		public void UpdateAll() {
-
-		}
-
-
-		////////////////
 
 		public override void Draw( SpriteBatch spriteBatch ) {
 			bool listChanged;

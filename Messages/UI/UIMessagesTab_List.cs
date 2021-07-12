@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.UI;
-using ModLibsCore.Classes.PlayerData;
 using ModLibsCore.Libraries.Debug;
 using ModControlPanel.Internals.ControlPanel;
 using Messages.Definitions;
@@ -27,12 +25,12 @@ namespace Messages.UI {
 			this.Recalculate();
 		}
 
-		public void RemoveMessage( string title ) {
+		public void RemoveMessage( Message message ) {
 			int idx;
 			for( idx=0; idx<this.MessagesElemsList.Count; idx++ ) {
 				UIMessage obj = this.MessagesElemsList[idx] as UIMessage;
 
-				if( obj.Message.Title == title ) {
+				if( obj.Message.ID == message.ID ) {
 					break;
 				}
 			}
@@ -73,9 +71,6 @@ namespace Messages.UI {
 					((UIMessage)elem).Close( false );
 				}
 			}
-
-			var myplayer = CustomPlayerData.GetPlayerData<MessagesCustomPlayer>( Main.myPlayer );
-			myplayer.RecordReadMessage( messageElem.Message.ID );
 		}
 	}
 }

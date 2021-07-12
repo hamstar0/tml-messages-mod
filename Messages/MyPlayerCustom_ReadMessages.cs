@@ -8,7 +8,7 @@ using ModLibsCore.Libraries.World;
 
 namespace Messages {
 	partial class MessagesCustomPlayer : CustomPlayerData {
-		public bool IsMessageByNameRead( string id ) {
+		public bool IsMessageRead( string id ) {
 			string worldUid = WorldIdentityLibraries.GetUniqueIdForCurrentWorld( true );
 
 			if( !this.ReadMessagesByIdsPerWorld.ContainsKey(worldUid) ) {

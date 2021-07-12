@@ -5,11 +5,6 @@ using ModLibsCore.Libraries.Debug;
 
 namespace Messages.Definitions {
 	public partial class Message {
-		public bool IsRead = false;
-
-
-		////////////////
-
 		public string ID { get; protected set; }	//Guid.NewGuid().ToString();
 
 		////

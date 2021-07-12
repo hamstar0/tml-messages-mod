@@ -1,14 +1,11 @@
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ModLibsUI.Classes.UI.Theme;
-using ModControlPanel.Services.UI.ControlPanel;
-using Messages.UI;
-using Messages.Logic;
 
 
 namespace Messages {
-	public class MessagesMod : Mod {
+	public partial class MessagesMod : Mod {
 		public const string ControlPanelName = "Messages";
 
 
@@ -31,21 +28,28 @@ namespace Messages {
 
 		////////////////
 
-		internal UIMessagesTab MessagesTabUI;
+		private int AlertTickDuration = 0;
+
+		private Texture2D MessageAlertTex;
 
 
 
 		////////////////
-
+		
 		public override void Load() {
 			this.ControlPanelHotkey = this.RegisterHotKey( "Toggle Messages", "OemTilde" );
+
+			if( !Main.dedServ && Main.netMode != NetmodeID.Server ) {
+				this.MessageAlertTex = this.GetTexture( "UI/MessageAlert" );
+			}
 		}
 
+
+		////////////////
+
 		public override void PostSetupContent() {
-			if( !Main.dedServ && Main.netMode != NetmodeID.Server ) {
-				// Add player stats tab
-				this.MessagesTabUI = new UIMessagesTab( UITheme.Vanilla );
-				ControlPanelTabs.AddTab( MessagesMod.ControlPanelName, this.MessagesTabUI );
+			if( this.AlertTickDuration >= 1 ) {
+				this.AlertTickDuration--;
 			}
 		}
 	}

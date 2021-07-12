@@ -1,20 +1,36 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using Terraria;
+using Terraria.ID;
 using ModLibsCore.Classes.Loadable;
 using ModLibsCore.Classes.PlayerData;
+using ModLibsUI.Classes.UI.Theme;
+using ModControlPanel.Services.UI.ControlPanel;
 using Messages.Definitions;
+using Messages.UI;
 
 
 namespace Messages.Logic {
 	partial class MessageManager : ILoadable {
-		public ConcurrentDictionary<string, Message> CurrentMessages { get; } = new ConcurrentDictionary<string, Message>();
+		internal UIMessagesTab MessagesTabUI;
+
+
+		////////////////
+
+		public ConcurrentDictionary<string, Message> MessagesByID { get; } = new ConcurrentDictionary<string, Message>();
 
 
 
 		////////////////
 
-		void ILoadable.OnModsLoad() { }
+		void ILoadable.OnModsLoad() {
+			if( !Main.dedServ && Main.netMode != NetmodeID.Server ) {
+				this.MessagesTabUI = new UIMessagesTab( UITheme.Vanilla );
+
+				// Add tab
+				ControlPanelTabs.AddTab( MessagesMod.ControlPanelName, this.MessagesTabUI );
+			}
+		}
 
 		void ILoadable.OnPostModsLoad() { }
 
@@ -24,26 +40,32 @@ namespace Messages.Logic {
 		////////////////
 
 		public Message AddMessage( string title, string description, string id = null, int weight = 0, Message parent = null ) {
-			if( this.CurrentMessages.ContainsKey(id) ) {
-				return null;
-			} else if( id == null && this.CurrentMessages.ContainsKey(title) ) {
+			if( id != null ) {
+				if( this.MessagesByID.ContainsKey(id) ) {
+					return null;
+				}
+			} else if( this.MessagesByID.ContainsKey(title) ) {
 				return null;
 			}
 
 			var msg = new Message( title, description, id, weight, parent );
 
-			this.CurrentMessages[ msg.ID ] = msg;
+			this.MessagesByID[ msg.ID ] = msg;
+
+			this.MessagesTabUI.AddMessage( msg );
 
 			return msg;
 		}
 
 		public bool RemoveMessage( Message message, bool forceUnread = false ) {
-			bool isRemoved = this.CurrentMessages.TryRemove( message.ID, out Message msg );
+			bool isRemoved = this.MessagesByID.TryRemove( message.ID, out Message msg );
 
 			if( forceUnread && isRemoved ) {
 				var myplayer = CustomPlayerData.GetPlayerData<MessagesCustomPlayer>( Main.LocalPlayer.whoAmI );
 				myplayer.ForgetReadMessage( msg.ID );
 			}
+
+			this.MessagesTabUI.RemoveMessage( message );
 
 			return isRemoved;
 		}
@@ -52,12 +74,12 @@ namespace Messages.Logic {
 			if( forceUnread ) {
 				var myplayer = CustomPlayerData.GetPlayerData<MessagesCustomPlayer>( Main.LocalPlayer.whoAmI );
 
-				foreach( Message msg in this.CurrentMessages.Values ) {
+				foreach( Message msg in this.MessagesByID.Values ) {
 					myplayer.ForgetReadMessage( msg.ID );
 				}
 			}
 
-			this.CurrentMessages.Clear();
+			this.MessagesByID.Clear();
 		}
 	}
 }

@@ -7,6 +7,7 @@ using ModLibsCore.Classes.Errors;
 using ModLibsCore.Classes.PlayerData;
 using ModLibsCore.Libraries.Debug;
 using ModLibsCore.Libraries.DotNET.Extensions;
+using ModControlPanel.Services.UI.ControlPanel;
 using Messages.Definitions;
 using Messages.Logic;
 
@@ -34,16 +35,16 @@ namespace Messages {
 		////////////////
 
 		/// <summary></summary>
-		/// <param name="title"></param>
+		/// <param name="id"></param>
 		/// <returns></returns>
-		public static Message GetMessage( string title ) {
+		public static Message GetMessage( string id ) {
 			if( Main.netMode == NetmodeID.Server ) {
 				throw new ModLibsException( "Server Messages not allowed." );
 			}
 
 			var mngr = ModContent.GetInstance<MessageManager>();
 
-			return mngr.CurrentMessages.GetOrDefault( title );
+			return mngr.MessagesByID.GetOrDefault( id );
 		}
 
 
@@ -65,7 +66,9 @@ namespace Messages {
 			Message msg = mngr.AddMessage( title, description, id );
 
 			if( alertPlayer ) {
-				f
+				ControlPanelTabs.AddTabAlert( MessagesMod.ControlPanelName );
+
+				MessagesMod.Instance.ShowAlert();
 			}
 
 			return msg;
