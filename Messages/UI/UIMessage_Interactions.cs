@@ -47,6 +47,7 @@ namespace Messages.UI {
 			this.NestedMessagesElem.Height.Set( nestedHeight, 0f );
 		}
 
+
 		internal void Close( bool viaInterface ) {
 			this.IsOpen = false;
 

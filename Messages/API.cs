@@ -53,17 +53,34 @@ namespace Messages {
 		/// <summary>Adds a message to the list.</summary>
 		/// <param name="title"></param>
 		/// <param name="description"></param>
+		/// <param name="result"></param>
 		/// <param name="id">Allows for duplicate messages. Defaults to using `title` if null.</param>
+		/// <param name="weight">Sort order priority of message in descending order.</param>
+		/// <param name="parent"></param>
 		/// <param name="alertPlayer"></param>
 		/// <returns>A non-null `Message` if message was registered successfully (i.e. no duplicates found).</returns>
-		public static Message AddMessage( string title, string description, string id = null, bool alertPlayer = true ) {
+		public static Message AddMessage(
+					string title,
+					string description,
+					out string result,
+					string id = null,
+					int weight = 0,
+					Message parent = null,
+					bool alertPlayer = true ) {
 			if( Main.netMode == NetmodeID.Server ) {
 				throw new ModLibsException( "Server messages not allowed." );
 			}
 
 			var mngr = ModContent.GetInstance<MessageManager>();
 
-			Message msg = mngr.AddMessage( title, description, id );
+			Message msg = mngr.AddMessage(
+				title: title,
+				description: description,
+				result: out result,
+				id: id,
+				weight: weight,
+				parent: parent
+			);
 
 			if( alertPlayer ) {
 				ControlPanelTabs.AddTabAlert( MessagesMod.ControlPanelName );

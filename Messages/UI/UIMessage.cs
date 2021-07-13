@@ -4,12 +4,10 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.UI;
-using Terraria.ModLoader;
 using ModLibsCore.Libraries.Debug;
 using ModLibsUI.Classes.UI.Elements;
 using ModLibsUI.Classes.UI.Theme;
 using Messages.Definitions;
-using Messages.Logic;
 
 
 namespace Messages.UI {
@@ -25,13 +23,12 @@ namespace Messages.UI {
 
 		////////////////
 
-		public static int GetMessageIndexInList( IList<UIElement> list, UIMessage element ) {
+		public static int GetMessageIndexInList( IList<UIMessage> list, UIMessage element ) {
 			int idx;
 			int count = list.Count;
 
 			for( idx = 0; idx < count; idx++ ) {
-				var elem = list[idx] as UIMessage;
-				if( elem.CompareTo( element ) > 0 ) {
+				if( list[idx].CompareTo( element ) > 0 ) {
 					break;
 				}
 			}
@@ -110,7 +107,7 @@ namespace Messages.UI {
 
 
 		////////////////
-		
+
 		public float CalculateInnerHeight( bool open ) {
 			if( open ) {
 				return UIMessage.DefaultHeight + (this.DescriptionHeight * UIMessage.DefaultDescScale) + 8f;
@@ -131,11 +128,8 @@ namespace Messages.UI {
 
 		////////////////
 		
-		public void AddNestedMessage( UIMessage messageElem ) {
-			var list = this.NestedMessages
-				.Select( e => (UIElement)e )
-				.ToList();
-			int idx = UIMessage.GetMessageIndexInList( list, messageElem );
+		public int AddNestedMessage( UIMessage messageElem ) {
+			int idx = UIMessage.GetMessageIndexInList( this.NestedMessages, messageElem );
 
 			this.NestedMessages.Insert( idx, messageElem );
 
@@ -150,6 +144,8 @@ namespace Messages.UI {
 
 				this.Recalculate();
 			}
+
+			return idx;
 		}
 
 
@@ -158,16 +154,10 @@ namespace Messages.UI {
 		public override int CompareTo( object obj ) {
 			var that = obj as UIMessage;
 			if( that == null ) {
-				return this.Message.Title.CompareTo( obj );
+				return this.Message.CompareTo( obj );
 			}
 
-			if( this.Message.Weight > that.Message.Weight ) {
-				return 1;
-			} else if( this.Message.Weight < that.Message.Weight ) {
-				return -1;
-			} else {
-				return this.Message.Title.CompareTo( that.Message.Title );
-			}
+			return this.Message.CompareTo( that.Message );
 		}
 	}
 }

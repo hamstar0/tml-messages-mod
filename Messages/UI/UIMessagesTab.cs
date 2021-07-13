@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.UI;
@@ -11,13 +12,15 @@ using ModControlPanel.Internals.ControlPanel;
 
 namespace Messages.UI {
 	partial class UIMessagesTab : UIControlPanelTab {
-		private IList<UIElement> MessagesElemsList = new List<UIElement>();
+		private IDictionary<string, UIMessage> TopLevelMessageElems = new ConcurrentDictionary<string, UIMessage>();
+
+		private IList<UIMessage> TopLevelMessageElemsOrdered = new List<UIMessage>();
 
 		internal UIMessage RecentMessage = null;
 
 		////
 
-		private UIList MessagesDisplayListElem;
+		private UIList ListElem;
 		private UIHideableScrollbar Scrollbar;
 
 
@@ -51,14 +54,14 @@ namespace Messages.UI {
 			messagesPanel.BorderColor = this.Theme.ListEdgeColor;
 			this.Append( (UIElement)messagesPanel );
 
-			this.MessagesDisplayListElem = new UIList();
-			this.MessagesDisplayListElem.Left.Set( 0f, 0f );
-			this.MessagesDisplayListElem.Width.Set( -25f, 1f );
-			this.MessagesDisplayListElem.Height.Set( 0f, 1f );
-			this.MessagesDisplayListElem.HAlign = 0f;
-			this.MessagesDisplayListElem.ListPadding = 4f;
-			this.MessagesDisplayListElem.SetPadding( 0f );
-			messagesPanel.Append( (UIElement)this.MessagesDisplayListElem );
+			this.ListElem = new UIList();
+			this.ListElem.Left.Set( 0f, 0f );
+			this.ListElem.Width.Set( -25f, 1f );
+			this.ListElem.Height.Set( 0f, 1f );
+			this.ListElem.HAlign = 0f;
+			this.ListElem.ListPadding = 4f;
+			this.ListElem.SetPadding( 0f );
+			messagesPanel.Append( (UIElement)this.ListElem );
 
 			this.Scrollbar = new UIHideableScrollbar( true );
 			this.Scrollbar.Top.Set( 8f, 0f );
@@ -68,12 +71,12 @@ namespace Messages.UI {
 			this.Scrollbar.HAlign = 0f;
 			messagesPanel.Append( (UIElement)this.Scrollbar );
 
-			this.MessagesDisplayListElem.SetScrollbar( this.Scrollbar );
+			this.ListElem.SetScrollbar( this.Scrollbar );
 
 			//
 
-			this.MessagesDisplayListElem.AddRange( this.MessagesElemsList );
-			this.MessagesDisplayListElem.UpdateOrder();
+			this.ListElem.AddRange( this.TopLevelMessageElemsOrdered );
+			this.ListElem.UpdateOrder();
 		}
 
 
@@ -84,21 +87,21 @@ namespace Messages.UI {
 
 			try {
 				this.Scrollbar.IsHidden = UIHideableScrollbar.IsScrollbarHidden(
-					(int)this.MessagesDisplayListElem.Height.Pixels,
-					this.MessagesDisplayListElem.Parent
+					(int)this.ListElem.Height.Pixels,
+					this.ListElem.Parent
 				);
 
 				if( this.Scrollbar.IsHidden ) {
-					listChanged = this.MessagesDisplayListElem.Width.Pixels != 0f;
-					this.MessagesDisplayListElem.Width.Pixels = 0f;
+					listChanged = this.ListElem.Width.Pixels != 0f;
+					this.ListElem.Width.Pixels = 0f;
 				} else {
-					listChanged = this.MessagesDisplayListElem.Width.Pixels != -25f;
-					this.MessagesDisplayListElem.Width.Pixels = -25f;
+					listChanged = this.ListElem.Width.Pixels != -25f;
+					this.ListElem.Width.Pixels = -25f;
 				}
 
 				if( listChanged ) {
 					this.Recalculate();
-					this.MessagesDisplayListElem.Recalculate();
+					this.ListElem.Recalculate();
 				}
 			} catch { }
 

@@ -2,60 +2,69 @@
 using Terraria;
 using Terraria.UI;
 using ModLibsCore.Libraries.Debug;
+using ModLibsCore.Libraries.DotNET.Extensions;
 using ModControlPanel.Internals.ControlPanel;
 using Messages.Definitions;
 
 
 namespace Messages.UI {
 	partial class UIMessagesTab : UIControlPanelTab {
-		public void AddMessage( Message message ) {
-			var newMsgElem = new UIMessage( message );
-			newMsgElem.OnOpen += () => this.OnOpenMessage( newMsgElem );
-
-			int idx = UIMessage.GetMessageIndexInList( this.MessagesElemsList, newMsgElem );
-
-			//
-
-			this.MessagesElemsList.Insert( idx, newMsgElem );
-
-			this.MessagesDisplayListElem?.Clear();
-			this.MessagesDisplayListElem?.AddRange( this.MessagesElemsList );
-			this.MessagesDisplayListElem?.UpdateOrder();
-
-			this.Recalculate();
+		public UIMessage GetMessageElementInList( Message message ) {
+			return this.TopLevelMessageElems.GetOrDefault( message.ID );
 		}
 
-		public void RemoveMessage( Message message ) {
+
+		public void AddMessageAsElementInListIf( Message message, Message parent=null ) {
+			var newMsgElem = new UIMessage( message );
+			newMsgElem.OnOpen += () => this.OnOpenListedMessageElement( newMsgElem );
+
+			if( parent == null ) {
+				int idx = UIMessage.GetMessageIndexInList( this.TopLevelMessageElemsOrdered, newMsgElem );
+
+				this.TopLevelMessageElemsOrdered.Insert( idx, newMsgElem );
+				this.TopLevelMessageElems[ message.ID ] = newMsgElem;
+
+				this.ListElem?.Add( newMsgElem );
+			} else {
+				parent.AddChild( message );
+			}
+
+			// Message -> UIMessage "MVC" handled here
+			message.OnChildAdd += ( idx, nextNewMessage ) => {
+				newMsgElem.AddNestedMessage( new UIMessage(nextNewMessage) );
+			};
+		}
+
+		public void RemoveMessageElementFromList( Message message ) {
 			int idx;
-			for( idx=0; idx<this.MessagesElemsList.Count; idx++ ) {
-				UIMessage obj = this.MessagesElemsList[idx] as UIMessage;
+			for( idx=0; idx<this.TopLevelMessageElemsOrdered.Count; idx++ ) {
+				UIMessage obj = this.TopLevelMessageElemsOrdered[idx];
 
 				if( obj.Message.ID == message.ID ) {
-					break;
+					this.RemoveMessageElementFromlistAt( idx );
 				}
 			}
-
-			UIElement item = this.MessagesElemsList[ idx ];
-			this.MessagesElemsList.RemoveAt( idx );
-
-			this.MessagesDisplayListElem?.Remove( item );
-			this.MessagesDisplayListElem?.UpdateOrder();
-
-			this.Recalculate();
 		}
 
-		public void ClearMessages() {
-			for( int idx = 0; idx<this.MessagesElemsList.Count; idx++ ) {
-				UIMessage obj = this.MessagesElemsList[idx] as UIMessage;
+		private void RemoveMessageElementFromlistAt( int idx  ) {
+			UIMessage msg = this.TopLevelMessageElemsOrdered[ idx ];
+			UIElement item = this.TopLevelMessageElems[ msg.Message.ID ];
 
-				obj?.Parent?.RemoveChild( obj );
-				obj?.Remove();
+			this.TopLevelMessageElems.Remove( msg.Message.ID );
+			this.TopLevelMessageElemsOrdered.RemoveAt( idx );
+
+			if( this.ListElem?.Remove(item) ?? false ) {
+				this.ListElem?.UpdateOrder();
+
+				this.Recalculate();
 			}
+		}
 
-			this.MessagesElemsList.Clear();
+		public void ClearMessageElementsList() {
+			this.TopLevelMessageElemsOrdered.Clear();
+			this.TopLevelMessageElems.Clear();
 
-			this.MessagesDisplayListElem?.Clear();
-			this.MessagesDisplayListElem?.UpdateOrder();
+			this.ListElem?.Clear();
 
 			this.Recalculate();
 		}
@@ -63,14 +72,8 @@ namespace Messages.UI {
 
 		////////////////
 
-		private void OnOpenMessage( UIMessage messageElem ) {
+		private void OnOpenListedMessageElement( UIMessage messageElem ) {
 			this.RecentMessage = messageElem;
-
-			foreach( UIElement elem in this.MessagesElemsList ) {
-				if( elem != messageElem ) {
-					((UIMessage)elem).Close( false );
-				}
-			}
 		}
 	}
 }

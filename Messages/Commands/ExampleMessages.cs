@@ -22,34 +22,47 @@ namespace Messages.Commands {
 		public override void Action( CommandCaller caller, string input, string[] args ) {
 			string _;
 
-			MessagesAPI.AddMessage(
+			Message msg1 = MessagesAPI.AddMessage(
 				title: "Kill A Blue Slime",
 				description: "What even is a slime?",
-				alertPlayer: false
+				alertPlayer: false,
+				result: out _
+			);
+
+			MessagesAPI.AddMessage(
+				title: "Kill A Red Slime",
+				description: "Opposing colors!",
+				alertPlayer: false,
+				parent: msg1,
+				result: out _
 			);
 
 			MessagesAPI.AddMessage(
 				title: "Collect 50 Rings",
 				description: "Wrong game.\n \n...might be a fun mod, though?",
-				alertPlayer: true
+				alertPlayer: true,
+				result: out _
 			);
 
 			MessagesAPI.AddMessage(
 				title: "Order Pizza",
 				description: "Can't be done.",
-				alertPlayer: false
+				alertPlayer: false,
+				result: out _
 			);
 
 			MessagesAPI.AddMessage(
 				title: "Collect A Blueberry",
 				description: "Don't ask.",
-				alertPlayer: true
+				alertPlayer: true,
+				result: out _
 			);
 
 			MessagesAPI.AddMessage(
 				title: "Craft A Molotov",
 				description: "Viva la revolution!",
-				alertPlayer: false
+				alertPlayer: false,
+				result: out _
 			);
 		}
 	}

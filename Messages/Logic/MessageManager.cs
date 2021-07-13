@@ -39,21 +39,38 @@ namespace Messages.Logic {
 
 		////////////////
 
-		public Message AddMessage( string title, string description, string id = null, int weight = 0, Message parent = null ) {
+		public Message AddMessage(
+					string title,
+					string description,
+					out string result,
+					string id = null,
+					int weight = 0,
+					Message parent = null ) {
 			if( id != null ) {
 				if( this.MessagesByID.ContainsKey(id) ) {
+					result = "Message already exists by ID.";
 					return null;
 				}
 			} else if( this.MessagesByID.ContainsKey(title) ) {
+				result = "Message already exists by ID (title).";
 				return null;
 			}
 
-			var msg = new Message( title, description, id, weight, parent );
+			//
+
+			var msg = new Message( title, description, id, weight );
+
+			if( parent != null ) {
+				parent.AddChild( msg );
+			}
 
 			this.MessagesByID[ msg.ID ] = msg;
 
-			this.MessagesTabUI.AddMessage( msg );
+			//
 
+			this.MessagesTabUI.AddMessageAsElementInListIf( msg, parent );
+
+			result = "Success.";
 			return msg;
 		}
 
@@ -65,7 +82,7 @@ namespace Messages.Logic {
 				myplayer.ForgetReadMessage( msg.ID );
 			}
 
-			this.MessagesTabUI.RemoveMessage( message );
+			this.MessagesTabUI.RemoveMessageElementFromList( message );
 
 			return isRemoved;
 		}
