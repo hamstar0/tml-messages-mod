@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.ID;
 using ModLibsCore.Classes.Loadable;
 using ModLibsCore.Classes.PlayerData;
+using ModLibsCore.Libraries.Debug;
 using ModLibsUI.Classes.UI.Theme;
 using ModControlPanel.Services.UI.ControlPanel;
 using Messages.Definitions;

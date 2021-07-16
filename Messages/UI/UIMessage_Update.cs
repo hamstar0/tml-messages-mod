@@ -29,6 +29,8 @@ namespace Messages.UI {
 				this.TitleElem.TextColor = Color.Yellow;
 				this.DescriptionElem.TextColor = Color.White;
 			}
+
+			base.Update( gameTime );
 		}
 	}
 }

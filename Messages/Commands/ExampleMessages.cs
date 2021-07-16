@@ -22,7 +22,7 @@ namespace Messages.Commands {
 		public override void Action( CommandCaller caller, string input, string[] args ) {
 			string _;
 
-			Message msg1 = MessagesAPI.AddMessage(
+			/*Message msg1 = MessagesAPI.AddMessage(
 				title: "Kill A Blue Slime",
 				description: "What even is a slime?",
 				alertPlayer: false,
@@ -42,19 +42,20 @@ namespace Messages.Commands {
 				description: "Wrong game.\n \n...might be a fun mod, though?",
 				alertPlayer: true,
 				result: out _
-			);
+			);*/
 
-			MessagesAPI.AddMessage(
+			Message msg2 = MessagesAPI.AddMessage(
 				title: "Order Pizza",
 				description: "Can't be done.",
 				alertPlayer: false,
 				result: out _
 			);
 
-			MessagesAPI.AddMessage(
+			Message msg3 = MessagesAPI.AddMessage(
 				title: "Collect A Blueberry",
 				description: "Don't ask.",
 				alertPlayer: true,
+				parent: msg2,
 				result: out _
 			);
 
@@ -62,6 +63,7 @@ namespace Messages.Commands {
 				title: "Craft A Molotov",
 				description: "Viva la revolution!",
 				alertPlayer: false,
+				parent: msg3,
 				result: out _
 			);
 		}

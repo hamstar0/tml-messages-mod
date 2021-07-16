@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.UI;
 using ModLibsCore.Libraries.Debug;
@@ -46,11 +44,11 @@ namespace Messages.UI {
 
 		private UIElement DescriptionContainerElem;
 
-		private UIElement NestedMessagesElem;
+		private UIElement ChildMessagesContainerElem;
 
 		////
 
-		private IList<UIMessage> NestedMessages = new List<UIMessage>();
+		private IList<UIMessage> ChildMessageElems = new List<UIMessage>();
 
 		////
 
@@ -75,34 +73,21 @@ namespace Messages.UI {
 		public UIMessage( Message message ) : base( UITheme.Vanilla, false ) {
 			this.Message = message;
 
-			this.Width.Set( 0f, 1f );
-			this.Height.Set( UIMessage.DefaultHeight, 0f );
-			
-			this.OnClick += (UIMouseEvent evt, UIElement listeningElement) => this.ToggleOpen();
+			this.OnInitializeMe();
+		}
 
-			//
 
-			this.TitleElem = new UIThemedText( this.Theme, false, this.Message.Title, UIMessage.DefaultTitleScale );
-			this.TitleElem.TextColor = Color.Yellow;
-			this.TitleElem.Width.Set( 0f, 1f );
-			this.Append( this.TitleElem );
+		////////////////
 
-			this.DescriptionContainerElem = new UIElement();
-			this.DescriptionContainerElem.Top.Set( UIMessage.DefaultHeight, 0f );
-			this.Append( this.DescriptionContainerElem );
+		public override void Recalculate() {
+			float height = this.CalculateInnerHeight( this.IsOpen );
+			if( this.IsOpen ) {
+				height += this.CalculateNestedMessagesHeight();
+			}
 
-			this.DescriptionElem = new UIThemedText( this.Theme, false, this.Message.Description, UIMessage.DefaultDescScale );
-			this.DescriptionElem.TextColor = Color.White;
-			this.DescriptionElem.Width.Set( 0f, 1f );
-			//this.Append( this.DescriptionElem );
+			this.Height.Set( height, 0f );
 
-			this.NestedMessagesElem = new UIElement();
-			this.NestedMessagesElem.Top.Set( UIMessage.DefaultHeight, 0f );
-			this.Append( this.NestedMessagesElem );
-
-			//
-
-			this.DescriptionHeight = Main.fontMouseText.MeasureString( this.Message.Description ).Y;
+			base.Recalculate();
 		}
 
 
@@ -110,7 +95,11 @@ namespace Messages.UI {
 
 		public float CalculateInnerHeight( bool open ) {
 			if( open ) {
-				return UIMessage.DefaultHeight + (this.DescriptionHeight * UIMessage.DefaultDescScale) + 8f;
+				float height = UIMessage.DefaultHeight
+					+ (this.DescriptionHeight * UIMessage.DefaultDescScale)
+					+ 8f;
+//LogLibraries.LogOnce( "inner height (open) for "+this.Message.ID+": "+height );
+				return height;
 			}
 			return UIMessage.DefaultHeight;
 		}
@@ -118,8 +107,19 @@ namespace Messages.UI {
 		public float CalculateNestedMessagesHeight() {
 			float height = 0f;
 
-			foreach( UIMessage elem in this.NestedMessages ) {
-				height += elem.CalculateInnerHeight( elem.IsOpen ) + 8f;
+			foreach( UIMessage elem in this.ChildMessageElems ) {
+				float childHeight = elem.CalculateInnerHeight( elem.IsOpen );
+				if( elem.IsOpen ) {
+					childHeight += elem.CalculateNestedMessagesHeight();
+				}
+
+				height += childHeight;
+				height += 8f;
+//LogLibraries.LogOnce( "nested height (open) for "+this.Message.ID+" child "+elem.Message.ID+": "+childHeight+" ("+height+")" );
+			}
+			
+			if( this.ChildMessageElems.Count >= 1 ) {
+				height += 16f;
 			}
 
 			return height;
@@ -128,21 +128,20 @@ namespace Messages.UI {
 
 		////////////////
 		
-		public int AddNestedMessage( UIMessage messageElem ) {
-			int idx = UIMessage.GetMessageIndexInList( this.NestedMessages, messageElem );
+		public int AddChildMessageElem( UIMessage messageElem ) {
+			int idx = UIMessage.GetMessageIndexInList( this.ChildMessageElems, messageElem );
 
-			this.NestedMessages.Insert( idx, messageElem );
+			this.ChildMessageElems.Insert( idx, messageElem );
+//LogLibraries.Log( "AddChildMessageElem current:" + this.Message.ID + " ("+this.GetHashCode()+")"
+//	+ ", child: " + messageElem.Message.ID
+//	+ ", idx: " + idx
+//	+ ", children: "+this.ChildMessageElems.Count );
 
 			//
 
 			if( this.IsOpen ) {
-				this.NestedMessagesElem.RemoveAllChildren();
-
-				foreach( UIMessage msgElem in this.NestedMessages ) {
-					this.NestedMessagesElem.Append( msgElem );
-				}
-
-				this.Recalculate();
+				this.Close( false );
+				this.Open( false );
 			}
 
 			return idx;

@@ -2,36 +2,49 @@
 using Terraria;
 using Terraria.UI;
 using ModLibsCore.Libraries.Debug;
-using ModLibsCore.Libraries.DotNET.Extensions;
 using ModControlPanel.Internals.ControlPanel;
 using Messages.Definitions;
 
 
 namespace Messages.UI {
 	partial class UIMessagesTab : UIControlPanelTab {
-		public UIMessage GetMessageElementInList( Message message ) {
-			return this.TopLevelMessageElems.GetOrDefault( message.ID );
+		private UIMessage CreateOrGetMessageElem( Message message ) {
+			if( this.MessageElems.ContainsKey(message.ID) ) {
+				return this.MessageElems[ message.ID ];
+			}
+
+			var msgElem = new UIMessage( message );
+			msgElem.OnOpen += () => this.OnOpenListedMessageElement( msgElem );
+
+			this.MessageElems[message.ID] = msgElem;
+
+			return msgElem;
 		}
 
 
+		////////////////
+
 		public void AddMessageAsElementInListIf( Message message, Message parent=null ) {
-			var newMsgElem = new UIMessage( message );
-			newMsgElem.OnOpen += () => this.OnOpenListedMessageElement( newMsgElem );
+//LogLibraries.Log( "AddMessageAsElementInListIf " + message.ID + ", parent: "+parent?.ID );
+			var msgElem = this.CreateOrGetMessageElem( message );
 
 			if( parent == null ) {
-				int idx = UIMessage.GetMessageIndexInList( this.TopLevelMessageElemsOrdered, newMsgElem );
+				int idx = UIMessage.GetMessageIndexInList( this.TopLevelMessageElemsOrdered, msgElem );
 
-				this.TopLevelMessageElemsOrdered.Insert( idx, newMsgElem );
-				this.TopLevelMessageElems[ message.ID ] = newMsgElem;
+				this.TopLevelMessageElemsOrdered.Insert( idx, msgElem );
 
-				this.ListElem?.Add( newMsgElem );
+				this.ListElem?.Add( msgElem );
 			} else {
-				parent.AddChild( message );
+				//this.GetMessageElementInList( parent )
+				//	.AddNestedMessageElem( newMsgElem );
 			}
 
+//LogLibraries.Log( "added child event for "+message.ID );
 			// Message -> UIMessage "MVC" handled here
 			message.OnChildAdd += ( idx, nextNewMessage ) => {
-				newMsgElem.AddNestedMessage( new UIMessage(nextNewMessage) );
+				var nextNewMsgElem = this.CreateOrGetMessageElem( nextNewMessage );
+
+				msgElem.AddChildMessageElem( nextNewMsgElem );
 			};
 		}
 
@@ -48,9 +61,9 @@ namespace Messages.UI {
 
 		private void RemoveMessageElementFromlistAt( int idx  ) {
 			UIMessage msg = this.TopLevelMessageElemsOrdered[ idx ];
-			UIElement item = this.TopLevelMessageElems[ msg.Message.ID ];
+			UIElement item = this.MessageElems[ msg.Message.ID ];
 
-			this.TopLevelMessageElems.Remove( msg.Message.ID );
+			this.MessageElems.Remove( msg.Message.ID );
 			this.TopLevelMessageElemsOrdered.RemoveAt( idx );
 
 			if( this.ListElem?.Remove(item) ?? false ) {
@@ -62,7 +75,7 @@ namespace Messages.UI {
 
 		public void ClearMessageElementsList() {
 			this.TopLevelMessageElemsOrdered.Clear();
-			this.TopLevelMessageElems.Clear();
+			this.MessageElems.Clear();
 
 			this.ListElem?.Clear();
 
