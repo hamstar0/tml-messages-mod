@@ -13,11 +13,6 @@ namespace Messages.UI {
 		public const float DefaultHeight = 40f;
 
 
-		public const float DefaultTitleScale = 1.1f;
-
-		public const float DefaultDescScale = 0.8f;
-
-
 
 		////////////////
 
@@ -41,6 +36,8 @@ namespace Messages.UI {
 		private UIThemedText TitleElem;
 
 		private UIThemedText DescriptionElem;
+
+		private UIElement InfoContainer;
 
 		private UIElement DescriptionContainerElem;
 
@@ -81,11 +78,16 @@ namespace Messages.UI {
 
 		public override void Recalculate() {
 			float height = this.CalculateInnerHeight( this.IsOpen );
-			if( this.IsOpen ) {
-				height += this.CalculateNestedMessagesHeight();
-			}
+			float nestedHeight = this.CalculateNestedMessagesHeight();
 
-			this.Height.Set( height, 0f );
+			this.ChildMessagesContainerElem.Top.Set( height, 0f );
+			this.ChildMessagesContainerElem.Height.Set( nestedHeight, 0f );
+
+			if( this.IsOpen ) {
+				this.Height.Set( height + nestedHeight, 0f );
+			} else {
+				this.Height.Set( height, 0f );
+			}
 
 			base.Recalculate();
 		}
@@ -96,7 +98,7 @@ namespace Messages.UI {
 		public float CalculateInnerHeight( bool open ) {
 			if( open ) {
 				float height = UIMessage.DefaultHeight
-					+ (this.DescriptionHeight * UIMessage.DefaultDescScale)
+					+ (this.DescriptionHeight * UIDescriptionText.DefaultScale)
 					+ 8f;
 //LogLibraries.LogOnce( "inner height (open) for "+this.Message.ID+": "+height );
 				return height;

@@ -24,10 +24,17 @@ namespace Messages.UI {
 				if( mngr.MessagesTabUI != null && mngr.MessagesTabUI.RecentMessage != this ) {
 					this.TitleElem.TextColor = Color.Gray;
 					this.DescriptionElem.TextColor = Color.Gray;
+				} else {
+					this.TitleElem.TextColor = Color.White;
+					this.DescriptionElem.TextColor = Color.White;
 				}
 			} else {
 				this.TitleElem.TextColor = Color.Yellow;
 				this.DescriptionElem.TextColor = Color.White;
+			}
+
+			if( this.InfoContainer.IsMouseHovering ) {
+				this.TitleElem.TextColor *= 1.5f;
 			}
 
 			base.Update( gameTime );

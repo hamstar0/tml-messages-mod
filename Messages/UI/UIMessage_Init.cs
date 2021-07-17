@@ -4,9 +4,32 @@ using Terraria;
 using Terraria.UI;
 using ModLibsCore.Libraries.Debug;
 using ModLibsUI.Classes.UI.Elements;
+using ModLibsUI.Classes.UI.Theme;
 
 
 namespace Messages.UI {
+	class UITitleText : UIThemedText {
+		public const float DefaultScale = 1.1f;
+
+		public UITitleText( UITheme theme, string text )
+				: base( theme, false, text, UITitleText.DefaultScale, false ) {
+			this.Width.Set( 0f, 1f );
+		}
+	}
+
+	
+	class UIDescriptionText : UIThemedText {
+		public const float DefaultScale = 0.8f;
+
+		public UIDescriptionText( UITheme theme, string text )
+				: base( theme, false, text, UIDescriptionText.DefaultScale, false ) {
+			this.Width.Set( 0f, 1f );
+		}
+	}
+
+
+
+
 	partial class UIMessage : UIThemedPanel {
 		private void OnInitializeMe() {
 			this.Width.Set( 0f, 1f );
@@ -14,28 +37,25 @@ namespace Messages.UI {
 			this.SetPadding( 0f );
 
 			//
-
-			var infoContainer = new UIElement();
+			
+			this.InfoContainer = new UIElement();
 			{
-				this.TitleElem = new UIThemedText( this.Theme, false, this.Message.Title, UIMessage.DefaultTitleScale );
+				this.TitleElem = new UITitleText( this.Theme, this.Message.Title );
 				this.TitleElem.TextColor = Color.Yellow;
-				this.TitleElem.Width.Set( 0f, 1f );
-				infoContainer.Append( this.TitleElem );
+				this.InfoContainer.Append( this.TitleElem );
 
 				this.DescriptionContainerElem = new UIElement();
 				this.DescriptionContainerElem.Top.Set( UIMessage.DefaultHeight, 0f );
-				infoContainer.Append( this.DescriptionContainerElem );
+				this.InfoContainer.Append( this.DescriptionContainerElem );
 
-				this.DescriptionElem = new UIThemedText( this.Theme, false, this.Message.Description, UIMessage.DefaultDescScale );
+				this.DescriptionElem = new UIDescriptionText( this.Theme, this.Message.Description );
 				this.DescriptionElem.TextColor = Color.White;
-				this.DescriptionElem.Width.Set( 0f, 1f );
-				//infoContainer.Append( this.DescriptionElem );
 			}
-			infoContainer.OnClick += (_, __) => this.ToggleOpen();
-			infoContainer.Width.Set( 0f, 1f );
-			infoContainer.Height.Set( UIMessage.DefaultHeight + this.DescriptionElem.GetDimensions().Y, 0f );
-			infoContainer.SetPadding( 8f );
-			this.Append( infoContainer );
+			this.InfoContainer.OnClick += (_, __) => this.ToggleOpen();
+			this.InfoContainer.Width.Set( 0f, 1f );
+			this.InfoContainer.Height.Set( UIMessage.DefaultHeight + this.DescriptionElem.GetDimensions().Y, 0f );
+			this.InfoContainer.SetPadding( 8f );
+			this.Append( this.InfoContainer );
 
 			this.ChildMessagesContainerElem = new UIElement();
 			this.ChildMessagesContainerElem.Top.Set( UIMessage.DefaultHeight, 0f );

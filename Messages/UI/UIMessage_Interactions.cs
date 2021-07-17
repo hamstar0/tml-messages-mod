@@ -27,9 +27,9 @@ namespace Messages.UI {
 			//this.Elements.Append( this.DescriptionElem );
 			//this.Elements.Insert( 1, this.DescriptionElem );
 			
-LogLibraries.Log( "Open:" + this.Message.ID+" ("+this.ChildMessageElems.Count+" children, "+this.GetHashCode()+")" );
+//LogLibraries.Log( "Open:" + this.Message.ID+" ("+this.ChildMessageElems.Count+" children, "+this.GetHashCode()+")" );
 			foreach( UIMessage msgElem in this.ChildMessageElems ) {
-LogLibraries.Log( "  Child: " + msgElem.Message.ID + " ("+this.GetHashCode()+")" );
+//LogLibraries.Log( "  Child: " + msgElem.Message.ID + " ("+this.GetHashCode()+")" );
 				this.ChildMessagesContainerElem.Append( msgElem );
 			}
 
@@ -37,20 +37,6 @@ LogLibraries.Log( "  Child: " + msgElem.Message.ID + " ("+this.GetHashCode()+")"
 				this.OnOpen?.Invoke();
 			}
 
-			this.Recalculate();
-
-			//
-
-			float height = this.CalculateInnerHeight( true );
-			float nestedHeight = this.CalculateNestedMessagesHeight();
-
-			this.ChildMessagesContainerElem.Top.Set( height, 0f );
-			this.ChildMessagesContainerElem.Height.Set( nestedHeight, 0f );
-
-//LogLibraries.LogOnce( "open "+this.Message.ID+" - "+height+", "+nestedHeight );
-			this.Height.Set( height + nestedHeight, 0f );
-
-			this.ChildMessagesContainerElem.Recalculate();
 			this.Recalculate();
 		}
 
