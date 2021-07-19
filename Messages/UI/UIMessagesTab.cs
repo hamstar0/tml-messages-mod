@@ -26,7 +26,7 @@ namespace Messages.UI {
 
 		////////////////
 
-		public UIMessagesTab( UITheme theme ) {
+		public UIMessagesTab( UITheme theme ) : base( theme, 800 ) {
 			this.Theme = theme;
 
 			this.Width.Set( 0f, 1f );

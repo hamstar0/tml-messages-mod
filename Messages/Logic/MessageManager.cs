@@ -2,13 +2,15 @@
 using System.Collections.Concurrent;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 using ModLibsCore.Classes.Loadable;
 using ModLibsCore.Classes.PlayerData;
 using ModLibsCore.Libraries.Debug;
 using ModLibsUI.Classes.UI.Theme;
-using ModControlPanel.Services.UI.ControlPanel;
 using Messages.Definitions;
 using Messages.UI;
+using ModControlPanel;
+using ModControlPanel.Services.UI.ControlPanel;
 
 
 namespace Messages.Logic {
@@ -26,10 +28,14 @@ namespace Messages.Logic {
 
 		void ILoadable.OnModsLoad() {
 			if( !Main.dedServ && Main.netMode != NetmodeID.Server ) {
-				this.MessagesTabUI = new UIMessagesTab( UITheme.Vanilla );
+				var ctrlPanelMod = (ModControlPanelMod)ModLoader.GetMod( "ModControlPanel" );
 
-				// Add tab
-				ControlPanelTabs.AddTab( MessagesMod.ControlPanelName, this.MessagesTabUI );
+				ctrlPanelMod.OnControlPanelInitialize += () => {
+					this.MessagesTabUI = new UIMessagesTab( UITheme.Vanilla );
+
+					// Add tab
+					ControlPanelTabs.AddTab( MessagesMod.ControlPanelName, this.MessagesTabUI );
+				};
 			}
 		}
 
