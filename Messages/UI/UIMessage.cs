@@ -39,7 +39,7 @@ namespace Messages.UI {
 
 		private UIElement InfoContainer;
 
-		private UIElement DescriptionContainerElem;
+		private UIElement DescriptionDisplayElem;
 
 		private UIElement ChildMessagesContainerElem;
 
@@ -67,8 +67,9 @@ namespace Messages.UI {
 
 		////////////////
 
-		public UIMessage( Message message ) : base( UITheme.Vanilla, false ) {
+		public UIMessage( Message message, UIElement descriptionDisplayElem ) : base( UITheme.Vanilla, false ) {
 			this.Message = message;
+			this.DescriptionDisplayElem = descriptionDisplayElem;
 
 			this.OnInitializeMe();
 		}
@@ -96,13 +97,6 @@ namespace Messages.UI {
 		////////////////
 
 		public float CalculateInnerHeight( bool open ) {
-			if( open ) {
-				float height = UIMessage.DefaultHeight
-					+ (this.DescriptionHeight * UIDescriptionText.DefaultScale)
-					+ 8f;
-//LogLibraries.LogOnce( "inner height (open) for "+this.Message.ID+": "+height );
-				return height;
-			}
 			return UIMessage.DefaultHeight;
 		}
 		

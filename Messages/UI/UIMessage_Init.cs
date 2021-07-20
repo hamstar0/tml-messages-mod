@@ -44,10 +44,6 @@ namespace Messages.UI {
 				this.TitleElem.TextColor = Color.Yellow;
 				this.InfoContainer.Append( this.TitleElem );
 
-				this.DescriptionContainerElem = new UIElement();
-				this.DescriptionContainerElem.Top.Set( UIMessage.DefaultHeight, 0f );
-				this.InfoContainer.Append( this.DescriptionContainerElem );
-
 				this.DescriptionElem = new UIDescriptionText( this.Theme, this.Message.Description );
 				this.DescriptionElem.TextColor = Color.White;
 			}
@@ -66,6 +62,16 @@ namespace Messages.UI {
 			//
 
 			this.DescriptionHeight = Main.fontMouseText.MeasureString( this.Message.Description ).Y;
+		}
+
+
+		////////////////
+
+		public UIDescriptionText GetDescriptionElement() {
+			var descElem = new UIDescriptionText( this.Theme, this.Message.Description );
+			descElem.TextColor = Color.White;
+
+			return descElem;
 		}
 	}
 }

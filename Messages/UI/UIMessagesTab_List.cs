@@ -13,7 +13,7 @@ namespace Messages.UI {
 				return this.MessageElems[ message.ID ];
 			}
 
-			var msgElem = new UIMessage( message );
+			var msgElem = new UIMessage( message, this.MessageViewPanel );
 			msgElem.OnOpen += () => this.OnOpenListedMessageElement( msgElem );
 
 			this.MessageElems[message.ID] = msgElem;
@@ -24,7 +24,11 @@ namespace Messages.UI {
 
 		////////////////
 
-		public void AddMessageAsElementInListIf( Message message, Message parent=null ) {
+		public bool AddMessageAsElementInListIf( Message message, Message parent=null ) {
+			if( !this.IsInitialized ) {
+				return false;
+			}
+
 //LogLibraries.Log( "AddMessageAsElementInListIf " + message.ID + ", parent: "+parent?.ID );
 			var msgElem = this.CreateOrGetMessageElem( message );
 
@@ -46,6 +50,8 @@ namespace Messages.UI {
 
 				msgElem.AddChildMessageElem( nextNewMsgElem );
 			};
+
+			return true;
 		}
 
 		public void RemoveMessageElementFromList( Message message ) {

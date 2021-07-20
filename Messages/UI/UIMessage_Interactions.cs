@@ -23,13 +23,10 @@ namespace Messages.UI {
 			var myplayer = CustomPlayerData.GetPlayerData<MessagesCustomPlayer>( Main.myPlayer );
 			myplayer.RecordReadMessage( this.Message.ID );
 
-			this.DescriptionContainerElem.Append( this.DescriptionElem );
-			//this.Elements.Append( this.DescriptionElem );
-			//this.Elements.Insert( 1, this.DescriptionElem );
-			
-//LogLibraries.Log( "Open:" + this.Message.ID+" ("+this.ChildMessageElems.Count+" children, "+this.GetHashCode()+")" );
+			this.DescriptionDisplayElem.RemoveAllChildren();
+			this.DescriptionDisplayElem.Append( this.DescriptionElem );
+
 			foreach( UIMessage msgElem in this.ChildMessageElems ) {
-//LogLibraries.Log( "  Child: " + msgElem.Message.ID + " ("+this.GetHashCode()+")" );
 				this.ChildMessagesContainerElem.Append( msgElem );
 			}
 
@@ -38,14 +35,12 @@ namespace Messages.UI {
 			}
 
 			this.Recalculate();
+			this.DescriptionDisplayElem.Recalculate();
 		}
 
 
 		internal void Close( bool viaInterface ) {
 			this.IsOpen = false;
-
-			//this.RemoveChild( this.DescriptionElem );
-			this.DescriptionContainerElem.RemoveChild( this.DescriptionElem );
 
 			this.ChildMessagesContainerElem.RemoveAllChildren();
 

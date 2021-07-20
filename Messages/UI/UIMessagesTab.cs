@@ -6,11 +6,18 @@ using Terraria;
 using Terraria.GameContent.UI.Elements;
 using ModLibsCore.Libraries.Debug;
 using ModLibsUI.Classes.UI.Theme;
+using ModLibsUI.Classes.UI.Elements;
 using ModControlPanel.Internals.ControlPanel;
 
 
 namespace Messages.UI {
 	partial class UIMessagesTab : UIControlPanelTab {
+		public const int MyWidth = 800;
+
+
+
+		////////////////
+		
 		private IDictionary<string, UIMessage> MessageElems = new ConcurrentDictionary<string, UIMessage>();
 
 		private IList<UIMessage> TopLevelMessageElemsOrdered = new List<UIMessage>();
@@ -20,17 +27,19 @@ namespace Messages.UI {
 		////
 
 		private UIList ListElem;
+		private UIThemedPanel Toolbar;
+		private UIThemedPanel MessageTreePanel;
+		private UIThemedPanel MessageViewPanel;
 		private UIHideableScrollbar Scrollbar;
 
 
 
 		////////////////
 
-		public UIMessagesTab( UITheme theme ) : base( theme, 800 ) {
+		public UIMessagesTab( UITheme theme ) : base( theme, UIMessagesTab.MyWidth ) {
 			this.Theme = theme;
 
-			this.Width.Set( 0f, 1f );
-			this.Height.Set( 0f, 1f );
+			this.PreInitializeMe();
 		}
 
 

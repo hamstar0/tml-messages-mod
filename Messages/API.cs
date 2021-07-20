@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -82,10 +81,12 @@ namespace Messages {
 				parent: parent
 			);
 
-			if( alertPlayer ) {
-				ControlPanelTabs.AddTabAlert( MessagesMod.ControlPanelName );
+			if( result == "Success." ) {
+				if( alertPlayer ) {
+					ControlPanelTabs.AddTabAlert( MessagesMod.ControlPanelName );
 
-				MessagesMod.Instance.ShowAlert();
+					MessagesMod.Instance.ShowAlert();
+				}
 			}
 
 			return msg;

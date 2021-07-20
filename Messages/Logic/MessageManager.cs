@@ -75,10 +75,13 @@ namespace Messages.Logic {
 
 			//
 
-			this.MessagesTabUI.AddMessageAsElementInListIf( msg, parent );
-
-			result = "Success.";
-			return msg;
+			if( this.MessagesTabUI.AddMessageAsElementInListIf(msg, parent) ) {
+				result = "Success.";
+				return msg;
+			} else {
+				result = "Not success.";
+				return msg;
+			}
 		}
 
 		public bool RemoveMessage( Message message, bool forceUnread = false ) {
