@@ -21,14 +21,13 @@ namespace Messages.UI {
 		internal void Open( bool viaInterface ) {
 			this.ParentMessageElem?.Open( true );
 
-			this.IsOpen = true;
-
 			var mycustomplayer = CustomPlayerData.GetPlayerData<MessagesCustomPlayer>( Main.myPlayer );
 			mycustomplayer.SetReadMessage( this.Message.ID );
 
 			this.DescriptionDisplayElem.RemoveAllChildren();
 			this.DescriptionDisplayElem.Append( this.DescriptionElem );
 
+			this.ChildMessagesContainerElem.RemoveAllChildren();
 			foreach( UIMessage msgElem in this.ChildMessageElems ) {
 				this.ChildMessagesContainerElem.Append( msgElem );
 			}
@@ -39,17 +38,27 @@ namespace Messages.UI {
 
 			this.Recalculate();
 			this.DescriptionDisplayElem.Recalculate();
+
+			this.IsOpen = true;
 		}
 
 
 		internal void Close( bool viaInterface ) {
+			foreach( UIMessage msgElem in this.ChildMessageElems ) {
+				msgElem.Close( viaInterface );
+			}
+
 			this.IsOpen = false;
 
+			this.DescriptionDisplayElem.RemoveAllChildren();
 			this.ChildMessagesContainerElem.RemoveAllChildren();
 
 			this.Recalculate();
 
 			this.Height.Set( this.CalculateInnerHeight(false), 0f );
+
+			this.Recalculate();
+			this.DescriptionDisplayElem.Recalculate();
 		}
 	}
 }

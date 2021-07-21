@@ -16,7 +16,7 @@ namespace Messages.UI {
 			var msgElem = new UIMessage( message, this.MessageViewPanel );
 			msgElem.OnOpen += () => this.OnOpenListedMessageElement( msgElem );
 
-			this.MessageElems[message.ID] = msgElem;
+			this.MessageElems[ message.ID ] = msgElem;
 
 			return msgElem;
 		}

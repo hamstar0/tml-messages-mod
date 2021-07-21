@@ -47,25 +47,6 @@ namespace Messages.UI {
 			this.PreInitializeMe();
 		}
 
-
-		////////////////
-
-		public override void Update( GameTime gameTime ) {
-			base.Update( gameTime );
-
-			if( this.GetUnreadMessages().Count > 0 ) {
-				if( !this.GetUnreadButton.IsInteractive ) {
-					this.GetUnreadButton.Enable();
-					this.AllReadButton.Enable();
-				}
-			} else {
-				if( this.GetUnreadButton.IsInteractive ) {
-					this.GetUnreadButton.Disable();
-					this.AllReadButton.Disable();
-				}
-			}
-		}
-
 		////////////////
 
 		public override void Draw( SpriteBatch spriteBatch ) {

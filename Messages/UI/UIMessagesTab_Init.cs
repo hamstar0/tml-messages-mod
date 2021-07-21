@@ -17,6 +17,7 @@ namespace Messages.UI {
 			);
 			this.MessageTreePanel = this.InitializeMessageTreePanel();
 			this.MessageViewPanel = this.InitializeMessageViewPanel();
+
 			this.InitializeMessagesTree(
 				this.MessageTreePanel,
 				out this.ListElem,
@@ -68,7 +69,7 @@ namespace Messages.UI {
 			thisUnreadButton.Top.Set( -16f, 1f );
 			thisUnreadButton.Left.Set( leftOrigin + 256f, 0f );
 			thisUnreadButton.Width.Set( 124f, 0f );
-			thisUnreadButton.OnClick += ( _, __ ) => this.SetCurrentMessagesRead();
+			thisUnreadButton.OnClick += ( _, __ ) => this.SetCurrentMessageUnread();
 			toolbar.Append( (UIElement)thisUnreadButton );
 
 			return toolbar;

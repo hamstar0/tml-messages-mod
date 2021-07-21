@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
+using ModLibsCore.Classes.PlayerData;
 using ModLibsCore.Libraries.Debug;
 using ModControlPanel.Internals.ControlPanel;
 
@@ -19,9 +20,22 @@ namespace Messages.UI {
 		}
 
 		public void SetAllMessagesRead() {
+			ISet<string> unreadMsgIds = this.GetUnreadMessages();
+			var mycustomplayer = CustomPlayerData.GetPlayerData<MessagesCustomPlayer>( Main.myPlayer );
+
+			foreach( string msgId in unreadMsgIds ) {
+				mycustomplayer.SetReadMessage( msgId );
+			}
 		}
 
-		public void SetCurrentMessagesRead() {
+		public void SetCurrentMessageUnread() {
+			string recentMsgId = this.RecentMessage?.Message.ID;
+			if( recentMsgId == null ) {
+				return;
+			}
+
+			var mycustomplayer = CustomPlayerData.GetPlayerData<MessagesCustomPlayer>( Main.myPlayer );
+			mycustomplayer.UnsetReadMessage( recentMsgId );
 		}
 
 

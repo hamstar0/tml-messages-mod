@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.UI;
+using Terraria.GameContent.UI.Elements;
 using ModLibsCore.Libraries.Debug;
 using ModLibsUI.Classes.UI.Elements;
 using ModLibsUI.Classes.UI.Theme;
