@@ -47,14 +47,12 @@ namespace Messages.UI {
 
 		private IList<UIMessage> ChildMessageElems = new List<UIMessage>();
 
-		////
-
-		private float DescriptionHeight;
-
 
 		////////////////
 
 		public Message Message { get; private set; }
+
+		public UIMessage ParentMessageElem { get; private set; }
 
 		public bool IsOpen { get; private set; } = false;
 
@@ -139,6 +137,8 @@ namespace Messages.UI {
 				this.Close( false );
 				this.Open( false );
 			}
+
+			messageElem.ParentMessageElem = this;
 
 			return idx;
 		}

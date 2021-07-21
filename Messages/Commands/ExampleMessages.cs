@@ -9,7 +9,7 @@ namespace Messages.Commands {
 		/// @private
 		public override CommandType Type => CommandType.Chat;
 		/// @private
-		public override string Command => "m-example";
+		public override string Command => "msg-example";
 		/// @private
 		public override string Usage => "/" + this.Command;
 		/// @private
@@ -73,13 +73,15 @@ namespace Messages.Commands {
 		}
 
 		private void CreateSpam( string affix ) {
+			string result;
+
 			Message msg1 = MessagesAPI.AddMessage(
 				title: "Order Pizza"+affix,
 				description: "Can't be done.",
 				alertPlayer: false,
-				result: out string result
+				result: out result
 			);
-			if( msg1 == null ) {
+			if( result != "Success." ) {
 				Main.NewText( "Error loading message 1: "+result );
 			}
 
@@ -90,7 +92,7 @@ namespace Messages.Commands {
 				parent: msg1,
 				result: out _
 			);
-			if( msg2 == null ) {
+			if( result != "Success." ) {
 				Main.NewText( "Error loading message 2: "+result );
 			}
 
@@ -101,7 +103,7 @@ namespace Messages.Commands {
 				parent: msg2,
 				result: out _
 			);
-			if( msg3 == null ) {
+			if( result != "Success." ) {
 				Main.NewText( "Error loading message 3: "+result );
 			}
 		}

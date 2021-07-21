@@ -24,11 +24,7 @@ namespace Messages.UI {
 
 		////////////////
 
-		public bool AddMessageAsElementInListIf( Message message, Message parent=null ) {
-			if( !this.IsInitialized ) {
-				return false;
-			}
-
+		public void AddMessageAsElementInListIf( Message message, Message parent=null ) {
 //LogLibraries.Log( "AddMessageAsElementInListIf " + message.ID + ", parent: "+parent?.ID );
 			var msgElem = this.CreateOrGetMessageElem( message );
 
@@ -50,8 +46,6 @@ namespace Messages.UI {
 
 				msgElem.AddChildMessageElem( nextNewMsgElem );
 			};
-
-			return true;
 		}
 
 		public void RemoveMessageElementFromList( Message message ) {

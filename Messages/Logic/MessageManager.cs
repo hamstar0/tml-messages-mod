@@ -7,10 +7,10 @@ using ModLibsCore.Classes.Loadable;
 using ModLibsCore.Classes.PlayerData;
 using ModLibsCore.Libraries.Debug;
 using ModLibsUI.Classes.UI.Theme;
-using Messages.Definitions;
-using Messages.UI;
 using ModControlPanel;
 using ModControlPanel.Services.UI.ControlPanel;
+using Messages.Definitions;
+using Messages.UI;
 
 
 namespace Messages.Logic {
@@ -75,13 +75,10 @@ namespace Messages.Logic {
 
 			//
 
-			if( this.MessagesTabUI.AddMessageAsElementInListIf(msg, parent) ) {
-				result = "Success.";
-				return msg;
-			} else {
-				result = "Not success.";
-				return msg;
-			}
+			this.MessagesTabUI.AddMessageAsElementInListIf( msg, parent );
+
+			result = "Success.";
+			return msg;
 		}
 
 		public bool RemoveMessage( Message message, bool forceUnread = false ) {
@@ -89,7 +86,7 @@ namespace Messages.Logic {
 
 			if( forceUnread && isRemoved ) {
 				var myplayer = CustomPlayerData.GetPlayerData<MessagesCustomPlayer>( Main.LocalPlayer.whoAmI );
-				myplayer.ForgetReadMessage( msg.ID );
+				myplayer.UnsetReadMessage( msg.ID );
 			}
 
 			this.MessagesTabUI.RemoveMessageElementFromList( message );
@@ -102,7 +99,7 @@ namespace Messages.Logic {
 				var myplayer = CustomPlayerData.GetPlayerData<MessagesCustomPlayer>( Main.LocalPlayer.whoAmI );
 
 				foreach( Message msg in this.MessagesByID.Values ) {
-					myplayer.ForgetReadMessage( msg.ID );
+					myplayer.UnsetReadMessage( msg.ID );
 				}
 			}
 

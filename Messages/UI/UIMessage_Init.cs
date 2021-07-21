@@ -58,10 +58,6 @@ namespace Messages.UI {
 			this.ChildMessagesContainerElem.Width.Set( 0f, 1f );
 			this.ChildMessagesContainerElem.SetPadding( 8f );
 			this.Append( this.ChildMessagesContainerElem );
-
-			//
-
-			this.DescriptionHeight = Main.fontMouseText.MeasureString( this.Message.Description ).Y;
 		}
 
 

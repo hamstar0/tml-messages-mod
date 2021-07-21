@@ -1,5 +1,6 @@
 ﻿using System;
 using Terraria;
+using ModLibsCore.Classes.Errors;
 using ModLibsCore.Classes.PlayerData;
 using ModLibsCore.Libraries.Debug;
 using ModLibsUI.Classes.UI.Elements;
@@ -18,10 +19,12 @@ namespace Messages.UI {
 		////////////////
 
 		internal void Open( bool viaInterface ) {
+			this.ParentMessageElem?.Open( true );
+
 			this.IsOpen = true;
 
-			var myplayer = CustomPlayerData.GetPlayerData<MessagesCustomPlayer>( Main.myPlayer );
-			myplayer.RecordReadMessage( this.Message.ID );
+			var mycustomplayer = CustomPlayerData.GetPlayerData<MessagesCustomPlayer>( Main.myPlayer );
+			mycustomplayer.SetReadMessage( this.Message.ID );
 
 			this.DescriptionDisplayElem.RemoveAllChildren();
 			this.DescriptionDisplayElem.Append( this.DescriptionElem );

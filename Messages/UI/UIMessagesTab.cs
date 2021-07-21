@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Concurrent;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
@@ -28,8 +29,12 @@ namespace Messages.UI {
 
 		private UIList ListElem;
 		private UIThemedPanel Toolbar;
+		private UITextPanelButton GetUnreadButton;
+		private UITextPanelButton AllReadButton;
+		private UITextPanelButton ThisUnreadButton;
 		private UIThemedPanel MessageTreePanel;
 		private UIThemedPanel MessageViewPanel;
+
 		private UIHideableScrollbar Scrollbar;
 
 
@@ -42,6 +47,24 @@ namespace Messages.UI {
 			this.PreInitializeMe();
 		}
 
+
+		////////////////
+
+		public override void Update( GameTime gameTime ) {
+			base.Update( gameTime );
+
+			if( this.GetUnreadMessages().Count > 0 ) {
+				if( !this.GetUnreadButton.IsInteractive ) {
+					this.GetUnreadButton.Enable();
+					this.AllReadButton.Enable();
+				}
+			} else {
+				if( this.GetUnreadButton.IsInteractive ) {
+					this.GetUnreadButton.Disable();
+					this.AllReadButton.Disable();
+				}
+			}
+		}
 
 		////////////////
 

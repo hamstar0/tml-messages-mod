@@ -18,7 +18,18 @@ namespace Messages {
 		}
 
 
-		public bool RecordReadMessage( string id ) {
+		public ISet<string> GetReadMessageIdsForCurrentWorld() {
+			string worldUid = WorldIdentityLibraries.GetUniqueIdForCurrentWorld( true );
+
+			if( !this.ReadMessagesByIdsPerWorld.ContainsKey( worldUid ) ) {
+				this.ReadMessagesByIdsPerWorld[ worldUid ] = new HashSet<string>();
+			}
+
+			return new HashSet<string>( this.ReadMessagesByIdsPerWorld[worldUid] );
+		}
+
+		
+		public bool SetReadMessage( string id ) {
 			string worldUid = WorldIdentityLibraries.GetUniqueIdForCurrentWorld( true );
 
 			if( !this.ReadMessagesByIdsPerWorld.ContainsKey( worldUid ) ) {
@@ -29,7 +40,7 @@ namespace Messages {
 		}
 
 		
-		public bool ForgetReadMessage( string id ) {
+		public bool UnsetReadMessage( string id ) {
 			string worldUid = WorldIdentityLibraries.GetUniqueIdForCurrentWorld( true );
 
 			if( !this.ReadMessagesByIdsPerWorld.ContainsKey( worldUid ) ) {
@@ -40,7 +51,7 @@ namespace Messages {
 		}
 
 
-		public void ClearReadMessages() {
+		public void UnsetAllReadMessages() {
 			this.ReadMessagesByIdsPerWorld.Clear();
 		}
 	}
