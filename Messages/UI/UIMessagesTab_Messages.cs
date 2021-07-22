@@ -11,8 +11,6 @@ using ModControlPanel.Internals.ControlPanel;
 namespace Messages.UI {
 	partial class UIMessagesTab : UIControlPanelTab {
 		public ISet<string> GetUnreadMessages() {
-			this.CloseAllMessages();
-
 			var mycustomplayer = CustomPlayerData.GetPlayerData<MessagesCustomPlayer>( Main.myPlayer );
 			ISet<string> readMsgIds = mycustomplayer.GetReadMessageIdsForCurrentWorld();
 

@@ -15,14 +15,12 @@ namespace Messages.UI {
 				out this.AllReadButton,
 				out this.ThisUnreadButton
 			);
-			this.MessageTreePanel = this.InitializeMessageTreePanel();
-			this.MessageViewPanel = this.InitializeMessageViewPanel();
-
-			this.InitializeMessagesTree(
-				this.MessageTreePanel,
+			this.InitializeMessagesTreeList(
 				out this.ListElem,
 				out this.Scrollbar
 			);
+			this.MessageTreePanel = this.InitializeMessageTreePanel();
+			this.MessageViewPanel = this.InitializeMessageViewPanel();
 		}
 
 
@@ -32,9 +30,23 @@ namespace Messages.UI {
 			this.Width.Set( 0f, 1f );
 			this.Height.Set( 0f, 1f );
 
+			/*// hackish!
+			UIList oldList = this.ListElem;
+			this.PreInitializeMe();
+			this.ListElem.Clear();
+			foreach( UIElement item in oldList._items ) {
+				item.Remove();
+				this.ListElem.Add( item );
+			}*/
+
+			this.MessageTreePanel.Append( (UIElement)this.ListElem );
+			this.MessageTreePanel.Append( (UIElement)this.Scrollbar );
+
 			this.Append( (UIElement)this.Toolbar );
 			this.Append( (UIElement)this.MessageTreePanel );
 			this.Append( (UIElement)this.MessageViewPanel );
+
+			this.Recalculate();
 		}
 
 
@@ -101,10 +113,7 @@ namespace Messages.UI {
 			return messageViewPanel;
 		}
 
-		private void InitializeMessagesTree(
-					UIPanel messagesPanel,
-					out UIList listElem,
-					out UIHideableScrollbar scrollbar) {
+		private void InitializeMessagesTreeList( out UIList listElem, out UIHideableScrollbar scrollbar) {
 			listElem = new UIList();
 			listElem.Left.Set( 0f, 0f );
 			listElem.Width.Set( -25f, 1f );
@@ -112,7 +121,6 @@ namespace Messages.UI {
 			listElem.HAlign = 0f;
 			listElem.ListPadding = 4f;
 			listElem.SetPadding( 0f );
-			messagesPanel.Append( (UIElement)listElem );
 
 			scrollbar = new UIHideableScrollbar( true );
 			scrollbar.Top.Set( 8f, 0f );
@@ -120,9 +128,8 @@ namespace Messages.UI {
 			scrollbar.Height.Set( -16f, 1f );
 			scrollbar.SetView( 100f, 1000f );
 			scrollbar.HAlign = 0f;
-			messagesPanel.Append( (UIElement)this.Scrollbar );
 
-			listElem.SetScrollbar( this.Scrollbar );
+			listElem.SetScrollbar( scrollbar );
 
 			//
 

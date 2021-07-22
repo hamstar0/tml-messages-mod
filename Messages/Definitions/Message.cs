@@ -34,8 +34,10 @@ namespace Messages.Definitions {
 
 		public IReadOnlyList<Message> Children { get; protected set; }
 
+		public Message Parent { get; private set; }
+
 		////
-		
+
 		public string Title { get; protected set; }
 
 		public string Description { get; protected set; }
@@ -52,14 +54,12 @@ namespace Messages.Definitions {
 
 		////////////////
 
-		public Message( string title, string description, string id=null, int weight=0, List<Message> children=null ) {
+		public Message( string title, string description, string id=null, int weight=0 ) {
 			this.ID = id == null
 				? title
 				: id;
 
-			this._Children = children != null
-				? children
-				: new List<Message>();
+			this._Children = new List<Message>();
 			this.Children = this._Children.AsReadOnly();
 
 			this.Title = title;
@@ -74,6 +74,8 @@ namespace Messages.Definitions {
 			int idx = Message.GetMessageIndexInList( this._Children, message );
 
 			this._Children.Insert( idx, message );
+
+			message.Parent = this;
 
 			this.OnChildAdd?.Invoke( idx, message );
 

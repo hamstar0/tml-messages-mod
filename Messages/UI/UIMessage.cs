@@ -39,9 +39,9 @@ namespace Messages.UI {
 
 		private UIElement InfoContainer;
 
-		private UIElement DescriptionDisplayElem;
-
 		private UIElement ChildMessagesContainerElem;
+
+		private UIMessagesTab TabContainer;
 
 		////
 
@@ -51,8 +51,6 @@ namespace Messages.UI {
 		////////////////
 
 		public Message Message { get; private set; }
-
-		public UIMessage ParentMessageElem { get; private set; }
 
 		public bool IsOpen { get; private set; } = false;
 
@@ -65,9 +63,9 @@ namespace Messages.UI {
 
 		////////////////
 
-		public UIMessage( Message message, UIElement descriptionDisplayElem ) : base( UITheme.Vanilla, false ) {
+		public UIMessage( Message message, UIMessagesTab tabContainer ) : base( UITheme.Vanilla, false ) {
 			this.Message = message;
-			this.DescriptionDisplayElem = descriptionDisplayElem;
+			this.TabContainer = tabContainer;
 
 			this.OnInitializeMe();
 		}
@@ -135,10 +133,8 @@ namespace Messages.UI {
 
 			if( this.IsOpen ) {
 				this.Close( false );
-				this.Open( false );
+				this.Open( true, false );
 			}
-
-			messageElem.ParentMessageElem = this;
 
 			return idx;
 		}

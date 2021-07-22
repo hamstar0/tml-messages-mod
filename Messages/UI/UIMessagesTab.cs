@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Concurrent;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
@@ -33,7 +32,8 @@ namespace Messages.UI {
 		private UITextPanelButton AllReadButton;
 		private UITextPanelButton ThisUnreadButton;
 		private UIThemedPanel MessageTreePanel;
-		private UIThemedPanel MessageViewPanel;
+
+		internal UIThemedPanel MessageViewPanel;
 
 		private UIHideableScrollbar Scrollbar;
 

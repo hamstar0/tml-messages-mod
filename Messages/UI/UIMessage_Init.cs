@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.UI;
-using Terraria.GameContent.UI.Elements;
 using ModLibsCore.Libraries.Debug;
 using ModLibsUI.Classes.UI.Elements;
 using ModLibsUI.Classes.UI.Theme;
@@ -59,6 +58,8 @@ namespace Messages.UI {
 			this.ChildMessagesContainerElem.Width.Set( 0f, 1f );
 			this.ChildMessagesContainerElem.SetPadding( 8f );
 			this.Append( this.ChildMessagesContainerElem );
+
+			this.Recalculate();
 		}
 
 

@@ -12,32 +12,34 @@ namespace Messages.UI {
 			if( this.IsOpen ) {
 				this.Close( true );
 			} else {
-				this.Open( true );
+				this.Open( true, true );
 			}
 		}
 
 		////////////////
 
-		internal void Open( bool viaInterface ) {
-			this.ParentMessageElem?.Open( true );
+		internal void Open( bool expandChildren, bool viaInterface ) {
+			//this.ParentMessageElem?.Open( true );
 
 			var mycustomplayer = CustomPlayerData.GetPlayerData<MessagesCustomPlayer>( Main.myPlayer );
 			mycustomplayer.SetReadMessage( this.Message.ID );
 
-			this.DescriptionDisplayElem.RemoveAllChildren();
-			this.DescriptionDisplayElem.Append( this.DescriptionElem );
+			this.TabContainer.MessageViewPanel.RemoveAllChildren();
+			this.TabContainer.MessageViewPanel.Append( this.DescriptionElem );
 
-			this.ChildMessagesContainerElem.RemoveAllChildren();
-			foreach( UIMessage msgElem in this.ChildMessageElems ) {
-				this.ChildMessagesContainerElem.Append( msgElem );
+			if( expandChildren ) {
+				this.ChildMessagesContainerElem.RemoveAllChildren();
+
+				foreach( UIMessage msgElem in this.ChildMessageElems ) {
+					this.ChildMessagesContainerElem.Append( msgElem );
+				}
 			}
 
 			if( viaInterface ) {
 				this.OnOpen?.Invoke();
 			}
 
-			this.Recalculate();
-			this.DescriptionDisplayElem.Recalculate();
+			this.Height.Set( this.CalculateInnerHeight(true) + this.CalculateNestedMessagesHeight(), 0f );
 
 			this.IsOpen = true;
 		}
@@ -48,17 +50,15 @@ namespace Messages.UI {
 				msgElem.Close( viaInterface );
 			}
 
-			this.IsOpen = false;
-
-			this.DescriptionDisplayElem.RemoveAllChildren();
 			this.ChildMessagesContainerElem.RemoveAllChildren();
+
+			this.IsOpen = false;
 
 			this.Recalculate();
 
 			this.Height.Set( this.CalculateInnerHeight(false), 0f );
 
 			this.Recalculate();
-			this.DescriptionDisplayElem.Recalculate();
 		}
 	}
 }

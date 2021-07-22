@@ -45,7 +45,7 @@ namespace Messages.UI {
 			if( exclusively ) {
 				this.CloseAllMessages();
 			}
-			this.MessageElems[ id ].Open( true );
+			this.MessageElems[ id ].Open( true, true );
 		}
 
 		public void CloseAllMessages() {
