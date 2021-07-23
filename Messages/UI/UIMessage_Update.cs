@@ -17,6 +17,12 @@ namespace Messages.UI {
 				return;
 			}
 
+			if( this.IsOpen ) {
+				this.TreeIcon.SetText( "-" );
+			} else {
+				this.TreeIcon.SetText( "+" );
+			}
+
 			Message msg = mngr.MessagesByID[ this.Message.ID ];
 			var myplayer = CustomPlayerData.GetPlayerData<MessagesCustomPlayer>( Main.myPlayer );
 

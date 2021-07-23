@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Terraria;
 using Terraria.UI;
+using Terraria.GameContent.UI.Elements;
 using ModLibsCore.Libraries.Debug;
 using ModLibsUI.Classes.UI.Elements;
 using ModLibsUI.Classes.UI.Theme;
@@ -32,6 +33,8 @@ namespace Messages.UI {
 
 
 		////////////////
+
+		private UIText TreeIcon;
 
 		private UIThemedText TitleElem;
 
