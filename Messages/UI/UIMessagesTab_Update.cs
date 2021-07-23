@@ -33,7 +33,7 @@ namespace Messages.UI {
 
 
 		////////////////
-
+		
 		private void UpdateForUnreadMessages() {
 			if( !this.GetUnreadButton.IsInteractive ) {
 				this.GetUnreadButton.Enable();

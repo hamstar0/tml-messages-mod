@@ -40,15 +40,16 @@ namespace Messages.UI {
 
 			//
 			
-			this.TreeIcon = new UIText( "+" );
-			this.TreeIcon.HAlign = 0f;
-			this.TreeIcon.Left.Set( -8f, 0f );
-			this.TreeIcon.Width.Set( 0f, 1f );
-			this.TreeIcon.TextColor = Color.White;
-			this.Append( this.TreeIcon );
-			
 			this.InfoContainer = new UIElement();
 			{
+				this.TreeIcon = new UIText( "+" );
+				this.TreeIcon.HAlign = 0f;
+				this.TreeIcon.PaddingTop = 8f;
+				//this.TreeIcon.PaddingLeft = 8f;
+				this.TreeIcon.Width.Set( 0f, 1f );
+				this.TreeIcon.TextColor = Color.White;
+				this.InfoContainer.Append( this.TreeIcon );
+
 				this.TitleElem = new UITitleText( this.Theme, this.Message.Title );
 				this.TitleElem.TextColor = Color.Yellow;
 				this.InfoContainer.Append( this.TitleElem );
@@ -71,7 +72,7 @@ namespace Messages.UI {
 
 			this.Recalculate();
 
-			this.TreeIcon.PaddingRight = this.GetOuterDimensions().Width - 24f;	//ugly!
+			this.TreeIcon.PaddingRight = this.GetOuterDimensions().Width / 2f;	//ugly!
 		}
 
 

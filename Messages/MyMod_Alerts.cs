@@ -40,16 +40,16 @@ namespace Messages {
 			);
 
 			float pulse = (float)Main.mouseTextColor / 255f;
-			pulse = 0.8f + 0.2f * pulse;
+			//pulse = 0.8f + 0.2f * pulse;
 
 			float scale = 0.25f;
-			scale *= pulse;
+			//scale *= pulse;
 
 			sb.Draw(
 				texture: this.MessageAlertTex,
 				position: pos,
 				sourceRectangle: null,
-				color: Color.White * 0.5f,
+				color: Color.White * 0.6f * pulse,
 				rotation: 0f,
 				origin: origin,
 				scale: scale,
