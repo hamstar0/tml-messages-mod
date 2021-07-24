@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Terraria;
 using ModLibsCore.Libraries.Debug;
+using ModLibsCore.Classes.PlayerData;
 
 
 namespace Messages.Definitions {
@@ -80,6 +81,24 @@ namespace Messages.Definitions {
 			this.OnChildAdd?.Invoke( idx, message );
 
 			return idx;
+		}
+
+
+		////////////////
+
+		public ISet<string> GetUnreadChildren() {
+			var myplayer = CustomPlayerData.GetPlayerData<MessagesCustomPlayer>( Main.myPlayer );
+			var unreadChildren = new HashSet<string>();
+
+			foreach( Message child in this.Children ) {
+				if( !myplayer.IsMessageRead(child.ID) ) {
+					unreadChildren.Add( child.ID );
+
+					unreadChildren.UnionWith( child.GetUnreadChildren() );
+				}
+			}
+
+			return unreadChildren;
 		}
 
 

@@ -42,13 +42,15 @@ namespace Messages.UI {
 			
 			this.InfoContainer = new UIElement();
 			{
-				this.TreeIcon = new UIText( "+" );
-				this.TreeIcon.HAlign = 0f;
-				this.TreeIcon.PaddingTop = 8f;
-				//this.TreeIcon.PaddingLeft = 8f;
-				this.TreeIcon.Width.Set( 0f, 1f );
-				this.TreeIcon.TextColor = Color.White;
-				this.InfoContainer.Append( this.TreeIcon );
+				this.TreeIconElem = new UIThemedText( this.Theme, false, "+" );
+				this.TreeIconElem.TextColor = Color.White;
+				this.InfoContainer.Append( this.TreeIconElem );
+				
+				this.UnreadTextElem = new UIThemedText( this.Theme, false, "" + this.UnreadHere.Count, 0.75f );
+				this.UnreadTextElem.MarginTop = -6f;
+				this.UnreadTextElem.MarginLeft = 4f;
+				this.UnreadTextElem.TextColor = this.UnreadHere.Count == 0 ? Color.Gray : Color.Yellow;
+				this.InfoContainer.Append( this.UnreadTextElem );
 
 				this.TitleElem = new UITitleText( this.Theme, this.Message.Title );
 				this.TitleElem.TextColor = Color.Yellow;
@@ -72,7 +74,8 @@ namespace Messages.UI {
 
 			this.Recalculate();
 
-			this.TreeIcon.PaddingRight = this.GetOuterDimensions().Width / 2f;	//ugly!
+			this.TreeIconElem.PaddingRight = this.GetOuterDimensions().Width / 2f;	//ugly!
+			this.UnreadTextElem.PaddingRight = this.GetOuterDimensions().Width / 2f;	//ugly!
 		}
 
 
