@@ -4,8 +4,10 @@ using System.Linq;
 using Newtonsoft.Json.Linq;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 using ModLibsCore.Classes.PlayerData;
 using ModLibsCore.Libraries.Debug;
+using Messages.Logic;
 
 
 namespace Messages {
@@ -22,12 +24,20 @@ namespace Messages {
 			}
 
 			if( data != null ) {
-//LogLibraries.Log( "ENTER "+string.Join(", ", this.CompletedObjectivesPerWorld.Select(kv=>kv.Key+":"+string.Join(",",kv.Value))) );
 				this.ReadMessagesByIdsPerWorld = ((JObject)data)
 					.ToObject<Dictionary<string, string[]>>()
 					.ToDictionary( kv=>kv.Key, kv=>new HashSet<string>( kv.Value ) );
 			}
-//else { LogLibraries.Log( "ENTER!" ); }
+
+			var mngr = ModContent.GetInstance<MessageManager>();
+			mngr.InitializeCategories();
+
+			this.SetReadMessage( mngr.ModInfoCategoryMsg.ID );
+			this.SetReadMessage( mngr.HintsTipsCategoryMsg.ID );
+			this.SetReadMessage( mngr.GameInfoCategoryMsg.ID );
+			this.SetReadMessage( mngr.StoryLoreCategoryMsg.ID );
+
+			MessagesMod.Instance.RunMessageCategoriesInitializeEvent();
 		}
 
 
@@ -38,7 +48,6 @@ namespace Messages {
 				MessagesAPI.ClearMessages( false );
 			}
 
-//LogLibraries.Log( "EXIT "+string.Join(", ", data.Select(kv=>kv.Key+":"+string.Join(",",kv.Value))) );
 			return data;
 		}
 	}

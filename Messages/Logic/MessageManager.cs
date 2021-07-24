@@ -24,6 +24,16 @@ namespace Messages.Logic {
 
 		public ConcurrentDictionary<string, Message> MessagesByID { get; } = new ConcurrentDictionary<string, Message>();
 
+		////
+
+		public Message ModInfoCategoryMsg { get; private set; }
+
+		public Message HintsTipsCategoryMsg { get; private set; }
+
+		public Message GameInfoCategoryMsg { get; private set; }
+
+		public Message StoryLoreCategoryMsg { get; private set; }
+
 
 
 		////////////////
@@ -37,6 +47,8 @@ namespace Messages.Logic {
 
 					// Add tab
 					ControlPanelTabs.AddTab( MessagesMod.ControlPanelName, this.MessagesTabUI );
+
+					MessagesMod.Instance.RunMessagesInitializeEvent();
 				};
 			}
 		}

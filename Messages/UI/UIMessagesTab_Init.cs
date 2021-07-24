@@ -46,6 +46,8 @@ namespace Messages.UI {
 			this.Append( (UIElement)this.MessageTreePanel );
 			this.Append( (UIElement)this.MessageViewPanel );
 
+			//
+
 			this.Recalculate();
 		}
 

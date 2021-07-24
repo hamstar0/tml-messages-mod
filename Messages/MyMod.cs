@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
@@ -23,7 +24,10 @@ namespace Messages {
 
 		////////////////
 
-		public ModHotKey ControlPanelHotkey { get; private set; }
+		internal event Action OnInitialize;
+
+		internal event Action OnCategoriesInitialize;
+		
 
 
 		////////////////
@@ -31,6 +35,11 @@ namespace Messages {
 		private int AlertTickDuration = 0;
 
 		private Texture2D MessageAlertTex;
+
+
+		////////////////
+
+		public ModHotKey ControlPanelHotkey { get; private set; }
 
 
 
@@ -42,6 +51,17 @@ namespace Messages {
 			if( !Main.dedServ && Main.netMode != NetmodeID.Server ) {
 				this.MessageAlertTex = this.GetTexture( "UI/MessageAlert" );
 			}
+		}
+
+
+		////////////////
+		
+		internal void RunMessagesInitializeEvent() {
+			this.OnInitialize?.Invoke();
+		}
+		
+		internal void RunMessageCategoriesInitializeEvent() {
+			this.OnCategoriesInitialize?.Invoke();
 		}
 	}
 }
