@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ModLoader;
 using ModLibsCore.Classes.PlayerData;
 using ModLibsCore.Libraries.Debug;
 using ModControlPanel.Internals.ControlPanel;
+using Messages.Logic;
 
 
 namespace Messages.UI {
@@ -11,7 +14,9 @@ namespace Messages.UI {
 		public override void Update( GameTime gameTime ) {
 			base.Update( gameTime );
 
-			if( this.GetUnreadMessages().Count > 0 ) {
+			ISet<string> unreadMsgIds = ModContent.GetInstance<MessageManager>().GetUnreadMessages();
+
+			if( unreadMsgIds.Count > 0 ) {
 				this.UpdateForUnreadMessages();
 			} else {
 				this.UpdateForNoUnreadMessages();

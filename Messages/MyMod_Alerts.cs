@@ -1,14 +1,16 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 using ModControlPanel.Services.UI.ControlPanel;
+using Messages.Logic;
 
 
 namespace Messages {
 	public partial class MessagesMod : Mod {
 		public void ShowAlert() {
-			this.AlertTickDuration = 60 * 5;
+			this.AlertTickDuration = 60 * 15;
 		}
 
 
@@ -16,34 +18,49 @@ namespace Messages {
 
 		public override void PostDrawInterface( SpriteBatch spriteBatch ) {
 			if( this.AlertTickDuration >= 1 ) {
-				Rectangle buttonArea = this.DrawMessageAlert( spriteBatch );
+				this.AlertTickDuration--;
 
-				if( Main.mouseLeft && Main.mouseLeftRelease && buttonArea.Contains(Main.mouseX, Main.mouseY) ) {
-					this.AlertTickDuration = 0;
+				this.DrawMessageAlertIf( spriteBatch );
+			}
+		}
 
-					ControlPanelTabs.OpenTab( MessagesMod.ControlPanelName );
-				}
+		private void DrawMessageAlertIf( SpriteBatch spriteBatch ) {
+			var mngr = ModContent.GetInstance<MessageManager>();
+			int messageCount = mngr.GetUnreadMessages().Count;
+			if( messageCount == 0 ) {
+				this.AlertTickDuration = 0;
+
+				return;
+			}
+
+			Rectangle buttonArea = this.DrawMessageAlert( spriteBatch, messageCount );
+
+			if( Main.mouseLeft && Main.mouseLeftRelease && buttonArea.Contains(Main.mouseX, Main.mouseY) ) {
+				this.AlertTickDuration = 0;
+
+				ControlPanelTabs.OpenTab( MessagesMod.ControlPanelName );
 			}
 		}
 
 
 		////////////////
 
-		private Rectangle DrawMessageAlert( SpriteBatch sb ) {
+		private Rectangle DrawMessageAlert( SpriteBatch sb, int messageCount ) {
 			var pos = new Vector2(
 				Main.screenWidth / 2,
 				(4 * Main.screenHeight) / 5
 			);
-			var origin = new Vector2(
+			var texOrigin = new Vector2(
 				this.MessageAlertTex.Width / 2,
 				this.MessageAlertTex.Height / 2
 			);
 
 			float pulse = (float)Main.mouseTextColor / 255f;
 			//pulse = 0.8f + 0.2f * pulse;
+			pulse = pulse * pulse * pulse * pulse;
 
-			float scale = 0.25f;
-			//scale *= pulse;
+			float scaleBase = 1f;   //pulse
+			float texScale = scaleBase * 0.25f;
 
 			sb.Draw(
 				texture: this.MessageAlertTex,
@@ -51,17 +68,34 @@ namespace Messages {
 				sourceRectangle: null,
 				color: Color.White * 0.6f * pulse,
 				rotation: 0f,
-				origin: origin,
-				scale: scale,
+				origin: texOrigin,
+				scale: texScale,
 				effects: SpriteEffects.None,
-				layerDepth: 0
+				layerDepth: 0f
+			);
+
+			string msgText = "" + messageCount;
+			float msgScale = scaleBase * 1.5f;
+			Vector2 msgDim = Main.fontMouseText.MeasureString( msgText );
+			Vector2 msgOrigin = msgDim * 0.5f;
+
+			sb.DrawString(
+				spriteFont: Main.fontMouseText,
+				text: msgText,
+				position: pos + new Vector2(0f, 16f),
+				color: Color.Cyan * 0.6f * pulse,
+				rotation: 0f,
+				origin: msgOrigin,
+				scale: msgScale,
+				effects: SpriteEffects.None,
+				layerDepth: 0f
 			);
 
 			return new Rectangle(
-				(int)(pos.X - (origin.X * scale)),
-				(int)(pos.Y - (origin.Y * scale)),
-				(int)(scale * (float)this.MessageAlertTex.Width),
-				(int)(scale * (float)this.MessageAlertTex.Height)
+				(int)(pos.X - (texOrigin.X * texScale)),
+				(int)(pos.Y - (texOrigin.Y * texScale)),
+				(int)(texScale * (float)this.MessageAlertTex.Width),
+				(int)(texScale * (float)this.MessageAlertTex.Height)
 			);
 		}
 	}

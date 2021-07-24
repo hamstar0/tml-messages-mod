@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Concurrent;
+using System.Linq;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -42,6 +44,21 @@ namespace Messages.Logic {
 		void ILoadable.OnPostModsLoad() { }
 
 		void ILoadable.OnModsUnload() { }
+
+
+		////////////////
+
+		public ISet<string> GetUnreadMessages() {
+			var mycustomplayer = CustomPlayerData.GetPlayerData<MessagesCustomPlayer>( Main.myPlayer );
+			ISet<string> readMsgIds = mycustomplayer.GetReadMessageIdsForCurrentWorld();
+
+			var unreadMsgIds = new HashSet<string>(
+				this.MessagesByID.Keys
+					.Where( id => !readMsgIds.Contains( id ) )
+			);
+
+			return unreadMsgIds;
+		}
 
 
 		////////////////

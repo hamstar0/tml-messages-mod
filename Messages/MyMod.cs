@@ -43,14 +43,5 @@ namespace Messages {
 				this.MessageAlertTex = this.GetTexture( "UI/MessageAlert" );
 			}
 		}
-
-
-		////////////////
-
-		public override void PostSetupContent() {
-			if( this.AlertTickDuration >= 1 ) {
-				this.AlertTickDuration--;
-			}
-		}
 	}
 }

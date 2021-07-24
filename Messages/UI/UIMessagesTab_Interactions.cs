@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
+using Terraria.ModLoader;
 using ModLibsCore.Classes.PlayerData;
 using ModLibsCore.Libraries.Debug;
 using ModControlPanel.Internals.ControlPanel;
+using Messages.Logic;
 
 
 namespace Messages.UI {
 	partial class UIMessagesTab : UIControlPanelTab {
 		public bool OpenNextUnreadMessage() {
-			ISet<string> unreadMsgIds = this.GetUnreadMessages();
+			ISet<string> unreadMsgIds = ModContent.GetInstance<MessageManager>().GetUnreadMessages();
 			if( unreadMsgIds.Count() == 0 ) {
 				return false;
 			}
@@ -20,7 +22,7 @@ namespace Messages.UI {
 		}
 
 		public void SetAllMessagesRead() {
-			ISet<string> unreadMsgIds = this.GetUnreadMessages();
+			ISet<string> unreadMsgIds = ModContent.GetInstance<MessageManager>().GetUnreadMessages();
 			var mycustomplayer = CustomPlayerData.GetPlayerData<MessagesCustomPlayer>( Main.myPlayer );
 
 			foreach( string msgId in unreadMsgIds ) {
