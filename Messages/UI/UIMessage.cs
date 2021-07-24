@@ -78,62 +78,11 @@ namespace Messages.UI {
 
 
 		////////////////
-
-		public override void Recalculate() {
-			float height = this.CalculateInnerHeight( this.IsOpen );
-			float nestedHeight = this.CalculateNestedMessagesHeight();
-
-			this.ChildMessagesContainerElem.Top.Set( height, 0f );
-			this.ChildMessagesContainerElem.Height.Set( nestedHeight, 0f );
-
-			if( this.IsOpen ) {
-				this.Height.Set( height + nestedHeight, 0f );
-			} else {
-				this.Height.Set( height, 0f );
-			}
-
-			base.Recalculate();
-		}
-
-
-		////////////////
-
-		public float CalculateInnerHeight( bool open ) {
-			return UIMessage.DefaultHeight;
-		}
-		
-		public float CalculateNestedMessagesHeight() {
-			float height = 0f;
-
-			foreach( UIMessage elem in this.ChildMessageElems ) {
-				float childHeight = elem.CalculateInnerHeight( elem.IsOpen );
-				if( elem.IsOpen ) {
-					childHeight += elem.CalculateNestedMessagesHeight();
-				}
-
-				height += childHeight;
-				height += 8f;
-//LogLibraries.LogOnce( "nested height (open) for "+this.Message.ID+" child "+elem.Message.ID+": "+childHeight+" ("+height+")" );
-			}
-			
-			if( this.ChildMessageElems.Count >= 1 ) {
-				height += 16f;
-			}
-
-			return height;
-		}
-
-
-		////////////////
 		
 		public int AddChildMessageElem( UIMessage messageElem ) {
 			int idx = UIMessage.GetMessageIndexInList( this.ChildMessageElems, messageElem );
 
 			this.ChildMessageElems.Insert( idx, messageElem );
-//LogLibraries.Log( "AddChildMessageElem current:" + this.Message.ID + " ("+this.GetHashCode()+")"
-//	+ ", child: " + messageElem.Message.ID
-//	+ ", idx: " + idx
-//	+ ", children: "+this.ChildMessageElems.Count );
 
 			//
 

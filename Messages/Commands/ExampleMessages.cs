@@ -2,6 +2,7 @@
 using Terraria;
 using Terraria.ModLoader;
 using Messages.Definitions;
+using Messages.Logic;
 
 
 namespace Messages.Commands {
@@ -20,50 +21,95 @@ namespace Messages.Commands {
 
 		/// @private
 		public override void Action( CommandCaller caller, string input, string[] args ) {
+			var mngr = ModContent.GetInstance<MessageManager>();
+			Message msg;
 			string _;
 
-			Message msg1 = MessagesAPI.AddMessage(
-				title: "Kill A Blue Slime",
-				description: "What even is a slime?",
+			MessagesAPI.AddMessage(
+				title: "This is a sample message",
+				description: "This messages exists on its own.",
 				alertPlayer: false,
+				parent: mngr.ModInfoCategoryMsg,
 				result: out _
 			);
 
 			MessagesAPI.AddMessage(
-				title: "Kill A Red Slime",
-				description: "Opposing colors!",
+				title: "This is another sample message",
+				description: "Yay!",
 				alertPlayer: false,
-				parent: msg1,
+				parent: mngr.ModInfoCategoryMsg,
 				result: out _
 			);
 
 			MessagesAPI.AddMessage(
-				title: "Collect 50 Rings",
-				description: "Wrong game.\n \n...might be a fun mod, though?",
+				title: "This is a really long message",
+				description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
 				alertPlayer: true,
+				parent: mngr.ModInfoCategoryMsg,
 				result: out _
 			);
 
-			Message msg2 = MessagesAPI.AddMessage(
-				title: "Order Pizza",
-				description: "Can't be done.",
+			msg = MessagesAPI.AddMessage(
+				title: "This is a message as a folder",
+				description: "",
 				alertPlayer: false,
-				result: out _
-			);
-
-			Message msg3 = MessagesAPI.AddMessage(
-				title: "Collect A Blueberry",
-				description: "Don't ask.",
-				alertPlayer: true,
-				parent: msg2,
+				parent: mngr.ModInfoCategoryMsg,
 				result: out _
 			);
 
 			MessagesAPI.AddMessage(
-				title: "Craft A Molotov",
-				description: "Viva la revolution!",
-				alertPlayer: false,
-				parent: msg3,
+				title: "Sub-message 1",
+				description: "I'm a message.",
+				alertPlayer: true,
+				parent: msg,
+				result: out _
+			);
+
+			 MessagesAPI.AddMessage(
+				title: "Sub-message 2",
+				description: "I'm a message.",
+				alertPlayer: true,
+				parent: msg,
+				result: out _
+			);
+
+			MessagesAPI.AddMessage(
+				title: "Sub-message 3",
+				description: "I'm a message.",
+				alertPlayer: true,
+				parent: msg,
+				result: out _
+			);
+
+			MessagesAPI.AddMessage(
+				title: "Sub-message 4",
+				description: "I'm a message.",
+				alertPlayer: true,
+				parent: msg,
+				result: out _
+			);
+
+			MessagesAPI.AddMessage(
+				title: "Sub-message 5",
+				description: "I'm a message.",
+				alertPlayer: true,
+				parent: msg,
+				result: out _
+			);
+
+			msg = MessagesAPI.AddMessage(
+				title: "Sub-message 6",
+				description: "I'm a message.",
+				alertPlayer: true,
+				parent: msg,
+				result: out _
+			);
+
+			MessagesAPI.AddMessage(
+				title: "Sub-sub-message 6",
+				description: "I'm a message.",
+				alertPlayer: true,
+				parent: msg,
 				result: out _
 			);
 		}

@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.UI;
-using Terraria.GameContent.UI.Elements;
 using ModLibsCore.Libraries.Debug;
 using ModLibsUI.Classes.UI.Elements;
 using ModLibsUI.Classes.UI.Theme;
@@ -56,7 +55,7 @@ namespace Messages.UI {
 				this.TitleElem.TextColor = Color.Yellow;
 				this.InfoContainer.Append( this.TitleElem );
 			}
-			this.InfoContainer.OnClick += (_, __) => this.ToggleOpen();
+			this.InfoContainer.OnClick += (_, __) => this.ToggleOpen( true );
 			this.InfoContainer.Top.Set( 0f, 0f );
 			this.InfoContainer.Width.Set( 0f, 1f );
 			this.InfoContainer.PaddingTop = 8f;
@@ -75,17 +74,18 @@ namespace Messages.UI {
 			this.Recalculate();
 
 			this.TreeIconElem.PaddingRight = this.GetOuterDimensions().Width / 2f;	//ugly!
-			this.UnreadTextElem.PaddingRight = this.GetOuterDimensions().Width / 2f;	//ugly!
+			this.UnreadTextElem.PaddingRight = this.GetOuterDimensions().Width / 2f;    //ugly!
 		}
 
 
 		////////////////
 
-		public UIDescriptionText GetDescriptionElement() {
-			var descElem = new UIDescriptionText( this.Theme, this.Message.Description );
-			descElem.TextColor = Color.White;
+		private void InitializeChildMessages() {
+			this.ChildMessagesContainerElem.RemoveAllChildren();
 
-			return descElem;
+			foreach( UIMessage msgElem in this.ChildMessageElems ) {
+				this.ChildMessagesContainerElem.Append( msgElem );
+			}
 		}
 	}
 }
