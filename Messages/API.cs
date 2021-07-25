@@ -14,7 +14,7 @@ using Messages.Logic;
 namespace Messages {
 	public partial class MessagesAPI {
 		/// <summary>
-		/// Indicates if the current, local player has their objectives loaded.
+		/// Indicates if the current, local player has their messages loaded.
 		/// </summary>
 		/// <returns></returns>
 		public static bool AreMessagesLoadedForCurrentPlayer() {
@@ -69,6 +69,9 @@ namespace Messages {
 			if( Main.netMode == NetmodeID.Server ) {
 				throw new ModLibsException( "Server messages not allowed." );
 			}
+			if( !MessagesMod.Instance.IsMessageTabCategoriesInitialized ) {
+				throw new ModLibsException( "Message display not finished initializing." );
+			}
 
 			var mngr = ModContent.GetInstance<MessageManager>();
 
@@ -83,7 +86,7 @@ namespace Messages {
 
 			if( result == "Success." ) {
 				if( alertPlayer ) {
-					ControlPanelTabs.AddTabAlert( MessagesMod.ControlPanelName );
+					ControlPanelTabs.AddTabAlert( MessagesMod.ControlPanelTabName );
 
 					MessagesMod.Instance.ShowAlert();
 				}
@@ -101,6 +104,9 @@ namespace Messages {
 			if( Main.netMode == NetmodeID.Server ) {
 				throw new ModLibsException( "Server messages not allowed." );
 			}
+			if( !MessagesMod.Instance.IsMessageTabCategoriesInitialized ) {
+				throw new ModLibsException( "Message display not finished initializing." );
+			}
 
 			var mngr = ModContent.GetInstance<MessageManager>();
 
@@ -114,6 +120,9 @@ namespace Messages {
 		public static void ClearMessages( bool forceIncomplete ) {
 			if( Main.netMode == NetmodeID.Server ) {
 				throw new ModLibsException( "Server messages not allowed." );
+			}
+			if( !MessagesMod.Instance.IsMessageTabCategoriesInitialized ) {
+				throw new ModLibsException( "Message display not finished initializing." );
 			}
 
 			var mngr = ModContent.GetInstance<MessageManager>();

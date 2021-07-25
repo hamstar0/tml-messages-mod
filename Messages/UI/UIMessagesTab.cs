@@ -22,7 +22,7 @@ namespace Messages.UI {
 
 		private IList<UIMessage> TopLevelMessageElemsOrdered = new List<UIMessage>();
 
-		internal UIMessage RecentMessage = null;
+		internal string RecentMessageID = null;
 
 		////
 

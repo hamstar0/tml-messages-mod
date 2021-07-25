@@ -9,7 +9,11 @@ namespace Messages {
 		/// Runs when the message database and UI are all setup.
 		/// </summary>
 		public static void AddMessagesInitializeEvent( Action func ) {
-			MessagesMod.Instance.OnInitialize += func;
+			if( MessagesMod.Instance.IsMessageTabInitialized ) {
+				func();
+			} else {
+				MessagesMod.Instance.OnMessageTabInitialize += func;
+			}
 		}
 
 
@@ -17,7 +21,11 @@ namespace Messages {
 		/// Runs when the message categories all setup.
 		/// </summary>
 		public static void AddMessagesCategoriesInitializeEvent( Action func ) {
-			MessagesMod.Instance.OnCategoriesInitialize += func;
+			if( MessagesMod.Instance.IsMessageTabCategoriesInitialized ) {
+				func();
+			} else {
+				MessagesMod.Instance.OnMessageTabCategoriesInitialize += func;
+			}
 		}
 	}
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using Terraria;
-using Terraria.UI;
 using ModLibsCore.Libraries.Debug;
 using ModLibsUI.Classes.UI.Elements;
 

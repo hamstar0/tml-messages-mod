@@ -1,6 +1,6 @@
 displayName = Messages
 author = hamstar
-version = 0.14.1
+version = 0.15.0
 modReferences = ModLibsCore@1.2.0, ModLibsGeneral@1.2.0, ModLibsUI@1.0.0, ModLibsInterMod@1.0.0, ModControlPanel@1.1.0
 buildIgnore = *.csproj, *.user, *.bat, obj\*, bin\*, .vs\*, .git\*
 homepage = https://github.com/hamstar0/tml-messages-mod

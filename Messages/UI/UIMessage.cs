@@ -10,7 +10,7 @@ using Messages.Definitions;
 
 namespace Messages.UI {
 	partial class UIMessage : UIThemedPanel {
-		public const float DefaultHeight = 40f;
+		public const float DefaultHeight = 36f;
 
 
 
@@ -69,7 +69,8 @@ namespace Messages.UI {
 
 		////////////////
 
-		public UIMessage( Message message, UIMessagesTab tabContainer ) : base( UITheme.Vanilla, false ) {
+		public UIMessage( Message message, UIMessagesTab tabContainer )
+					: base( UITheme.Vanilla, false ) {
 			this.Message = message;
 			this.TabContainer = tabContainer;
 

@@ -7,10 +7,10 @@ using Terraria.ModLoader;
 
 namespace Messages {
 	public partial class MessagesMod : Mod {
-		public const string ControlPanelName = "Messages";
+		public const string ControlPanelTabName = "Messages";
 
 
-		////
+		////////////////
 
 		public static string GithubUserName => "hamstar0";
 		public static string GithubProjectName => "tml-messages-mod";
@@ -24,10 +24,10 @@ namespace Messages {
 
 		////////////////
 
-		internal event Action OnInitialize;
+		internal event Action OnMessageTabInitialize;
 
-		internal event Action OnCategoriesInitialize;
-		
+		internal event Action OnMessageTabCategoriesInitialize;
+
 
 
 		////////////////
@@ -38,6 +38,12 @@ namespace Messages {
 
 
 		////////////////
+
+		public bool IsMessageTabInitialized { get; private set; } = false;
+
+		public bool IsMessageTabCategoriesInitialized { get; private set; } = false;
+
+		////
 
 		public ModHotKey ControlPanelHotkey { get; private set; }
 
@@ -57,11 +63,13 @@ namespace Messages {
 		////////////////
 		
 		internal void RunMessagesInitializeEvent() {
-			this.OnInitialize?.Invoke();
+			this.OnMessageTabInitialize?.Invoke();
+			this.IsMessageTabInitialized = true;
 		}
 		
 		internal void RunMessageCategoriesInitializeEvent() {
-			this.OnCategoriesInitialize?.Invoke();
+			this.OnMessageTabCategoriesInitialize?.Invoke();
+			this.IsMessageTabCategoriesInitialized = true;
 		}
 	}
 }

@@ -38,7 +38,7 @@ namespace Messages {
 			if( Main.mouseLeft && Main.mouseLeftRelease && buttonArea.Contains(Main.mouseX, Main.mouseY) ) {
 				this.AlertTickDuration = 0;
 
-				ControlPanelTabs.OpenTab( MessagesMod.ControlPanelName );
+				ControlPanelTabs.OpenTab( MessagesMod.ControlPanelTabName );
 			}
 		}
 

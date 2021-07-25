@@ -22,7 +22,7 @@ namespace Messages.UI {
 				this.UpdateForNoUnreadMessages();
 			}
 
-			string recentMsgId = this.RecentMessage?.Message.ID;
+			string recentMsgId = this.RecentMessageID;
 			var myplayer = CustomPlayerData.GetPlayerData<MessagesCustomPlayer>( Main.myPlayer );
 
 			if( recentMsgId != null && myplayer.IsMessageRead( recentMsgId ) ) {

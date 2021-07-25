@@ -15,7 +15,7 @@ namespace Messages {
 					if( ControlPanelTabs.IsDialogOpen() ) {
 						ControlPanelTabs.CloseDialog();
 					} else {
-						ControlPanelTabs.OpenTab( MessagesMod.ControlPanelName );
+						ControlPanelTabs.OpenTab( MessagesMod.ControlPanelTabName );
 					}
 				}
 			} catch { }

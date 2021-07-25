@@ -63,12 +63,12 @@ namespace Messages.UI {
 		private void UpdateForUnreadState() {
 			var mngr = ModContent.GetInstance<MessageManager>();
 
-			if( mngr.MessagesTabUI != null && mngr.MessagesTabUI.RecentMessage != this ) {
-				this.TitleElem.TextColor = Color.Gray;
-				this.DescriptionElem.TextColor = Color.Gray;
-			} else {
+			if( mngr.MessagesTabUI.RecentMessageID == this.Message.ID ) {
 				this.TitleElem.TextColor = Color.White;
 				this.DescriptionElem.TextColor = Color.White;
+			} else {
+				this.TitleElem.TextColor = Color.Gray;
+				this.DescriptionElem.TextColor = Color.Gray;
 			}
 		}
 

@@ -86,7 +86,7 @@ namespace Messages.UI {
 		////////////////
 
 		private void OnOpenListedMessageElement( UIMessage messageElem ) {
-			this.RecentMessage = messageElem;
+			this.RecentMessageID = messageElem.Message.ID;
 		}
 	}
 }

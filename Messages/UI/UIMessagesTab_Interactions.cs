@@ -31,7 +31,7 @@ namespace Messages.UI {
 		}
 
 		public void SetCurrentMessageUnread() {
-			string recentMsgId = this.RecentMessage?.Message.ID;
+			string recentMsgId = this.RecentMessageID;
 			if( recentMsgId == null ) {
 				return;
 			}
