@@ -33,13 +33,12 @@ namespace Messages.UI {
 				this.InfoContainer.Append( this.UnreadTextElem );
 
 				this.TitleElem = new UIThemedText( this.Theme, false, this.Message.Title, 1.1f, false );
-				this.TitleElem = new UIMessageTitle( this.Theme, this.Message.Title );
 				this.TitleElem.TextColor = Color.Yellow;
 				this.TitleElem.Width.Set( 0f, 1f );
 				this.TitleElem.HAlign = 0f;
 				this.InfoContainer.Append( this.TitleElem );
 			}
-			this.InfoContainer.OnClick += (_, __) => this.ToggleOpen( true );
+			this.InfoContainer.OnClick += (_, __) => this.SelectMessageFromList( true );
 			this.InfoContainer.Top.Set( 0f, 0f );
 			this.InfoContainer.Width.Set( 0f, 1f );
 			this.InfoContainer.PaddingTop = 8f;

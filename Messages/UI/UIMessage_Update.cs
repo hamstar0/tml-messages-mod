@@ -17,39 +17,12 @@ namespace Messages.UI {
 				return;
 			}
 
-			if( this.IsOpen ) {
-				this.TreeIconElem.SetText( "-" );
-			} else {
-				this.TreeIconElem.SetText( "+" );
-			}
+			this.UpdateTreeIcon();
+			this.UpdateForState();
+			this.UpdateUnreadIcon();
 
 			if( this.InfoContainer.IsMouseHovering ) {
 				this.TitleElem.TextColor *= 1.5f;
-			}
-
-			//
-
-			Message msg = mngr.MessagesByID[ this.Message.ID ];
-			var myplayer = CustomPlayerData.GetPlayerData<MessagesCustomPlayer>( Main.myPlayer );
-			bool isUnread = myplayer.IsMessageRead( msg.ID );
-
-			if( isUnread ) {
-				this.UpdateForUnreadState();
-			} else {
-				this.UpdateForReadState();
-			}
-
-			//
-
-			this.UnreadHere = this.Message.GetUnreadChildren();
-
-			int unreadCount = this.UnreadHere.Count;
-
-			if( unreadCount >= 1 ) {
-				this.UnreadTextElem.TextColor = Color.Yellow;
-				this.UnreadTextElem.SetText( ""+unreadCount );
-			} else {
-				this.UnreadTextElem.SetText( "" );
 			}
 
 			//
@@ -58,23 +31,62 @@ namespace Messages.UI {
 		}
 
 
-		////
+		////////////////
+
+		private void UpdateTreeIcon() {
+			if( this.ChildMessageElems.Count >= 1 ) {
+				if( this.IsTreeExpanded ) {
+					this.TreeIconElem.SetText( "-" );
+				} else {
+					this.TreeIconElem.SetText( "+" );
+				}
+			} else {
+				this.TreeIconElem.SetText( "" );
+			}
+		}
+
+		private void UpdateUnreadIcon() {
+			this.UnreadHere = this.Message.GetUnreadChildren();
+
+			int unreadCount = this.UnreadHere.Count;
+
+			if( unreadCount >= 1 ) {
+				this.UnreadTextElem.TextColor = Color.Yellow;
+				this.UnreadTextElem.SetText( "" + unreadCount );
+			} else {
+				this.UnreadTextElem.SetText( "" );
+			}
+		}
+
+		private void UpdateForState() {
+			var mngr = ModContent.GetInstance<MessageManager>();
+			Message msg = mngr.MessagesByID[ this.Message.ID ];
+
+			var myplayer = CustomPlayerData.GetPlayerData<MessagesCustomPlayer>( Main.myPlayer );
+			bool isUnread = myplayer.IsMessageRead( msg.ID );
+
+			if( isUnread ) {
+				this.UpdateForUnreadState();
+			} else {
+				this.UpdateForReadState();
+			}
+		}
+
+
+		////////////////
 
 		private void UpdateForUnreadState() {
 			var mngr = ModContent.GetInstance<MessageManager>();
 
 			if( mngr.MessagesTabUI.RecentMessageID == this.Message.ID ) {
 				this.TitleElem.TextColor = Color.White;
-				this.DescriptionElem.TextColor = Color.White;
 			} else {
 				this.TitleElem.TextColor = Color.Gray;
-				this.DescriptionElem.TextColor = Color.Gray;
 			}
 		}
 
 		private void UpdateForReadState() {
 			this.TitleElem.TextColor = Color.Yellow;
-			this.DescriptionElem.TextColor = Color.White;
 
 			//
 

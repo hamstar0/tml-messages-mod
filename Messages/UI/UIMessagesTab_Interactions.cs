@@ -7,12 +7,15 @@ using ModLibsCore.Classes.PlayerData;
 using ModLibsCore.Libraries.Debug;
 using ModControlPanel.Internals.ControlPanel;
 using Messages.Logic;
+using Messages.Definitions;
 
 
 namespace Messages.UI {
 	partial class UIMessagesTab : UIControlPanelTab {
 		public bool OpenNextUnreadMessage() {
-			ISet<string> unreadMsgIds = ModContent.GetInstance<MessageManager>().GetUnreadMessages();
+			ISet<string> unreadMsgIds = ModContent.GetInstance<MessageManager>()
+				.GetUnreadMessages();
+
 			if( unreadMsgIds.Count() == 0 ) {
 				return false;
 			}
@@ -47,13 +50,32 @@ namespace Messages.UI {
 			if( exclusively ) {
 				this.CloseAllMessages();
 			}
-			this.MessageElems[ id ].Open( true, true );
+
+			//
+
+			this.MessageElems[ id ].DisplayMessageBody( true );
+
+			//
+
+			var hierarchy = new List<UIMessage>();
+
+			for( Message msg = this.MessageElems[id].Message.Parent;
+					 msg != null;
+					 msg = msg.Parent ) {
+				hierarchy.Insert( 0, this.MessageElems[msg.ID] );
+			}
+
+			foreach( UIMessage msg in hierarchy ) {
+				if( !msg.IsTreeExpanded ) {
+					msg.ExpandTree( false );
+				}
+			}
 		}
 
 		public void CloseAllMessages() {
 			foreach( var msgElem in this.MessageElems.Values ) {
-				if( msgElem.IsOpen ) {
-					msgElem.Close( false );
+				if( msgElem.IsTreeExpanded ) {
+					msgElem.CollapseTree( false );
 				}
 			}
 		}

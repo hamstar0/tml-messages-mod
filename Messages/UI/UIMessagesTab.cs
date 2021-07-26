@@ -26,16 +26,20 @@ namespace Messages.UI {
 
 		////
 
-		private UIList ListElem;
 		private UIThemedPanel Toolbar;
 		private UITextPanelButton GetUnreadButton;
 		private UITextPanelButton AllReadButton;
 		private UITextPanelButton ThisUnreadButton;
+
+		private UIList MessagesTreeList;
+
 		private UIThemedPanel MessageTreePanel;
+		private UIThemedPanel MessageBodyPanel;
 
-		internal UIThemedPanel MessageViewPanel;
+		internal UIList MessageBodyList;
 
-		private UIHideableScrollbar Scrollbar;
+		private UIHideableScrollbar MessagesTreeListScrollbar;
+		private UIHideableScrollbar MessageBodyListScrollbar;
 
 
 
@@ -50,26 +54,9 @@ namespace Messages.UI {
 		////////////////
 
 		public override void Draw( SpriteBatch spriteBatch ) {
-			bool listChanged;
-
 			try {
-				this.Scrollbar.IsHidden = UIHideableScrollbar.IsScrollbarHidden(
-					(int)this.ListElem.Height.Pixels,
-					this.ListElem.Parent
-				);
-
-				if( this.Scrollbar.IsHidden ) {
-					listChanged = this.ListElem.Width.Pixels != 0f;
-					this.ListElem.Width.Pixels = 0f;
-				} else {
-					listChanged = this.ListElem.Width.Pixels != -25f;
-					this.ListElem.Width.Pixels = -25f;
-				}
-
-				if( listChanged ) {
-					this.Recalculate();
-					this.ListElem.Recalculate();
-				}
+				this.UpdateTreeScrollbar();
+				this.UpdateBodyScrollbar();
 			} catch { }
 
 			base.Draw( spriteBatch );

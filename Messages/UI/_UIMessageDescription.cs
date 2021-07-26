@@ -13,7 +13,7 @@ using ModLibsUI.Classes.UI.Theme;
 
 
 namespace Messages.UI {
-	class UIMessageDescription : UIThemedText {
+	/*class UIMessageDescription : UIThemedText {
 		public const float DefaultScale = 0.8f;
 
 
@@ -36,7 +36,7 @@ namespace Messages.UI {
 
 		////////////////
 
-		/*public override void Recalculate() {
+		//public override void Recalculate() {
 			if( this.Parent != null ) {
 				DynamicSpriteFont font = Main.fontMouseText;    //this.Large ? Main.fontDeathText : Main.fontMouseText;
 				float textWidth = this.Parent.GetInnerDimensions().Width;	//this.Parent.Width.Pixels?
@@ -52,6 +52,6 @@ namespace Messages.UI {
 
 			base.Recalculate();
 //LogLibraries.Log( "hier: "+UILibraries.GetHierarchyData(this).Select(e=>e.Dimension).ToStringJoined("\n  ") );
-		}*/
-	}
+		}
+	}*/
 }

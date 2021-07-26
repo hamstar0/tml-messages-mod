@@ -58,12 +58,14 @@ namespace Messages.UI {
 
 		public Message Message { get; private set; }
 
-		public bool IsOpen { get; private set; } = false;
+		public bool IsTreeExpanded { get; private set; } = false;
 
 
 		////////////////
 
-		public event Action OnOpen;
+		public event Action<bool> OnTreeExpand;
+
+		public event Action OnBodyView;
 
 
 
@@ -87,9 +89,9 @@ namespace Messages.UI {
 
 			//
 
-			if( this.IsOpen ) {
-				this.Close( false );
-				this.Open( true, false );
+			if( this.IsTreeExpanded ) {
+				this.CollapseTree( false );
+				this.ExpandTree( false );
 			}
 
 			return idx;

@@ -10,12 +10,16 @@ using ModLibsUI.Classes.UI.Elements;
 
 namespace Messages.UI {
 	partial class UIMessage : UIThemedPanel {
-		public void ToggleOpen( bool recalcContainer ) {
-			if( this.IsOpen ) {
-				this.Close( true );
-			} else {
-				this.Open( true, true );
+		public void SelectMessageFromList( bool recalcContainer ) {
+			if( this.ChildMessageElems.Count >= 1 ) {
+				if( this.IsTreeExpanded ) {
+					this.CollapseTree( true );
+				} else {
+					this.ExpandTree( true );
+				}
 			}
+
+			this.DisplayMessageBody( true );
 
 			if( recalcContainer ) {
 				for( UIElement parent = this.Parent; parent != null; parent = parent.Parent ) {
@@ -29,35 +33,45 @@ namespace Messages.UI {
 
 		////////////////
 
-		internal void Open( bool expandChildren, bool viaInterface ) {
+		public void DisplayMessageBody( bool viaInterface ) {
 			var mycustomplayer = CustomPlayerData.GetPlayerData<MessagesCustomPlayer>( Main.myPlayer );
 			mycustomplayer.SetReadMessage( this.Message.ID );
 
-			this.TabContainer.MessageViewPanel.RemoveAllChildren();
-			this.TabContainer.MessageViewPanel.Append( this.DescriptionElem );
-
-			if( expandChildren ) {
-				this.InitializeChildMessages();
+			if( viaInterface ) {
+				this.OnBodyView?.Invoke();
 			}
+
+			var title = new UIThemedTextPanel( this.Theme, false, this.Message.Title, 0.75f, true );
+			title.Width.Set( 0f, 1f );
+
+			this.TabContainer.MessageBodyList.Clear();
+			this.TabContainer.MessageBodyList.Add( title );
+			this.TabContainer.MessageBodyList.Add( this.DescriptionElem );
+		}
+
+		////////////////
+
+		public void ExpandTree( bool viaInterface ) {
+			this.InitializeChildMessages();
 
 			if( viaInterface ) {
-				this.OnOpen?.Invoke();
+				this.OnTreeExpand?.Invoke( true );
 			}
 
-			this.IsOpen = true;
+			this.IsTreeExpanded = true;
 
 			this.Recalculate();
 		}
 
 
-		internal void Close( bool viaInterface ) {
-			foreach( UIMessage msgElem in this.ChildMessageElems ) {
-				msgElem.Close( viaInterface );
-			}
-
+		public void CollapseTree( bool viaInterface ) {
 			this.ChildMessagesContainerElem.RemoveAllChildren();
 
-			this.IsOpen = false;
+			if( viaInterface ) {
+				this.OnTreeExpand?.Invoke( false );
+			}
+
+			this.IsTreeExpanded = false;
 
 			this.Recalculate();
 		}

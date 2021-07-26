@@ -14,7 +14,7 @@ namespace Messages.UI {
 			}
 
 			var msgElem = new UIMessage( message, this );
-			msgElem.OnOpen += () => this.OnOpenListedMessageElement( msgElem );
+			msgElem.OnBodyView += () => this.OnOpenListedMessageElement( msgElem );
 
 			this.MessageElems[ message.ID ] = msgElem;
 
@@ -33,7 +33,7 @@ namespace Messages.UI {
 
 				this.TopLevelMessageElemsOrdered.Insert( idx, msgElem );
 
-				this.ListElem?.Add( msgElem );
+				this.MessagesTreeList?.Add( msgElem );
 			} else {
 				//this.GetMessageElementInList( parent )
 				//	.AddNestedMessageElem( newMsgElem );
@@ -66,8 +66,8 @@ namespace Messages.UI {
 			this.MessageElems.Remove( msg.Message.ID );
 			this.TopLevelMessageElemsOrdered.RemoveAt( idx );
 
-			if( this.ListElem?.Remove(item) ?? false ) {
-				this.ListElem?.UpdateOrder();
+			if( this.MessagesTreeList?.Remove(item) ?? false ) {
+				this.MessagesTreeList?.UpdateOrder();
 
 				this.Recalculate();
 			}
@@ -77,7 +77,7 @@ namespace Messages.UI {
 			this.TopLevelMessageElemsOrdered.Clear();
 			this.MessageElems.Clear();
 
-			this.ListElem?.Clear();
+			this.MessagesTreeList?.Clear();
 
 			this.Recalculate();
 		}

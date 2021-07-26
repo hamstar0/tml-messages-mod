@@ -52,5 +52,52 @@ namespace Messages.UI {
 				this.AllReadButton.Disable();
 			}
 		}
+
+
+		////////////////
+
+		private void UpdateTreeScrollbar() {
+			bool listChanged;
+
+			this.MessagesTreeListScrollbar.IsHidden = UIHideableScrollbar.IsScrollbarHidden(
+				(int)this.MessagesTreeList.Height.Pixels,
+				this.MessagesTreeList.Parent
+			);
+
+			if( this.MessagesTreeListScrollbar.IsHidden ) {
+				listChanged = this.MessagesTreeList.Width.Pixels != 0f;
+				this.MessagesTreeList.Width.Pixels = 0f;
+			} else {
+				listChanged = this.MessagesTreeList.Width.Pixels != -25f;
+				this.MessagesTreeList.Width.Pixels = -25f;
+			}
+
+			if( listChanged ) {
+				this.Recalculate();
+				this.MessagesTreeList.Recalculate();
+			}
+		}
+
+		private void UpdateBodyScrollbar() {
+			bool listChanged;
+
+			this.MessageBodyListScrollbar.IsHidden = UIHideableScrollbar.IsScrollbarHidden(
+				(int)this.MessageBodyList.Height.Pixels,
+				this.MessageBodyList.Parent
+			);
+
+			if( this.MessageBodyListScrollbar.IsHidden ) {
+				listChanged = this.MessageBodyList.Width.Pixels != 0f;
+				this.MessageBodyList.Width.Pixels = 0f;
+			} else {
+				listChanged = this.MessageBodyList.Width.Pixels != -25f;
+				this.MessageBodyList.Width.Pixels = -25f;
+			}
+
+			if( listChanged ) {
+				this.Recalculate();
+				this.MessageBodyList.Recalculate();
+			}
+		}
 	}
 }

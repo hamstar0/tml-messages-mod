@@ -17,7 +17,7 @@ namespace Messages.UI {
 			float baseHeight = this.CalculateBodyHeight();
 			float childContainerHeight = 0f;
 
-			if( this.IsOpen ) {
+			if( this.IsTreeExpanded ) {
 				this.Height.Set( Single.MaxValue, 0f );
 				this.ChildMessagesContainerElem.Height.Set( Single.MaxValue, 0f );
 
