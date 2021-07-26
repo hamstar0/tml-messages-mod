@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.UI;
 using Terraria.GameContent.UI.Elements;
@@ -43,6 +44,12 @@ namespace Messages.UI {
 
 			var title = new UIThemedTextPanel( this.Theme, false, this.Message.Title, 0.75f, true );
 			title.Width.Set( 0f, 1f );
+
+			/*var subtitle = new UIThemedText( this.Theme, false, this.Message.ModOfOrigin.DisplayName, 0.75f, false );
+			subtitle.PaddingTop = 24f;
+			subtitle.Width.Set( 0f, 1f );
+			subtitle.TextColor = Color.White * 0.35f;
+			title.AppendThemed( subtitle );*/
 
 			this.TabContainer.MessageBodyList.Clear();
 			this.TabContainer.MessageBodyList.Add( title );

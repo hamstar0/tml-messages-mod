@@ -43,6 +43,7 @@ namespace Messages {
 				title: "Remember to set your key bindings!",
 				description: "You can view these messages quickly by assigning key bindings in the menu for any "
 					+"mods you have that add them (such as this Messages mod).",
+				modOfOrigin: MessagesMod.Instance,
 				result: out _,
 				parent: MessagesAPI.ModInfoCategoryMsg,
 				alertPlayer: true

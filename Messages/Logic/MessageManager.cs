@@ -78,6 +78,7 @@ namespace Messages.Logic {
 		public Message AddMessage(
 					string title,
 					string description,
+					Mod modOfOrigin,
 					out string result,
 					string id = null,
 					int weight = 0,
@@ -94,7 +95,7 @@ namespace Messages.Logic {
 
 			//
 
-			var msg = new Message( title, description, id, weight );
+			var msg = new Message( title, description, modOfOrigin, id, weight );
 
 			if( parent != null ) {
 				parent.AddChild( msg );

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ModLoader;
 using ModLibsCore.Libraries.Debug;
 using ModLibsCore.Classes.PlayerData;
 
@@ -44,6 +45,10 @@ namespace Messages.Definitions {
 		public string Description { get; protected set; }
 
 		////
+		
+		public Mod ModOfOrigin { get; protected set; }
+
+		////
 
 		public int Weight { get; protected set; }
 
@@ -55,9 +60,9 @@ namespace Messages.Definitions {
 
 		////////////////
 
-		public Message( string title, string description, string id=null, int weight=0 ) {
+		public Message( string title, string description, Mod modOfOrigin, string id=null, int weight=0 ) {
 			this.ID = id == null
-				? title
+				? modOfOrigin.Name+" - "+title
 				: id;
 
 			this._Children = new List<Message>();
@@ -65,6 +70,7 @@ namespace Messages.Definitions {
 
 			this.Title = title;
 			this.Description = description;
+			this.ModOfOrigin = modOfOrigin;
 			this.Weight = weight;
 		}
 

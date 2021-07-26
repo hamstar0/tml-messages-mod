@@ -16,12 +16,16 @@ namespace Messages {
 	/// Supplies API functions.
 	/// </summary>
 	public partial class MessagesAPI {
+		/// <summary></summary>
 		public static Message ModInfoCategoryMsg => ModContent.GetInstance<MessageManager>().ModInfoCategoryMsg;
 
+		/// <summary></summary>
 		public static Message HintsTipsCategoryMsg => ModContent.GetInstance<MessageManager>().HintsTipsCategoryMsg;
 
+		/// <summary></summary>
 		public static Message GameInfoCategoryMsg => ModContent.GetInstance<MessageManager>().GameInfoCategoryMsg;
 
+		/// <summary></summary>
 		public static Message StoryLoreCategoryMsg => ModContent.GetInstance<MessageManager>().StoryLoreCategoryMsg;
 
 
@@ -67,6 +71,7 @@ namespace Messages {
 		/// <summary>Adds a message to the list.</summary>
 		/// <param name="title"></param>
 		/// <param name="description"></param>
+		/// <param name="modOfOrigin"></param>
 		/// <param name="result"></param>
 		/// <param name="id">Allows for duplicate messages. Defaults to using `title` if null.</param>
 		/// <param name="weight">Sort order priority of message in descending order.</param>
@@ -76,6 +81,7 @@ namespace Messages {
 		public static Message AddMessage(
 					string title,
 					string description,
+					Mod modOfOrigin,
 					out string result,
 					string id = null,
 					int weight = 0,
@@ -94,6 +100,7 @@ namespace Messages {
 				title: title,
 				description: description,
 				result: out result,
+				modOfOrigin: modOfOrigin,
 				id: id,
 				weight: weight,
 				parent: parent

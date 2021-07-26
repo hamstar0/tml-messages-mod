@@ -28,16 +28,18 @@ namespace Messages.Commands {
 			MessagesAPI.AddMessage(
 				title: "This is a sample message",
 				description: "This messages exists on its own.",
-				alertPlayer: false,
+				modOfOrigin: this.mod,
 				parent: mngr.ModInfoCategoryMsg,
+				alertPlayer: true,
 				result: out _
 			);
 
 			MessagesAPI.AddMessage(
 				title: "This is another sample message",
 				description: "Yay!",
-				alertPlayer: false,
+				modOfOrigin: this.mod,
 				parent: mngr.ModInfoCategoryMsg,
+				alertPlayer: true,
 				result: out _
 			);
 
@@ -53,6 +55,7 @@ namespace Messages.Commands {
 					+"\n \n"+"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 					+"\n \n"+"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 					+"\n \n"+"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+				modOfOrigin: this.mod,
 				alertPlayer: true,
 				parent: mngr.ModInfoCategoryMsg,
 				result: out _
@@ -61,7 +64,8 @@ namespace Messages.Commands {
 			msg = MessagesAPI.AddMessage(
 				title: "This is a message as a folder",
 				description: "",
-				alertPlayer: false,
+				modOfOrigin: this.mod,
+				alertPlayer: true,
 				parent: mngr.ModInfoCategoryMsg,
 				result: out _
 			);
@@ -69,6 +73,7 @@ namespace Messages.Commands {
 			MessagesAPI.AddMessage(
 				title: "Sub-message 1",
 				description: "I'm a message.",
+				modOfOrigin: this.mod,
 				alertPlayer: true,
 				parent: msg,
 				result: out _
@@ -77,6 +82,7 @@ namespace Messages.Commands {
 			 MessagesAPI.AddMessage(
 				title: "Sub-message 2",
 				description: "I'm a message.",
+				modOfOrigin: this.mod,
 				alertPlayer: true,
 				parent: msg,
 				result: out _
@@ -85,6 +91,7 @@ namespace Messages.Commands {
 			MessagesAPI.AddMessage(
 				title: "Sub-message 3",
 				description: "I'm a message.",
+				modOfOrigin: this.mod,
 				alertPlayer: true,
 				parent: msg,
 				result: out _
@@ -93,6 +100,7 @@ namespace Messages.Commands {
 			MessagesAPI.AddMessage(
 				title: "Sub-message 4",
 				description: "I'm a message.",
+				modOfOrigin: this.mod,
 				alertPlayer: true,
 				parent: msg,
 				result: out _
@@ -101,6 +109,7 @@ namespace Messages.Commands {
 			MessagesAPI.AddMessage(
 				title: "Sub-message 5",
 				description: "I'm a message.",
+				modOfOrigin: this.mod,
 				alertPlayer: true,
 				parent: msg,
 				result: out _
@@ -109,6 +118,7 @@ namespace Messages.Commands {
 			msg = MessagesAPI.AddMessage(
 				title: "Sub-message 6",
 				description: "I'm a message.",
+				modOfOrigin: this.mod,
 				alertPlayer: true,
 				parent: msg,
 				result: out _
@@ -117,6 +127,7 @@ namespace Messages.Commands {
 			MessagesAPI.AddMessage(
 				title: "Sub-sub-message 6",
 				description: "I'm a sub message.",
+				modOfOrigin: this.mod,
 				alertPlayer: true,
 				parent: msg,
 				result: out _

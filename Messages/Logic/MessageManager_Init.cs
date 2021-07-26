@@ -13,6 +13,7 @@ namespace Messages.Logic {
 			msg = this.AddMessage(
 				title: "Mod Info",
 				description: "",
+				modOfOrigin: MessagesMod.Instance,
 				result: out _,
 				weight: Int32.MinValue
 			);
@@ -23,6 +24,7 @@ namespace Messages.Logic {
 			msg = this.AddMessage(
 				title: "Hints & Tips",
 				description: "",
+				modOfOrigin: MessagesMod.Instance,
 				result: out _,
 				weight: Int32.MinValue + 1
 			);
@@ -33,6 +35,7 @@ namespace Messages.Logic {
 			msg = this.AddMessage(
 				title: "Game Info",
 				description: "",
+				modOfOrigin: MessagesMod.Instance,
 				result: out _,
 				weight: Int32.MinValue + 2
 			);
@@ -43,6 +46,7 @@ namespace Messages.Logic {
 			msg = this.AddMessage(
 				title: "Story & Lore",
 				description: "",
+				modOfOrigin: MessagesMod.Instance,
 				result: out _,
 				weight: Int32.MinValue + 3
 			);
