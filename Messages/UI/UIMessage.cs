@@ -53,6 +53,10 @@ namespace Messages.UI {
 
 		private ISet<string> UnreadHere = new HashSet<string>();
 
+		////
+
+		private float DescriptionHeight;
+
 
 		////////////////
 

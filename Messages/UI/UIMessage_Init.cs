@@ -47,12 +47,17 @@ namespace Messages.UI {
 
 			//
 
+			float descScale = 0.8f;
 			IList<string> descLines = FontLibraries.FitText( Main.fontMouseText, this.Message.Description, 560 );
 			string desc = descLines.ToStringJoined( "\n" );
 
-			this.DescriptionElem = new UIThemedText( this.Theme, false, desc, 0.8f, false );
+			this.DescriptionHeight = Main.fontMouseText.MeasureString( desc ).Y;
+			this.DescriptionHeight *= 1f / descScale;
+
+			this.DescriptionElem = new UIThemedText( this.Theme, false, desc, descScale, false );
 			this.DescriptionElem.TextColor = Color.White;
 			this.DescriptionElem.Width.Set( 0f, 1f );
+			this.DescriptionElem.Height.Set( this.DescriptionHeight, 0f );
 			this.DescriptionElem.HAlign = 0f;
 
 			//
