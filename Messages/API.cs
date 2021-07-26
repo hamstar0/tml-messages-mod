@@ -12,7 +12,22 @@ using Messages.Logic;
 
 
 namespace Messages {
+	/// <summary>
+	/// Supplies API functions.
+	/// </summary>
 	public partial class MessagesAPI {
+		public static Message ModInfoCategoryMsg => ModContent.GetInstance<MessageManager>().ModInfoCategoryMsg;
+
+		public static Message HintsTipsCategoryMsg => ModContent.GetInstance<MessageManager>().HintsTipsCategoryMsg;
+
+		public static Message GameInfoCategoryMsg => ModContent.GetInstance<MessageManager>().GameInfoCategoryMsg;
+
+		public static Message StoryLoreCategoryMsg => ModContent.GetInstance<MessageManager>().StoryLoreCategoryMsg;
+
+
+
+		////////////////
+
 		/// <summary>
 		/// Indicates if the current, local player has their messages loaded.
 		/// </summary>

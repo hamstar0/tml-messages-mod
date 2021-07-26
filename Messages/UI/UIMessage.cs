@@ -10,7 +10,7 @@ using Messages.Definitions;
 
 namespace Messages.UI {
 	partial class UIMessage : UIThemedPanel {
-		public const float DefaultHeight = 36f;
+		public const float DefaultHeight = 34f;
 
 
 

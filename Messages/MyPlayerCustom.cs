@@ -38,6 +38,15 @@ namespace Messages {
 			this.SetReadMessage( mngr.StoryLoreCategoryMsg.ID );
 
 			MessagesMod.Instance.RunMessageCategoriesInitializeEvent();
+
+			MessagesAPI.AddMessage(
+				title: "Remember to set your key bindings!",
+				description: "You can view these messages quickly by assigning key bindings in the menu for any "
+					+"mods you have that add them (such as this Messages mod).",
+				result: out _,
+				parent: MessagesAPI.ModInfoCategoryMsg,
+				alertPlayer: true
+			);
 		}
 
 

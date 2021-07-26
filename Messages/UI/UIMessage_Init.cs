@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.UI;
@@ -32,10 +33,7 @@ namespace Messages.UI {
 				this.UnreadTextElem.TextColor = this.UnreadHere.Count == 0 ? Color.Gray : Color.Yellow;
 				this.InfoContainer.Append( this.UnreadTextElem );
 
-				this.TitleElem = new UIThemedText( this.Theme, false, this.Message.Title, 1.1f, false );
-				this.TitleElem.TextColor = Color.Yellow;
-				this.TitleElem.Width.Set( 0f, 1f );
-				this.TitleElem.HAlign = 0f;
+				this.TitleElem = this.CreateTitleElement();
 				this.InfoContainer.Append( this.TitleElem );
 			}
 			this.InfoContainer.OnClick += (_, __) => this.SelectMessageFromList( true );
@@ -47,26 +45,11 @@ namespace Messages.UI {
 
 			//
 
-			float descScale = 0.8f;
-			IList<string> descLines = FontLibraries.FitText( Main.fontMouseText, this.Message.Description, 560 );
-			string desc = descLines.ToStringJoined( "\n" );
-
-			this.DescriptionHeight = Main.fontMouseText.MeasureString( desc ).Y;
-			this.DescriptionHeight *= 1f / descScale;
-
-			this.DescriptionElem = new UIThemedText( this.Theme, false, desc, descScale, false );
-			this.DescriptionElem.TextColor = Color.White;
-			this.DescriptionElem.Width.Set( 0f, 1f );
-			this.DescriptionElem.Height.Set( this.DescriptionHeight, 0f );
-			this.DescriptionElem.HAlign = 0f;
+			this.DescriptionElem = this.CreateDescriptionElement( out this.DescriptionHeight );
 
 			//
 
-			this.ChildMessagesContainerElem = new UIElement();
-			this.ChildMessagesContainerElem.Top.Set( UIMessage.DefaultHeight - 8f, 0f );
-			this.ChildMessagesContainerElem.Width.Set( 0f, 1f );
-			this.ChildMessagesContainerElem.SetPadding( 8f );
-			this.ChildMessagesContainerElem.PaddingRight = 0f;
+			this.ChildMessagesContainerElem = this.CreateChildContainerElement();
 			this.Append( this.ChildMessagesContainerElem );
 
 			//
@@ -86,6 +69,56 @@ namespace Messages.UI {
 			foreach( UIMessage msgElem in this.ChildMessageElems ) {
 				this.ChildMessagesContainerElem.Append( msgElem );
 			}
+		}
+
+
+		////////////////
+
+		private UIThemedText CreateTitleElement() {
+			float scale = 0.8f;
+			int maxWidth = 200;
+			maxWidth = (int)((float)maxWidth * (1f / scale));
+
+			IList<string> titleLines = FontLibraries.FitText( Main.fontMouseText, this.Message.Title, maxWidth );
+			string title = titleLines.FirstOrDefault() ?? "";
+			if( titleLines.Count >= 2 ) {
+				title += "...";
+			}
+
+			var elem = new UIThemedText( this.Theme, false, title, scale, false );
+			elem.TextColor = Color.Yellow;
+			elem.Width.Set( 0f, 1f );
+			elem.HAlign = 0f;
+
+			return elem;
+		}
+
+		private UIThemedText CreateDescriptionElement( out float height ) {
+			float descScale = 0.8f;
+
+			IList<string> descLines = FontLibraries.FitText( Main.fontMouseText, this.Message.Description, 560 );
+			string desc = descLines.ToStringJoined( "\n" );
+
+			height = Main.fontMouseText.MeasureString( desc ).Y;
+			height *= 1f / descScale;
+
+			var elem = new UIThemedText( this.Theme, false, desc, descScale, false );
+			elem.TextColor = Color.White;
+			elem.Width.Set( 0f, 1f );
+			elem.Height.Set( this.DescriptionHeight, 0f );
+			elem.HAlign = 0f;
+
+			return elem;
+		}
+
+		private UIElement CreateChildContainerElement() {
+			var elem = new UIElement();
+			elem.Top.Set( UIMessage.DefaultHeight - 8f, 0f );
+			elem.Width.Set( 0f, 1f );
+			elem.SetPadding( 8f );
+			elem.PaddingRight = 0f;
+
+			return elem;
 		}
 	}
 }
