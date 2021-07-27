@@ -13,6 +13,10 @@ namespace Messages {
 			this.AlertTickDuration = 60 * 15;
 		}
 
+		public void HideAlert() {
+			this.AlertTickDuration = 0;
+		}
+
 
 		////////////////
 

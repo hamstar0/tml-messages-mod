@@ -50,6 +50,7 @@ namespace Messages.UI {
 			this.PreInitializeMe();
 		}
 
+		
 		////////////////
 
 		public override void Draw( SpriteBatch spriteBatch ) {

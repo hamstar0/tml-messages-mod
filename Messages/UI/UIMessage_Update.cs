@@ -17,6 +17,8 @@ namespace Messages.UI {
 				return;
 			}
 
+			MessagesMod.Instance.HideAlert();
+
 			this.UpdateTreeIcon();
 			this.UpdateForState();
 			this.UpdateUnreadIcon();
