@@ -42,14 +42,16 @@ namespace Messages.UI {
 				this.OnBodyView?.Invoke();
 			}
 
-			var title = new UIThemedTextPanel( this.Theme, false, this.Message.Title, 0.75f, true );
+			var title = new UIThemedTextPanel( this.Theme, false, this.Message.Title, 0.5f, true );
 			title.Width.Set( 0f, 1f );
+			title.Height.Set( 56f, 0f );
 
-			/*var subtitle = new UIThemedText( this.Theme, false, this.Message.ModOfOrigin.DisplayName, 0.75f, false );
+			string subtitleText = "From mod: "+this.Message.ModOfOrigin.DisplayName;
+			var subtitle = new UIThemedText( this.Theme, false, subtitleText, 0.75f, false );
 			subtitle.PaddingTop = 24f;
 			subtitle.Width.Set( 0f, 1f );
 			subtitle.TextColor = Color.White * 0.35f;
-			title.AppendThemed( subtitle );*/
+			title.AppendThemed( subtitle );
 
 			this.TabContainer.MessageBodyList.Clear();
 			this.TabContainer.MessageBodyList.Add( title );
