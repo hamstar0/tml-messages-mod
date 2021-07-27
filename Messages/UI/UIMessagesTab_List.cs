@@ -78,6 +78,7 @@ namespace Messages.UI {
 			this.MessageElems.Clear();
 
 			this.MessagesTreeList?.Clear();
+			this.MessageBodyList?.Clear();
 
 			this.Recalculate();
 		}

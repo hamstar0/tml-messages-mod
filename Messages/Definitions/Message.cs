@@ -92,15 +92,17 @@ namespace Messages.Definitions {
 
 		////////////////
 
-		public ISet<string> GetUnreadChildren() {
+		public ISet<string> GetUnreadChildren( bool alsoDescendents ) {
 			var myplayer = CustomPlayerData.GetPlayerData<MessagesCustomPlayer>( Main.myPlayer );
 			var unreadChildren = new HashSet<string>();
 
 			foreach( Message child in this.Children ) {
 				if( !myplayer.IsMessageRead(child.ID) ) {
 					unreadChildren.Add( child.ID );
+				}
 
-					unreadChildren.UnionWith( child.GetUnreadChildren() );
+				if( alsoDescendents ) {
+					unreadChildren.UnionWith( child.GetUnreadChildren(true) );
 				}
 			}
 

@@ -31,11 +31,10 @@ namespace Messages.UI {
 		private UITextPanelButton AllReadButton;
 		private UITextPanelButton ThisUnreadButton;
 
-		private UIList MessagesTreeList;
-
 		private UIThemedPanel MessageTreePanel;
 		private UIThemedPanel MessageBodyPanel;
 
+		private UIList MessagesTreeList;
 		internal UIList MessageBodyList;
 
 		private UIHideableScrollbar MessagesTreeListScrollbar;

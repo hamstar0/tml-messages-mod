@@ -95,7 +95,7 @@ namespace Messages {
 			}
 
 			var mngr = ModContent.GetInstance<MessageManager>();
-
+			
 			Message msg = mngr.AddMessage(
 				title: title,
 				description: description,
@@ -138,8 +138,8 @@ namespace Messages {
 		////
 
 		/// <summary></summary>
-		/// <param name="forceIncomplete"></param>
-		public static void ClearMessages( bool forceIncomplete ) {
+		/// <param name="forceUnread"></param>
+		public static void ClearMessages( bool forceUnread ) {
 			if( Main.netMode == NetmodeID.Server ) {
 				throw new ModLibsException( "Server messages not allowed." );
 			}
@@ -149,7 +149,7 @@ namespace Messages {
 
 			var mngr = ModContent.GetInstance<MessageManager>();
 
-			mngr.ClearAllMessages( forceIncomplete );
+			mngr.ClearAllMessages( forceUnread );
 		}
 	}
 }

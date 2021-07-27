@@ -29,20 +29,30 @@ namespace Messages {
 					.ToDictionary( kv=>kv.Key, kv=>new HashSet<string>( kv.Value ) );
 			}
 
+/*LogLibraries.Log( "OnEnter "+isCurrentPlayer+" "+this.PlayerWho
+	+Main.gameMenu
+	+" "+LoadLibraries.IsWorldLoaded()
+	+" "+LoadLibraries.IsWorldBeingPlayed()
+	+" "+LoadLibraries.IsWorldSafelyBeingPlayed()
+	+" "+LoadLibraries.IsCurrentPlayerInGame()
+	+" "+this.ReadMessagesByIdsPerWorld.Select(kv=>kv.Key+": \""+kv.Value.ToStringJoined("\", ")).ToStringJoined("\n")
+);*/
 			var mngr = ModContent.GetInstance<MessageManager>();
+			mngr.ClearAllMessages();
+
 			mngr.InitializeCategories();
 
 			this.SetReadMessage( mngr.ModInfoCategoryMsg.ID );
 			this.SetReadMessage( mngr.HintsTipsCategoryMsg.ID );
 			this.SetReadMessage( mngr.GameInfoCategoryMsg.ID );
 			this.SetReadMessage( mngr.StoryLoreCategoryMsg.ID );
-
+			
 			MessagesMod.Instance.RunMessageCategoriesInitializeEvent();
 
 			MessagesAPI.AddMessage(
 				title: "Remember to set your key bindings!",
-				description: "You can view these messages quickly by assigning key bindings in the menu for any "
-					+"mods you have that add them (such as this Messages mod).",
+				description: "You can assign key bindings in the Controls menu for any mods you have that add them "
+					+"(such as this Messages mod).",
 				modOfOrigin: MessagesMod.Instance,
 				result: out _,
 				parent: MessagesAPI.ModInfoCategoryMsg,
@@ -52,6 +62,7 @@ namespace Messages {
 
 
 		protected override object OnExit() {
+LogLibraries.Log( "OnExit" );
 			var data = new Dictionary<string, HashSet<string>>( this.ReadMessagesByIdsPerWorld );
 
 			if( Main.netMode != NetmodeID.Server ) {

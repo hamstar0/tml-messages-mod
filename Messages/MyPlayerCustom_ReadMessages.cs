@@ -51,6 +51,17 @@ namespace Messages {
 		}
 
 
+		public void UnsetAllReadMessagesForCurrentWorld() {
+			string worldUid = WorldIdentityLibraries.GetUniqueIdForCurrentWorld( true );
+
+			if( !this.ReadMessagesByIdsPerWorld.ContainsKey( worldUid ) ) {
+				return;
+			}
+
+			this.ReadMessagesByIdsPerWorld[worldUid].Clear();
+		}
+
+
 		public void UnsetAllReadMessages() {
 			this.ReadMessagesByIdsPerWorld.Clear();
 		}

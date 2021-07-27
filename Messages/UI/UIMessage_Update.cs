@@ -46,7 +46,7 @@ namespace Messages.UI {
 		}
 
 		private void UpdateUnreadIcon() {
-			this.UnreadHere = this.Message.GetUnreadChildren();
+			this.UnreadHere = this.Message.GetUnreadChildren(true);
 
 			int unreadCount = this.UnreadHere.Count;
 

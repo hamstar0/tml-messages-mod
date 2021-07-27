@@ -65,8 +65,9 @@ namespace Messages.Logic {
 			ISet<string> readMsgIds = mycustomplayer.GetReadMessageIdsForCurrentWorld();
 
 			var unreadMsgIds = new HashSet<string>(
-				this.MessagesByID.Keys
-					.Where( id => !readMsgIds.Contains( id ) )
+				this.MessagesByID
+					.Keys
+					.Where( id => !readMsgIds.Contains(id) )
 			);
 
 			return unreadMsgIds;
@@ -128,12 +129,16 @@ namespace Messages.Logic {
 			if( forceUnread ) {
 				var myplayer = CustomPlayerData.GetPlayerData<MessagesCustomPlayer>( Main.LocalPlayer.whoAmI );
 
-				foreach( Message msg in this.MessagesByID.Values ) {
-					myplayer.UnsetReadMessage( msg.ID );
-				}
+				myplayer.UnsetAllReadMessagesForCurrentWorld();
 			}
 
 			this.MessagesByID.Clear();
+			this.ModInfoCategoryMsg = null;
+			this.HintsTipsCategoryMsg = null;
+			this.GameInfoCategoryMsg = null;
+			this.StoryLoreCategoryMsg = null;
+
+			this.MessagesTabUI.ClearMessageElementsList();
 		}
 	}
 }
