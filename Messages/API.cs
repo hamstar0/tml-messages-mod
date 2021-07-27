@@ -9,7 +9,7 @@ using ModLibsCore.Libraries.DotNET.Extensions;
 using ModControlPanel.Services.UI.ControlPanel;
 using Messages.Definitions;
 using Messages.Logic;
-
+using System.Collections.Generic;
 
 namespace Messages {
 	/// <summary>
@@ -63,6 +63,18 @@ namespace Messages {
 			var mngr = ModContent.GetInstance<MessageManager>();
 
 			return mngr.MessagesByID.GetOrDefault( id );
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public static ISet<string> GetUnreadMessageIDs() {
+			if( Main.netMode == NetmodeID.Server ) {
+				throw new ModLibsException( "Server Messages not allowed." );
+			}
+
+			var mngr = ModContent.GetInstance<MessageManager>();
+
+			return mngr.GetUnreadMessages();
 		}
 
 
