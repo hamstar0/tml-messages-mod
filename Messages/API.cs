@@ -85,17 +85,15 @@ namespace Messages {
 		/// <param name="title"></param>
 		/// <param name="description"></param>
 		/// <param name="modOfOrigin"></param>
-		/// <param name="result"></param>
 		/// <param name="id">Allows for duplicate messages. Defaults to using `title` if null.</param>
 		/// <param name="weight">Sort order priority of message in descending order.</param>
 		/// <param name="parent">"Folder" message (`Message`) for the current message to belong to.</param>
 		/// <param name="alertPlayer"></param>
 		/// <returns>A non-null `Message` if message was registered successfully (i.e. no duplicates found).</returns>
-		public static Message AddMessage(
+		public static (Message msg, string result) AddMessage(
 					string title,
 					string description,
 					Mod modOfOrigin,
-					out string result,
 					string id = null,
 					int weight = 0,
 					object parentMessage = null,
@@ -115,7 +113,7 @@ namespace Messages {
 			Message msg = mngr.AddMessage(
 				title: title,
 				description: description,
-				result: out result,
+				result: out string result,
 				modOfOrigin: modOfOrigin,
 				id: id,
 				weight: weight,
@@ -130,7 +128,7 @@ namespace Messages {
 				}
 			}
 
-			return msg;
+			return (msg, result);
 		}
 
 		////

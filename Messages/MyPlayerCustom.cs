@@ -54,7 +54,6 @@ namespace Messages {
 				description: "You can assign key bindings in the Controls menu for any mods you have that add them "
 					+"(such as this Messages mod).",
 				modOfOrigin: MessagesMod.Instance,
-				result: out _,
 				parentMessage: MessagesAPI.ModInfoCategoryMsg,
 				alertPlayer: true
 			);
