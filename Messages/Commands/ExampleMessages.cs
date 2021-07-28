@@ -29,7 +29,7 @@ namespace Messages.Commands {
 				title: "This is a sample message",
 				description: "This messages exists on its own.",
 				modOfOrigin: this.mod,
-				parent: mngr.ModInfoCategoryMsg,
+				parentMessage: mngr.ModInfoCategoryMsg,
 				alertPlayer: true,
 				result: out _
 			);
@@ -38,7 +38,7 @@ namespace Messages.Commands {
 				title: "This is another sample message",
 				description: "Yay!",
 				modOfOrigin: this.mod,
-				parent: mngr.ModInfoCategoryMsg,
+				parentMessage: mngr.ModInfoCategoryMsg,
 				alertPlayer: true,
 				result: out _
 			);
@@ -57,7 +57,7 @@ namespace Messages.Commands {
 					+"\n \n"+"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
 				modOfOrigin: this.mod,
 				alertPlayer: true,
-				parent: mngr.ModInfoCategoryMsg,
+				parentMessage: mngr.ModInfoCategoryMsg,
 				result: out _
 			);
 
@@ -66,7 +66,7 @@ namespace Messages.Commands {
 				description: "",
 				modOfOrigin: this.mod,
 				alertPlayer: true,
-				parent: mngr.ModInfoCategoryMsg,
+				parentMessage: mngr.ModInfoCategoryMsg,
 				result: out _
 			);
 
@@ -75,7 +75,7 @@ namespace Messages.Commands {
 				description: "I'm a message.",
 				modOfOrigin: this.mod,
 				alertPlayer: true,
-				parent: msg,
+				parentMessage: msg,
 				result: out _
 			);
 
@@ -84,7 +84,7 @@ namespace Messages.Commands {
 				description: "I'm a message.",
 				modOfOrigin: this.mod,
 				alertPlayer: true,
-				parent: msg,
+				parentMessage: msg,
 				result: out _
 			);
 
@@ -93,7 +93,7 @@ namespace Messages.Commands {
 				description: "I'm a message.",
 				modOfOrigin: this.mod,
 				alertPlayer: true,
-				parent: msg,
+				parentMessage: msg,
 				result: out _
 			);
 
@@ -102,7 +102,7 @@ namespace Messages.Commands {
 				description: "I'm a message.",
 				modOfOrigin: this.mod,
 				alertPlayer: true,
-				parent: msg,
+				parentMessage: msg,
 				result: out _
 			);
 
@@ -111,7 +111,7 @@ namespace Messages.Commands {
 				description: "I'm a message.",
 				modOfOrigin: this.mod,
 				alertPlayer: true,
-				parent: msg,
+				parentMessage: msg,
 				result: out _
 			);
 
@@ -120,7 +120,7 @@ namespace Messages.Commands {
 				description: "I'm a message.",
 				modOfOrigin: this.mod,
 				alertPlayer: true,
-				parent: msg,
+				parentMessage: msg,
 				result: out _
 			);
 
@@ -129,7 +129,7 @@ namespace Messages.Commands {
 				description: "I'm a sub message.",
 				modOfOrigin: this.mod,
 				alertPlayer: true,
-				parent: msg,
+				parentMessage: msg,
 				result: out _
 			);
 		}

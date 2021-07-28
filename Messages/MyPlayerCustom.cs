@@ -55,14 +55,13 @@ namespace Messages {
 					+"(such as this Messages mod).",
 				modOfOrigin: MessagesMod.Instance,
 				result: out _,
-				parent: MessagesAPI.ModInfoCategoryMsg,
+				parentMessage: MessagesAPI.ModInfoCategoryMsg,
 				alertPlayer: true
 			);
 		}
 
 
 		protected override object OnExit() {
-LogLibraries.Log( "OnExit" );
 			var data = new Dictionary<string, HashSet<string>>( this.ReadMessagesByIdsPerWorld );
 
 			if( Main.netMode != NetmodeID.Server ) {
