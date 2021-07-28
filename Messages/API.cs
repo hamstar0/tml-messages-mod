@@ -78,6 +78,18 @@ namespace Messages {
 			return mngr.GetUnreadMessages();
 		}
 
+		/// <summary></summary>
+		/// <returns></returns>
+		public static int GetUnreadMessageCount() {
+			if( Main.netMode == NetmodeID.Server ) {
+				throw new ModLibsException( "Server Messages not allowed." );
+			}
+
+			var mngr = ModContent.GetInstance<MessageManager>();
+
+			return mngr.GetUnreadMessages().Count;
+		}
+
 
 		////////////////
 
