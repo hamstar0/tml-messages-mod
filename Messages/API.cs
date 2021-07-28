@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -9,7 +10,7 @@ using ModLibsCore.Libraries.DotNET.Extensions;
 using ModControlPanel.Services.UI.ControlPanel;
 using Messages.Definitions;
 using Messages.Logic;
-using System.Collections.Generic;
+
 
 namespace Messages {
 	/// <summary>
@@ -87,7 +88,7 @@ namespace Messages {
 		/// <param name="result"></param>
 		/// <param name="id">Allows for duplicate messages. Defaults to using `title` if null.</param>
 		/// <param name="weight">Sort order priority of message in descending order.</param>
-		/// <param name="parent"></param>
+		/// <param name="parent">"Folder" message (`Message`) for the current message to belong to.</param>
 		/// <param name="alertPlayer"></param>
 		/// <returns>A non-null `Message` if message was registered successfully (i.e. no duplicates found).</returns>
 		public static Message AddMessage(
@@ -97,13 +98,16 @@ namespace Messages {
 					out string result,
 					string id = null,
 					int weight = 0,
-					Message parent = null,
+					object parentMessage = null,
 					bool alertPlayer = true ) {
 			if( Main.netMode == NetmodeID.Server ) {
 				throw new ModLibsException( "Server messages not allowed." );
 			}
 			if( !MessagesMod.Instance.IsMessageTabCategoriesInitialized ) {
 				throw new ModLibsException( "Message display not finished initializing." );
+			}
+			if( parentMessage != null && !(parentMessage is Message) ) {
+				throw new ModLibsException( "Invalid parentMessage." );
 			}
 
 			var mngr = ModContent.GetInstance<MessageManager>();
@@ -115,7 +119,7 @@ namespace Messages {
 				modOfOrigin: modOfOrigin,
 				id: id,
 				weight: weight,
-				parent: parent
+				parent: parentMessage as Message
 			);
 
 			if( result == "Success." ) {
@@ -132,19 +136,22 @@ namespace Messages {
 		////
 
 		/// <summary></summary>
-		/// <param name="title"></param>
+		/// <param name="message">A valid `Message` object.</param>
 		/// <param name="forceIncomplete"></param>
-		public static void RemoveMessage( Message message, bool forceIncomplete ) {
+		public static void RemoveMessage( object message, bool forceIncomplete ) {
 			if( Main.netMode == NetmodeID.Server ) {
 				throw new ModLibsException( "Server messages not allowed." );
 			}
 			if( !MessagesMod.Instance.IsMessageTabCategoriesInitialized ) {
 				throw new ModLibsException( "Message display not finished initializing." );
 			}
+			if( !(message is Message) ) {
+				throw new ModLibsException( "Invalid message object." );
+			}
 
 			var mngr = ModContent.GetInstance<MessageManager>();
 
-			mngr.RemoveMessage( message, forceIncomplete );
+			mngr.RemoveMessage( message as Message, forceIncomplete );
 		}
 
 		////

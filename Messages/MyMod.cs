@@ -1,5 +1,6 @@
 using System;
 using Microsoft.Xna.Framework.Graphics;
+using ModLibsCore.Libraries.TModLoader.Mods;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -61,7 +62,14 @@ namespace Messages {
 
 
 		////////////////
-		
+
+		public override object Call( params object[] args ) {
+			return ModBoilerplateLibraries.HandleModCall( typeof(MessagesAPI), args );
+		}
+
+
+		////////////////
+
 		internal void RunMessagesInitializeEvent() {
 			this.OnMessageTabInitialize?.Invoke();
 			this.IsMessageTabInitialized = true;
