@@ -61,9 +61,7 @@ namespace Messages.Definitions {
 		////////////////
 
 		public Message( string title, string description, Mod modOfOrigin, string id=null, int weight=0 ) {
-			this.ID = id == null
-				? modOfOrigin.Name+" - "+title
-				: id;
+			this.ID = id ?? modOfOrigin.Name+" - "+title;
 
 			this._Children = new List<Message>();
 			this.Children = this._Children.AsReadOnly();
@@ -107,6 +105,15 @@ namespace Messages.Definitions {
 			}
 
 			return unreadChildren;
+		}
+
+
+		////////////////
+		
+		public void SetReadMessage() {
+			var myplayer = CustomPlayerData.GetPlayerData<MessagesCustomPlayer>( Main.myPlayer );
+
+			myplayer.SetReadMessage( this.ID );
 		}
 
 
