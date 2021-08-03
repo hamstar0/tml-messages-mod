@@ -134,7 +134,7 @@ namespace Messages {
 
 			if( result == "Success." ) {
 				if( alertPlayer ) {
-					ControlPanelTabs.AddTabAlert( MessagesMod.ControlPanelTabName );
+					ControlPanelTabs.AddTabAlert( MessagesMod.ControlPanelTabName, false );
 
 					MessagesMod.Instance.ShowAlert();
 				}
