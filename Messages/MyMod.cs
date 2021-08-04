@@ -1,9 +1,9 @@
 using System;
 using Microsoft.Xna.Framework.Graphics;
-using ModLibsCore.Libraries.TModLoader.Mods;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using ModLibsCore.Libraries.TModLoader.Mods;
 
 
 namespace Messages {
@@ -71,13 +71,13 @@ namespace Messages {
 		////////////////
 
 		internal void RunMessagesInitializeEvent() {
-			this.OnMessageTabInitialize?.Invoke();
 			this.IsMessageTabInitialized = true;
+			this.OnMessageTabInitialize?.Invoke();
 		}
 		
 		internal void RunMessageCategoriesInitializeEvent() {
-			this.OnMessageTabCategoriesInitialize?.Invoke();
 			this.IsMessageTabCategoriesInitialized = true;
+			this.OnMessageTabCategoriesInitialize?.Invoke();
 		}
 	}
 }
