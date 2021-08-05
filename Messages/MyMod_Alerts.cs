@@ -39,10 +39,18 @@ namespace Messages {
 
 			Rectangle buttonArea = this.DrawMessageAlert( spriteBatch, messageCount );
 
-			if( Main.mouseLeft && Main.mouseLeftRelease && buttonArea.Contains(Main.mouseX, Main.mouseY) ) {
-				this.AlertTickDuration = 0;
+			if( buttonArea.Contains( Main.mouseX, Main.mouseY ) ) {
+				Main.LocalPlayer.mouseInterface = true;
 
-				ControlPanelTabs.OpenTab( MessagesMod.ControlPanelTabName );
+				if( Main.mouseLeft && Main.mouseLeftRelease ) {
+					this.AlertTickDuration = 0;
+
+					ControlPanelTabs.OpenTab( MessagesMod.ControlPanelTabName );
+
+					ModContent.GetInstance<MessageManager>()
+						.MessagesTabUI
+						.OpenNextUnreadMessage();
+				}
 			}
 		}
 
