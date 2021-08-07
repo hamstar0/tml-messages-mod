@@ -21,6 +21,10 @@ namespace Messages {
 		////////////////
 
 		public override void PostDrawInterface( SpriteBatch spriteBatch ) {
+			if( Main.gameMenu ) {
+				return;
+			}
+
 			if( this.AlertTickDuration >= 1 ) {
 				this.AlertTickDuration--;
 
