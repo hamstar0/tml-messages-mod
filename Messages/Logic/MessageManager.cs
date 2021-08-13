@@ -61,16 +61,22 @@ namespace Messages.Logic {
 		////////////////
 
 		public ISet<string> GetUnreadMessages() {
-			var mycustomplayer = CustomPlayerData.GetPlayerData<MessagesCustomPlayer>( Main.myPlayer );
-			ISet<string> readMsgIds = mycustomplayer.GetReadMessageIdsForCurrentWorld();
+			ISet<string> unreadMsgIds = null;
 
-			var unreadMsgIds = new HashSet<string>(
-				this.MessagesByID
-					.Keys
-					.Where( id => !readMsgIds.Contains(id) )
-			);
+			try {
+				var mycustomplayer = CustomPlayerData.GetPlayerData<MessagesCustomPlayer>( Main.myPlayer );
+				ISet<string> readMsgIds = mycustomplayer.GetReadMessageIdsForCurrentWorld();
 
-			return unreadMsgIds;
+				unreadMsgIds = new HashSet<string>(
+					this.MessagesByID
+						.Keys
+						.Where( id => !readMsgIds.Contains(id) )
+				);
+			} catch( Exception e ) {
+				LogLibraries.Warn( e.ToString() );
+			}
+
+			return unreadMsgIds ?? new HashSet<string>();
 		}
 
 
