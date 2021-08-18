@@ -46,7 +46,7 @@ namespace Messages.Logic {
 					this.MessagesTabUI = new UIMessagesTab( UITheme.Vanilla );
 
 					// Add tab
-					UtilityPanelsTabs.AddTab( MessagesMod.ControlPanelTabName, this.MessagesTabUI );
+					UtilityPanelsTabs.AddTab( MessagesMod.UtilityPanelsTabName, this.MessagesTabUI );
 
 					MessagesMod.Instance.RunMessagesInitializeEvent();
 				};

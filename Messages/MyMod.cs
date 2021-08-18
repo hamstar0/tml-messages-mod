@@ -8,7 +8,7 @@ using ModLibsCore.Libraries.TModLoader.Mods;
 
 namespace Messages {
 	public partial class MessagesMod : Mod {
-		public const string ControlPanelTabName = "Messages";
+		public const string UtilityPanelsTabName = "Messages";
 
 
 		////////////////
@@ -46,14 +46,14 @@ namespace Messages {
 
 		////
 
-		public ModHotKey ControlPanelHotkey { get; private set; }
+		public ModHotKey UtilPanelHotkey { get; private set; }
 
 
 
 		////////////////
 		
 		public override void Load() {
-			this.ControlPanelHotkey = this.RegisterHotKey( "Toggle Messages", "OemTilde" );
+			this.UtilPanelHotkey = this.RegisterHotKey( "Toggle Messages", "OemTilde" );
 
 			if( !Main.dedServ && Main.netMode != NetmodeID.Server ) {
 				this.MessageAlertTex = this.GetTexture( "UI/MessageAlert" );

@@ -49,7 +49,7 @@ namespace Messages {
 				if( Main.mouseLeft && Main.mouseLeftRelease ) {
 					this.AlertTickDuration = 0;
 
-					UtilityPanelsTabs.OpenTab( MessagesMod.ControlPanelTabName );
+					UtilityPanelsTabs.OpenTab( MessagesMod.UtilityPanelsTabName );
 
 					ModContent.GetInstance<MessageManager>()
 						.MessagesTabUI

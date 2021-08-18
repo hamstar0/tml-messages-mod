@@ -11,11 +11,11 @@ namespace Messages {
 			var mymod = (MessagesMod)this.mod;
 
 			try {
-				if( mymod.ControlPanelHotkey?.JustPressed == true ) {
+				if( mymod.UtilPanelHotkey?.JustPressed == true ) {
 					if( UtilityPanelsTabs.IsDialogOpen() ) {
 						UtilityPanelsTabs.CloseDialog();
 					} else {
-						UtilityPanelsTabs.OpenTab( MessagesMod.ControlPanelTabName );
+						UtilityPanelsTabs.OpenTab( MessagesMod.UtilityPanelsTabName );
 					}
 				}
 			} catch { }
