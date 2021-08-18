@@ -36,6 +36,7 @@ namespace Messages {
 		private int AlertTickDuration = 0;
 
 		private Texture2D MessageAlertTex;
+		private Texture2D MessageAlert2Tex;
 
 
 		////////////////
@@ -57,14 +58,8 @@ namespace Messages {
 
 			if( !Main.dedServ && Main.netMode != NetmodeID.Server ) {
 				this.MessageAlertTex = this.GetTexture( "UI/MessageAlert" );
+				this.MessageAlert2Tex = this.GetTexture( "UI/MessageAlert2" );
 			}
-		}
-
-
-		////////////////
-
-		public override object Call( params object[] args ) {
-			return ModBoilerplateLibraries.HandleModCall( typeof(MessagesAPI), args );
 		}
 
 

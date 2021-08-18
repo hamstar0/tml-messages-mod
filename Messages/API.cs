@@ -29,6 +29,9 @@ namespace Messages {
 		/// <summary></summary>
 		public static Message StoryLoreCategoryMsg => ModContent.GetInstance<MessageManager>().StoryLoreCategoryMsg;
 
+		/// <summary></summary>
+		public static Message EventsCategoryMsg => ModContent.GetInstance<MessageManager>().EventsCategoryMsg;
+
 
 
 		////////////////
@@ -67,15 +70,16 @@ namespace Messages {
 		}
 
 		/// <summary></summary>
+		/// <param name="important"></param>
 		/// <returns></returns>
-		public static ISet<string> GetUnreadMessageIDs() {
+		public static ISet<string> GetUnreadMessageIDs( out ISet<string> important ) {
 			if( Main.netMode == NetmodeID.Server ) {
 				throw new ModLibsException( "Server Messages not allowed." );
 			}
 
 			var mngr = ModContent.GetInstance<MessageManager>();
 
-			return mngr.GetUnreadMessages();
+			return mngr.GetUnreadMessages( out important );
 		}
 
 		/// <summary></summary>
@@ -87,7 +91,7 @@ namespace Messages {
 
 			var mngr = ModContent.GetInstance<MessageManager>();
 
-			return mngr.GetUnreadMessages().Count;
+			return mngr.GetUnreadMessages(out _).Count;
 		}
 
 
@@ -97,19 +101,20 @@ namespace Messages {
 		/// <param name="title"></param>
 		/// <param name="description"></param>
 		/// <param name="modOfOrigin"></param>
+		/// <param name="alertPlayer"></param>
 		/// <param name="id">Allows for duplicate messages. Defaults to using `title` if null.</param>
 		/// <param name="weight">Sort order priority of message in descending order.</param>
 		/// <param name="parent">"Folder" message (`Message`) for the current message to belong to.</param>
-		/// <param name="alertPlayer"></param>
 		/// <returns>A non-null `Message` if message was registered successfully (i.e. no duplicates found).</returns>
 		public static (Message msg, string result) AddMessage(
 					string title,
 					string description,
 					Mod modOfOrigin,
+					bool alertPlayer,
+					bool isImportant,
+					Message parentMessage,
 					string id = null,
-					int weight = 0,
-					object parentMessage = null,
-					bool alertPlayer = true ) {
+					int weight = 0 ) {
 			if( Main.netMode == NetmodeID.Server ) {
 				throw new ModLibsException( "Server messages not allowed." );
 			}
@@ -125,11 +130,12 @@ namespace Messages {
 			Message msg = mngr.AddMessage(
 				title: title,
 				description: description,
+				parent: parentMessage as Message,
+				isImportant: isImportant,
 				result: out string result,
 				modOfOrigin: modOfOrigin,
 				id: id,
-				weight: weight,
-				parent: parentMessage as Message
+				weight: weight
 			);
 
 			if( result == "Success." ) {

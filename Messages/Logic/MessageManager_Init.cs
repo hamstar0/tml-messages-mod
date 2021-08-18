@@ -13,7 +13,9 @@ namespace Messages.Logic {
 			msg = this.AddMessage(
 				title: "Mod Info",
 				description: "",
+				parent: null,
 				modOfOrigin: MessagesMod.Instance,
+				isImportant: false,
 				result: out _,
 				weight: Int32.MinValue
 			);
@@ -24,7 +26,9 @@ namespace Messages.Logic {
 			msg = this.AddMessage(
 				title: "Hints & Tips",
 				description: "",
+				parent: null,
 				modOfOrigin: MessagesMod.Instance,
+				isImportant: false,
 				result: out _,
 				weight: Int32.MinValue + 1
 			);
@@ -36,6 +40,8 @@ namespace Messages.Logic {
 				title: "Game Info",
 				description: "",
 				modOfOrigin: MessagesMod.Instance,
+				isImportant: false,
+				parent: null,
 				result: out _,
 				weight: Int32.MinValue + 2
 			);
@@ -47,11 +53,26 @@ namespace Messages.Logic {
 				title: "Story & Lore",
 				description: "",
 				modOfOrigin: MessagesMod.Instance,
+				isImportant: false,
+				parent: null,
 				result: out _,
 				weight: Int32.MinValue + 3
 			);
 			if( msg != null ) {
 				this.StoryLoreCategoryMsg = msg;
+			}
+
+			msg = this.AddMessage(
+				title: "Events & Interactions",
+				description: "",
+				modOfOrigin: MessagesMod.Instance,
+				isImportant: false,
+				parent: null,
+				result: out _,
+				weight: Int32.MinValue + 3
+			);
+			if( msg != null ) {
+				this.EventsCategoryMsg = msg;
 			}
 		}
 	}

@@ -46,6 +46,7 @@ namespace Messages {
 			this.SetReadMessage( mngr.HintsTipsCategoryMsg.ID );
 			this.SetReadMessage( mngr.GameInfoCategoryMsg.ID );
 			this.SetReadMessage( mngr.StoryLoreCategoryMsg.ID );
+			this.SetReadMessage( mngr.EventsCategoryMsg.ID );
 			
 			MessagesMod.Instance.RunMessageCategoriesInitializeEvent();
 
@@ -54,6 +55,7 @@ namespace Messages {
 				description: "You can assign key bindings in the Controls menu for any mods you have that add them "
 					+"(such as this Messages mod).",
 				modOfOrigin: MessagesMod.Instance,
+				isImportant: false,
 				parentMessage: MessagesAPI.ModInfoCategoryMsg,
 				alertPlayer: true
 			);

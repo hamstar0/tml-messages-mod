@@ -14,9 +14,9 @@ namespace Messages.UI {
 		public override void Update( GameTime gameTime ) {
 			base.Update( gameTime );
 
-			ISet<string> unreadMsgIds = ModContent.GetInstance<MessageManager>().GetUnreadMessages();
+			ISet<string> unreadMsgIds = ModContent.GetInstance<MessageManager>().GetUnreadMessages(out _);
 
-			if( unreadMsgIds.Count > 0 ) {
+			if( unreadMsgIds.Count >= 1 ) {
 				this.UpdateForUnreadMessages();
 			} else {
 				this.UpdateForNoUnreadMessages();

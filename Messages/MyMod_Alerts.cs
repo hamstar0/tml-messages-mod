@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
@@ -32,16 +33,20 @@ namespace Messages {
 			}
 		}
 
+
+		////////////////
+
 		private void DrawMessageAlertIf( SpriteBatch spriteBatch ) {
 			var mngr = ModContent.GetInstance<MessageManager>();
-			int messageCount = mngr.GetUnreadMessages().Count;
+			int messageCount = mngr.GetUnreadMessages( out ISet<string> important )
+				.Count;
 			if( messageCount == 0 ) {
 				this.AlertTickDuration = 0;
 
 				return;
 			}
 
-			Rectangle buttonArea = this.DrawMessageAlert( spriteBatch, messageCount );
+			Rectangle buttonArea = this.DrawMessageAlert( spriteBatch, messageCount, important.Count >= 1 );
 
 			if( buttonArea.Contains( Main.mouseX, Main.mouseY ) ) {
 				Main.LocalPlayer.mouseInterface = true;
@@ -59,9 +64,11 @@ namespace Messages {
 		}
 
 
-		////////////////
+		////
 
-		private Rectangle DrawMessageAlert( SpriteBatch sb, int messageCount ) {
+		 private int ImportantMsgAnimCycle = 0;
+
+		private Rectangle DrawMessageAlert( SpriteBatch sb, int messageCount, bool hasImportance ) {
 			var pos = new Vector2(
 				Main.screenWidth / 2,
 				(4 * Main.screenHeight) / 5
@@ -78,8 +85,14 @@ namespace Messages {
 			float scaleBase = 1f;   //pulse
 			float texScale = scaleBase * 0.25f;
 
+			Texture2D tex = hasImportance
+				? this.MessageAlert2Tex
+				: this.MessageAlertTex;
+
+			//
+
 			sb.Draw(
-				texture: this.MessageAlertTex,
+				texture: tex,
 				position: pos,
 				sourceRectangle: null,
 				color: Color.White * 0.6f * pulse,
@@ -90,28 +103,66 @@ namespace Messages {
 				layerDepth: 0f
 			);
 
-			string msgText = "" + messageCount;
-			float msgScale = scaleBase * 1.5f;
-			Vector2 msgDim = Main.fontMouseText.MeasureString( msgText );
-			Vector2 msgOrigin = msgDim * 0.5f;
+			if( hasImportance ) {
+				if( this.ImportantMsgAnimCycle++ > 30 ) {
+					this.ImportantMsgAnimCycle = 0;
+				}
+				float importantAddedScale = (float)this.ImportantMsgAnimCycle / 30f;
 
-			sb.DrawString(
-				spriteFont: Main.fontMouseText,
-				text: msgText,
-				position: pos + new Vector2(0f, 16f),
-				color: Color.Cyan * 0.6f * pulse,
-				rotation: 0f,
-				origin: msgOrigin,
-				scale: msgScale,
-				effects: SpriteEffects.None,
-				layerDepth: 0f
-			);
+				sb.Draw(
+					texture: tex,
+					position: pos,
+					sourceRectangle: null,
+					color: Color.White * 0.6f * (1f - importantAddedScale),
+					rotation: 0f,
+					origin: texOrigin,
+					scale: texScale + importantAddedScale,
+					effects: SpriteEffects.None,
+					layerDepth: 0f
+				);
+			}
+
+			//
+
+			this.DrawMessageAlertCount( sb, pos, scaleBase, pulse, messageCount, hasImportance );
+
+			//
 
 			return new Rectangle(
 				(int)(pos.X - (texOrigin.X * texScale)),
 				(int)(pos.Y - (texOrigin.Y * texScale)),
 				(int)(texScale * (float)this.MessageAlertTex.Width),
 				(int)(texScale * (float)this.MessageAlertTex.Height)
+			);
+		}
+
+		////
+
+		private void DrawMessageAlertCount(
+					SpriteBatch sb,
+					Vector2 pos,
+					float pulse,
+					float scaleBase,
+					int messageCount,
+					bool hasImportance ) {
+			string msgText = "" + messageCount;
+			float msgScale = scaleBase * 1.5f;
+			Vector2 msgDim = Main.fontMouseText.MeasureString( msgText );
+			Vector2 msgOrigin = msgDim * 0.5f;
+			Color color = hasImportance
+				? Color.Yellow
+				: Color.Cyan;
+
+			sb.DrawString(
+				spriteFont: Main.fontMouseText,
+				text: msgText,
+				position: pos + new Vector2(0f, 16f),
+				color: color * 0.6f * pulse,
+				rotation: 0f,
+				origin: msgOrigin,
+				scale: msgScale,
+				effects: SpriteEffects.None,
+				layerDepth: 0f
 			);
 		}
 	}

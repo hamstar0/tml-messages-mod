@@ -14,10 +14,13 @@ namespace Messages.UI {
 	partial class UIMessagesTab : UIUtilityPanelsTab {
 		public bool OpenNextUnreadMessage() {
 			ISet<string> unreadMsgIds = ModContent.GetInstance<MessageManager>()
-				.GetUnreadMessages();
+				.GetUnreadMessages( out ISet<string> important );
 
 			if( unreadMsgIds.Count() == 0 ) {
 				return false;
+			}
+			if( important.Count() >= 1 ) {
+				unreadMsgIds = important;
 			}
 
 			this.OpenMessage( unreadMsgIds.First(), false );
@@ -25,7 +28,7 @@ namespace Messages.UI {
 		}
 
 		public void SetAllMessagesRead() {
-			ISet<string> unreadMsgIds = ModContent.GetInstance<MessageManager>().GetUnreadMessages();
+			ISet<string> unreadMsgIds = ModContent.GetInstance<MessageManager>().GetUnreadMessages(out _);
 			var mycustomplayer = CustomPlayerData.GetPlayerData<MessagesCustomPlayer>( Main.myPlayer );
 
 			foreach( string msgId in unreadMsgIds ) {

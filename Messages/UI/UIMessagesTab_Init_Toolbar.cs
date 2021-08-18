@@ -61,21 +61,21 @@ namespace Messages.UI {
 
 			var modsCatButton = new UITextPanelButton( this.Theme, "Mods", 0.85f );
 			modsCatButton.Top.Set( -10f, 0f );
-			modsCatButton.Left.Set( -372f + 128f, 1f );
+			modsCatButton.Left.Set( -372f + 72f, 1f );
 			modsCatButton.Width.Set( 60f, 0f );
 			modsCatButton.OnClick += ( _, __ ) => this.OpenMessage( mngr.ModInfoCategoryMsg.ID, true );
 			toolbar.Append( (UIElement)modsCatButton );
 
 			var tipsCatButton = new UITextPanelButton( this.Theme, "Hints", 0.85f );
 			tipsCatButton.Top.Set( -10f, 0f );
-			tipsCatButton.Left.Set( -372f + 192f, 1f );
+			tipsCatButton.Left.Set( -372f + 136f, 1f );
 			tipsCatButton.Width.Set( 60f, 0f );
 			tipsCatButton.OnClick += ( _, __ ) => this.OpenMessage( mngr.HintsTipsCategoryMsg.ID, true );
 			toolbar.Append( (UIElement)tipsCatButton );
 
 			var gameCatButton = new UITextPanelButton( this.Theme, "Game", 0.85f );
 			gameCatButton.Top.Set( -10f, 0f );
-			gameCatButton.Left.Set( -372f + 256f, 1f );
+			gameCatButton.Left.Set( -372f + 200f, 1f );
 			gameCatButton.Width.Set( 60f, 0f );
 			gameCatButton.OnClick += ( _, __ ) => this.OpenMessage( mngr.GameInfoCategoryMsg.ID, true );
 			toolbar.Append( (UIElement)gameCatButton );
@@ -83,10 +83,17 @@ namespace Messages.UI {
 
 			var loreCatButton = new UITextPanelButton( this.Theme, "Lore", 0.85f );
 			loreCatButton.Top.Set( -10f, 0f );
-			loreCatButton.Left.Set( -372f + 320f, 1f );
+			loreCatButton.Left.Set( -372f + 264f, 1f );
 			loreCatButton.Width.Set( 60f, 0f );
 			loreCatButton.OnClick += ( _, __ ) => this.OpenMessage( mngr.StoryLoreCategoryMsg.ID, true );
 			toolbar.Append( (UIElement)loreCatButton );
+
+			var eventsCatButton = new UITextPanelButton( this.Theme, "Events", 0.85f );
+			eventsCatButton.Top.Set( -10f, 0f );
+			eventsCatButton.Left.Set( -372f + 328f, 1f );
+			eventsCatButton.Width.Set( 60f, 0f );
+			eventsCatButton.OnClick += ( _, __ ) => this.OpenMessage( mngr.EventsCategoryMsg.ID, true );
+			toolbar.Append( (UIElement)eventsCatButton );
 
 			return toolbar;
 		}

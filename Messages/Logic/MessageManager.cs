@@ -24,6 +24,8 @@ namespace Messages.Logic {
 
 		public ConcurrentDictionary<string, Message> MessagesByID { get; } = new ConcurrentDictionary<string, Message>();
 
+		public ISet<string> ImportantMessagesByID { get; } = new HashSet<string>();
+
 		////
 
 		public Message ModInfoCategoryMsg { get; private set; }
@@ -33,6 +35,8 @@ namespace Messages.Logic {
 		public Message GameInfoCategoryMsg { get; private set; }
 
 		public Message StoryLoreCategoryMsg { get; private set; }
+
+		public Message EventsCategoryMsg { get; private set; }
 
 
 
@@ -60,8 +64,9 @@ namespace Messages.Logic {
 
 		////////////////
 
-		public ISet<string> GetUnreadMessages() {
+		public ISet<string> GetUnreadMessages( out ISet<string> important ) {
 			ISet<string> unreadMsgIds = null;
+			important = null;
 
 			try {
 				var mycustomplayer = CustomPlayerData.GetPlayerData<MessagesCustomPlayer>( Main.myPlayer );
@@ -71,6 +76,9 @@ namespace Messages.Logic {
 					this.MessagesByID
 						.Keys
 						.Where( id => !readMsgIds.Contains(id) )
+				);
+				important = new HashSet<string>(
+					unreadMsgIds.Where( id => this.ImportantMessagesByID.Contains(id) )
 				);
 			} catch( Exception e ) {
 				LogLibraries.Warn( e.ToString() );
@@ -86,10 +94,11 @@ namespace Messages.Logic {
 					string title,
 					string description,
 					Mod modOfOrigin,
+					bool isImportant,
+					Message parent,
 					out string result,
 					string id = null,
-					int weight = 0,
-					Message parent = null ) {
+					int weight = 0 ) {
 			if( id != null ) {
 				if( this.MessagesByID.ContainsKey(id) ) {
 					result = "Message already exists by ID.";
@@ -110,6 +119,18 @@ namespace Messages.Logic {
 
 			this.MessagesByID[ msg.ID ] = msg;
 
+			if( isImportant ) {
+				this.ImportantMessagesByID.Add( msg.ID );
+			}
+
+			//
+			
+			if( isImportant ) {
+				Main.PlaySound( SoundID.Zombie, -1, -1, 45, 0.5f, 0f );
+			} else {
+				Main.PlaySound( SoundID.Zombie, -1, -1, 70, 0.5f, 0f );
+			}
+
 			//
 
 			this.MessagesTabUI.AddMessageAsElementInListIf( msg, parent );
@@ -117,6 +138,8 @@ namespace Messages.Logic {
 			result = "Success.";
 			return msg;
 		}
+
+		////
 
 		public bool RemoveMessage( Message message, bool forceUnread = false ) {
 			bool isRemoved = this.MessagesByID.TryRemove( message.ID, out Message msg );
@@ -143,6 +166,7 @@ namespace Messages.Logic {
 			this.HintsTipsCategoryMsg = null;
 			this.GameInfoCategoryMsg = null;
 			this.StoryLoreCategoryMsg = null;
+			this.EventsCategoryMsg = null;
 
 			this.MessagesTabUI.ClearMessageElementsList();
 		}
