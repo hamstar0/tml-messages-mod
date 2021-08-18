@@ -124,7 +124,14 @@ namespace Messages {
 
 			//
 
-			this.DrawMessageAlertCount( sb, pos, scaleBase, pulse, messageCount, hasImportance );
+			this.DrawMessageAlertCount(
+				sb: sb,
+				pos: pos,
+				scaleBase: scaleBase,
+				pulse: pulse,
+				messageCount: messageCount,
+				hasImportance: hasImportance
+			);
 
 			//
 
@@ -141,8 +148,8 @@ namespace Messages {
 		private void DrawMessageAlertCount(
 					SpriteBatch sb,
 					Vector2 pos,
-					float pulse,
 					float scaleBase,
+					float pulse,
 					int messageCount,
 					bool hasImportance ) {
 			string msgText = "" + messageCount;
