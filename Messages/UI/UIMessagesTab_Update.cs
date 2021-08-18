@@ -5,12 +5,12 @@ using Terraria;
 using Terraria.ModLoader;
 using ModLibsCore.Classes.PlayerData;
 using ModLibsCore.Libraries.Debug;
-using ModControlPanel.Internals.ControlPanel;
+using ModUtilityPanels.Internals.UtilityPanels;
 using Messages.Logic;
 
 
 namespace Messages.UI {
-	partial class UIMessagesTab : UIControlPanelTab {
+	partial class UIMessagesTab : UIUtilityPanelsTab {
 		public override void Update( GameTime gameTime ) {
 			base.Update( gameTime );
 

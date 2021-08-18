@@ -7,7 +7,7 @@ using ModLibsCore.Classes.Errors;
 using ModLibsCore.Classes.PlayerData;
 using ModLibsCore.Libraries.Debug;
 using ModLibsCore.Libraries.DotNET.Extensions;
-using ModControlPanel.Services.UI.ControlPanel;
+using ModUtilityPanels.Services.UI.UtilityPanels;
 using Messages.Definitions;
 using Messages.Logic;
 
@@ -134,7 +134,7 @@ namespace Messages {
 
 			if( result == "Success." ) {
 				if( alertPlayer ) {
-					ControlPanelTabs.AddTabAlert( MessagesMod.ControlPanelTabName, false );
+					UtilityPanelsTabs.AddTabAlert( MessagesMod.ControlPanelTabName, false );
 
 					MessagesMod.Instance.ShowAlert();
 				}

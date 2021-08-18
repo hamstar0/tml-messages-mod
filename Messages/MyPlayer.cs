@@ -2,7 +2,7 @@
 using Terraria;
 using Terraria.GameInput;
 using Terraria.ModLoader;
-using ModControlPanel.Services.UI.ControlPanel;
+using ModUtilityPanels.Services.UI.UtilityPanels;
 
 
 namespace Messages {
@@ -12,10 +12,10 @@ namespace Messages {
 
 			try {
 				if( mymod.ControlPanelHotkey?.JustPressed == true ) {
-					if( ControlPanelTabs.IsDialogOpen() ) {
-						ControlPanelTabs.CloseDialog();
+					if( UtilityPanelsTabs.IsDialogOpen() ) {
+						UtilityPanelsTabs.CloseDialog();
 					} else {
-						ControlPanelTabs.OpenTab( MessagesMod.ControlPanelTabName );
+						UtilityPanelsTabs.OpenTab( MessagesMod.ControlPanelTabName );
 					}
 				}
 			} catch { }

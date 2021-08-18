@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
 using Terraria;
 using Terraria.ModLoader;
-using ModControlPanel.Services.UI.ControlPanel;
+using ModUtilityPanels.Services.UI.UtilityPanels;
 using Messages.Logic;
 
 
@@ -49,7 +49,7 @@ namespace Messages {
 				if( Main.mouseLeft && Main.mouseLeftRelease ) {
 					this.AlertTickDuration = 0;
 
-					ControlPanelTabs.OpenTab( MessagesMod.ControlPanelTabName );
+					UtilityPanelsTabs.OpenTab( MessagesMod.ControlPanelTabName );
 
 					ModContent.GetInstance<MessageManager>()
 						.MessagesTabUI

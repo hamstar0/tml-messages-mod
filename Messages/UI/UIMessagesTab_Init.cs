@@ -4,11 +4,11 @@ using Terraria.UI;
 using Terraria.GameContent.UI.Elements;
 using ModLibsCore.Libraries.Debug;
 using ModLibsUI.Classes.UI.Elements;
-using ModControlPanel.Internals.ControlPanel;
+using ModUtilityPanels.Internals.UtilityPanels;
 
 
 namespace Messages.UI {
-	partial class UIMessagesTab : UIControlPanelTab {
+	partial class UIMessagesTab : UIUtilityPanelsTab {
 		private void PreInitializeMe() {
 			this.Toolbar = this.InitializeToolbar(
 				out this.GetUnreadButton,

@@ -9,8 +9,8 @@ using ModLibsCore.Classes.Loadable;
 using ModLibsCore.Classes.PlayerData;
 using ModLibsCore.Libraries.Debug;
 using ModLibsUI.Classes.UI.Theme;
-using ModControlPanel;
-using ModControlPanel.Services.UI.ControlPanel;
+using ModUtilityPanels;
+using ModUtilityPanels.Services.UI.UtilityPanels;
 using Messages.Definitions;
 using Messages.UI;
 
@@ -40,13 +40,13 @@ namespace Messages.Logic {
 
 		void ILoadable.OnModsLoad() {
 			if( !Main.dedServ && Main.netMode != NetmodeID.Server ) {
-				var ctrlPanelMod = (ModControlPanelMod)ModLoader.GetMod( "ModControlPanel" );
+				var utilPanelsMod = (ModUtilityPanelsMod)ModLoader.GetMod( "ModUtilityPanels" );
 
-				ctrlPanelMod.OnControlPanelInitialize += () => {
+				utilPanelsMod.OnUtilityPanelsInitialize += () => {
 					this.MessagesTabUI = new UIMessagesTab( UITheme.Vanilla );
 
 					// Add tab
-					ControlPanelTabs.AddTab( MessagesMod.ControlPanelTabName, this.MessagesTabUI );
+					UtilityPanelsTabs.AddTab( MessagesMod.ControlPanelTabName, this.MessagesTabUI );
 
 					MessagesMod.Instance.RunMessagesInitializeEvent();
 				};

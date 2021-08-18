@@ -5,13 +5,13 @@ using Terraria;
 using Terraria.ModLoader;
 using ModLibsCore.Classes.PlayerData;
 using ModLibsCore.Libraries.Debug;
-using ModControlPanel.Internals.ControlPanel;
+using ModUtilityPanels.Internals.UtilityPanels;
 using Messages.Logic;
 using Messages.Definitions;
 
 
 namespace Messages.UI {
-	partial class UIMessagesTab : UIControlPanelTab {
+	partial class UIMessagesTab : UIUtilityPanelsTab {
 		public bool OpenNextUnreadMessage() {
 			ISet<string> unreadMsgIds = ModContent.GetInstance<MessageManager>()
 				.GetUnreadMessages();

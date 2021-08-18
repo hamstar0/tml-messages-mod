@@ -2,12 +2,12 @@
 using Terraria;
 using Terraria.UI;
 using ModLibsCore.Libraries.Debug;
-using ModControlPanel.Internals.ControlPanel;
+using ModUtilityPanels.Internals.UtilityPanels;
 using Messages.Definitions;
 
 
 namespace Messages.UI {
-	partial class UIMessagesTab : UIControlPanelTab {
+	partial class UIMessagesTab : UIUtilityPanelsTab {
 		private UIMessage CreateOrGetMessageElem( Message message ) {
 			if( this.MessageElems.ContainsKey(message.ID) ) {
 				return this.MessageElems[ message.ID ];
