@@ -97,7 +97,7 @@ namespace Messages {
 
 		////////////////
 
-		/// <summary>Adds a message to the list.</summary>
+		/// <summary>Adds a message to the list. Note: Messages that area already read will not be added.</summary>
 		/// <param name="title"></param>
 		/// <param name="description"></param>
 		/// <param name="modOfOrigin"></param>
@@ -185,6 +185,23 @@ namespace Messages {
 			var mngr = ModContent.GetInstance<MessageManager>();
 
 			mngr.ClearAllMessages( forceUnread );
+		}
+
+
+		////////////////
+		
+		/// <summary>
+		/// Sets a message as read or unread.
+		/// </summary>
+		/// <param name="messageId"></param>
+		/// <param name="isRead"></param>
+		/// <returns></returns>
+		public static bool SetMessageReadState( string messageId, bool isRead ) {
+			var mycustplr = CustomPlayerData.GetPlayerData<MessagesCustomPlayer>( Main.myPlayer );
+
+			return isRead
+				? mycustplr.SetReadMessage( messageId )
+				: mycustplr.UnsetReadMessage( messageId );
 		}
 	}
 }

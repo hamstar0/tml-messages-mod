@@ -108,6 +108,7 @@ namespace Messages {
 					this.ImportantMsgAnimCycle = 0;
 				}
 				float importantAddedScale = (float)this.ImportantMsgAnimCycle / 30f;
+				importantAddedScale /= 3f;
 
 				sb.Draw(
 					texture: tex,

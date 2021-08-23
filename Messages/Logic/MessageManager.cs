@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.Linq;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -104,14 +105,23 @@ namespace Messages.Logic {
 					result = "Message already exists by ID.";
 					return null;
 				}
-			} else if( this.MessagesByID.ContainsKey(title) ) {
-				result = "Message already exists by ID (title).";
+			}
+
+			id = Message.GenerateMessageID( title, modOfOrigin );
+			if( this.MessagesByID.ContainsKey(id) ) {
+				result = "Message already exists by ID (message title + mod name).";
 				return null;
 			}
 
 			//
 
-			var msg = new Message( title, description, modOfOrigin, id, weight );
+			var msg = new Message(
+				title: title,
+				description: description,
+				modOfOrigin: modOfOrigin,
+				id: id,
+				weight: weight
+			);
 
 			if( parent != null ) {
 				parent.AddChild( msg );
@@ -127,6 +137,8 @@ namespace Messages.Logic {
 			
 			if( isImportant ) {
 				Main.PlaySound( SoundID.Zombie, -1, -1, 45, 0.5f, 0f );
+
+				Main.NewText( "Incoming message \""+title+"\"", new Color(255, 255, 128) );
 			} else {
 				Main.PlaySound( SoundID.Zombie, -1, -1, 70, 0.5f, 0f );
 			}

@@ -8,6 +8,11 @@ using ModLibsCore.Classes.PlayerData;
 
 namespace Messages.Definitions {
 	public partial class Message {
+		public static string GenerateMessageID( string title, Mod modOfOrigin ) {
+			return modOfOrigin.Name + " - " + title;
+		}
+
+
 		public static int GetMessageIndexInList( IList<Message> msgList, Message msg ) {
 			int idx;
 			int count = msgList.Count;
@@ -60,8 +65,8 @@ namespace Messages.Definitions {
 
 		////////////////
 
-		public Message( string title, string description, Mod modOfOrigin, string id=null, int weight=0 ) {
-			this.ID = id ?? modOfOrigin.Name+" - "+title;
+		public Message( string title, string description, Mod modOfOrigin, string id, int weight=0 ) {
+			this.ID = id;
 
 			this._Children = new List<Message>();
 			this.Children = this._Children.AsReadOnly();
@@ -89,6 +94,14 @@ namespace Messages.Definitions {
 
 
 		////////////////
+
+		public bool IsUnread() {
+			var myplayer = CustomPlayerData.GetPlayerData<MessagesCustomPlayer>( Main.myPlayer );
+
+			return myplayer.IsMessageRead( this.ID );
+		}
+
+		////
 
 		public ISet<string> GetUnreadChildren( bool alsoDescendents ) {
 			var myplayer = CustomPlayerData.GetPlayerData<MessagesCustomPlayer>( Main.myPlayer );

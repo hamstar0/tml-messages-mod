@@ -69,7 +69,7 @@ namespace Messages.Logic {
 				isImportant: false,
 				parent: null,
 				result: out _,
-				weight: Int32.MinValue + 3
+				weight: Int32.MinValue + 4
 			);
 			if( msg != null ) {
 				this.EventsCategoryMsg = msg;
