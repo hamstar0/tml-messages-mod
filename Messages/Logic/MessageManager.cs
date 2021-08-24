@@ -9,6 +9,7 @@ using Terraria.ModLoader;
 using ModLibsCore.Classes.Loadable;
 using ModLibsCore.Classes.PlayerData;
 using ModLibsCore.Libraries.Debug;
+using ModLibsCore.Services.Timers;
 using ModLibsUI.Classes.UI.Theme;
 using ModUtilityPanels;
 using ModUtilityPanels.Services.UI.UtilityPanels;
@@ -136,11 +137,15 @@ namespace Messages.Logic {
 			//
 			
 			if( isImportant ) {
-				Main.PlaySound( SoundID.Zombie, -1, -1, 45, 0.5f, 0f );
+				Main.PlaySound( SoundID.Zombie, -1, -1, 70, 0.5f, 0f );
+				Timers.SetTimer( 20, true, () => {
+					Main.PlaySound( type: SoundID.Zombie, x: -1, y: -1, Style: 70 );    //volumeScale: 0.5f
+					return false;
+				} );
 
 				Main.NewText( "Incoming message \""+title+"\"", new Color(255, 255, 128) );
 			} else {
-				Main.PlaySound( SoundID.Zombie, -1, -1, 70, 0.5f, 0f );
+				//Main.PlaySound( SoundID.Zombie, -1, -1, 45, 0.5f, 0f );
 			}
 
 			//

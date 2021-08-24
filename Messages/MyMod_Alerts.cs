@@ -107,14 +107,14 @@ namespace Messages {
 				if( this.ImportantMsgAnimCycle++ > 30 ) {
 					this.ImportantMsgAnimCycle = 0;
 				}
-				float importantAddedScale = (float)this.ImportantMsgAnimCycle / 30f;
-				importantAddedScale /= 3f;
+				float animCycle = (float)this.ImportantMsgAnimCycle / 30f;
+				float importantAddedScale = animCycle / 4f;
 
 				sb.Draw(
 					texture: tex,
 					position: pos,
 					sourceRectangle: null,
-					color: Color.White * 0.6f * (1f - importantAddedScale),
+					color: Color.White * 0.6f * (1f - animCycle),
 					rotation: 0f,
 					origin: texOrigin,
 					scale: texScale + importantAddedScale,
