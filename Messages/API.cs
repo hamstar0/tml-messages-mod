@@ -162,22 +162,5 @@ namespace Messages {
 
 			mngr.ClearAllMessages( forceUnread );
 		}
-
-
-		////////////////
-		
-		/// <summary>
-		/// Sets a message as read or unread.
-		/// </summary>
-		/// <param name="messageId"></param>
-		/// <param name="isRead"></param>
-		/// <returns></returns>
-		public static bool SetMessageReadState( string messageId, bool isRead ) {
-			var mycustplr = CustomPlayerData.GetPlayerData<MessagesCustomPlayer>( Main.myPlayer );
-
-			return isRead
-				? mycustplr.SetReadMessage( messageId )
-				: mycustplr.UnsetReadMessage( messageId );
-		}
 	}
 }
