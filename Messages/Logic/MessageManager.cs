@@ -92,7 +92,7 @@ namespace Messages.Logic {
 
 		////////////////
 
-		public Message AddMessage(
+		public (Message, UIMessage) AddMessage(
 					string title,
 					string description,
 					Mod modOfOrigin,
@@ -104,14 +104,14 @@ namespace Messages.Logic {
 			if( id != null ) {
 				if( this.MessagesByID.ContainsKey(id) ) {
 					result = "Message already exists by ID.";
-					return null;
+					return (null, null);
 				}
 			}
 
 			id = Message.GenerateMessageID( title, modOfOrigin );
 			if( this.MessagesByID.ContainsKey(id) ) {
 				result = "Message already exists by ID (message title + mod name).";
-				return null;
+				return (null, null);
 			}
 
 			//
@@ -135,25 +135,11 @@ namespace Messages.Logic {
 			}
 
 			//
-			
-			if( isImportant ) {
-				Main.PlaySound( SoundID.Zombie, -1, -1, 70, 0.5f, 0f );
-				Timers.SetTimer( 20, true, () => {
-					Main.PlaySound( type: SoundID.Zombie, x: -1, y: -1, Style: 70 );    //volumeScale: 0.5f
-					return false;
-				} );
 
-				Main.NewText( "Incoming message \""+title+"\"", new Color(255, 255, 128) );
-			} else {
-				//Main.PlaySound( SoundID.Zombie, -1, -1, 45, 0.5f, 0f );
-			}
-
-			//
-
-			this.MessagesTabUI.AddMessageAsElementInListIf( msg, parent );
+			UIMessage msgElem = this.MessagesTabUI.AddMessageAsElementInListIf( msg, parent );
 
 			result = "Success.";
-			return msg;
+			return (msg, msgElem);
 		}
 
 		////

@@ -3,14 +3,13 @@ using Terraria;
 using ModLibsCore.Classes.Loadable;
 using ModLibsCore.Libraries.Debug;
 using Messages.Definitions;
+using Messages.UI;
 
 
 namespace Messages.Logic {
 	partial class MessageManager : ILoadable {
 		internal void InitializeCategories() {
-			Message msg;
-			
-			msg = this.AddMessage(
+			(Message msg, UIMessage msgElem) = this.AddMessage(
 				title: "Mod Info",
 				description: "",
 				parent: null,
@@ -23,7 +22,7 @@ namespace Messages.Logic {
 				this.ModInfoCategoryMsg = msg;
 			}
 
-			msg = this.AddMessage(
+			(msg, msgElem) = this.AddMessage(
 				title: "Hints & Tips",
 				description: "",
 				parent: null,
@@ -35,8 +34,8 @@ namespace Messages.Logic {
 			if( msg != null ) {
 				this.HintsTipsCategoryMsg = msg;
 			}
-			
-			msg = this.AddMessage(
+
+			(msg, msgElem) = this.AddMessage(
 				title: "Game Info",
 				description: "",
 				modOfOrigin: MessagesMod.Instance,
@@ -49,7 +48,7 @@ namespace Messages.Logic {
 				this.GameInfoCategoryMsg = msg;
 			}
 
-			msg = this.AddMessage(
+			(msg, msgElem) = this.AddMessage(
 				title: "Story & Lore",
 				description: "",
 				modOfOrigin: MessagesMod.Instance,
@@ -62,7 +61,7 @@ namespace Messages.Logic {
 				this.StoryLoreCategoryMsg = msg;
 			}
 
-			msg = this.AddMessage(
+			(msg, msgElem) = this.AddMessage(
 				title: "Events & Interactions",
 				description: "",
 				modOfOrigin: MessagesMod.Instance,

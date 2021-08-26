@@ -24,9 +24,9 @@ namespace Messages.UI {
 
 		////////////////
 
-		public void AddMessageAsElementInListIf( Message message, Message parent=null ) {
+		public UIMessage AddMessageAsElementInListIf( Message message, Message parent=null ) {
 //LogLibraries.Log( "AddMessageAsElementInListIf " + message.ID + ", parent: "+parent?.ID );
-			var msgElem = this.CreateOrGetMessageElem( message );
+			UIMessage msgElem = this.CreateOrGetMessageElem( message );
 
 			if( parent == null ) {
 				int idx = UIMessage.GetMessageIndexInList( this.TopLevelMessageElemsOrdered, msgElem );
@@ -46,6 +46,8 @@ namespace Messages.UI {
 
 				msgElem.AddChildMessageElem( nextNewMsgElem );
 			};
+
+			return msgElem;
 		}
 
 		public void RemoveMessageElementFromList( Message message ) {

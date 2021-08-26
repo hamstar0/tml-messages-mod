@@ -1,15 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ModLibsCore.Classes.Errors;
 using ModLibsCore.Classes.PlayerData;
 using ModLibsCore.Libraries.Debug;
-using ModLibsCore.Libraries.DotNET.Extensions;
+using ModLibsCore.Services.Timers;
 using ModUtilityPanels.Services.UI.UtilityPanels;
 using Messages.Definitions;
 using Messages.Logic;
+using Messages.UI;
 
 
 namespace Messages {
@@ -56,47 +57,6 @@ namespace Messages {
 
 		////////////////
 
-		/// <summary></summary>
-		/// <param name="id"></param>
-		/// <returns></returns>
-		public static Message GetMessage( string id ) {
-			if( Main.netMode == NetmodeID.Server ) {
-				throw new ModLibsException( "Server Messages not allowed." );
-			}
-
-			var mngr = ModContent.GetInstance<MessageManager>();
-
-			return mngr.MessagesByID.GetOrDefault( id );
-		}
-
-		/// <summary></summary>
-		/// <param name="important"></param>
-		/// <returns></returns>
-		public static ISet<string> GetUnreadMessageIDs( out ISet<string> important ) {
-			if( Main.netMode == NetmodeID.Server ) {
-				throw new ModLibsException( "Server Messages not allowed." );
-			}
-
-			var mngr = ModContent.GetInstance<MessageManager>();
-
-			return mngr.GetUnreadMessages( out important );
-		}
-
-		/// <summary></summary>
-		/// <returns></returns>
-		public static int GetUnreadMessageCount() {
-			if( Main.netMode == NetmodeID.Server ) {
-				throw new ModLibsException( "Server Messages not allowed." );
-			}
-
-			var mngr = ModContent.GetInstance<MessageManager>();
-
-			return mngr.GetUnreadMessages(out _).Count;
-		}
-
-
-		////////////////
-
 		/// <summary>Adds a message to the list. Note: Messages that area already read will not be added.</summary>
 		/// <param name="title"></param>
 		/// <param name="description"></param>
@@ -127,7 +87,7 @@ namespace Messages {
 
 			var mngr = ModContent.GetInstance<MessageManager>();
 			
-			Message msg = mngr.AddMessage(
+			(Message msg, UIMessage msgElem) = mngr.AddMessage(
 				title: title,
 				description: description,
 				parent: parentMessage as Message,
@@ -138,7 +98,23 @@ namespace Messages {
 				weight: weight
 			);
 
+			//
+
 			if( result == "Success." ) {
+				if( isImportant ) {
+					Main.PlaySound( SoundID.Zombie, -1, -1, 70, 0.5f, 0f );
+					Timers.SetTimer( 10, true, () => {
+						Main.PlaySound( type: SoundID.Zombie, x: -1, y: -1, Style: 70 );    //volumeScale: 0.5f
+						return false;
+					} );
+
+					Main.NewText( "Incoming message \""+title+"\"", new Color(255, 255, 128) );
+				} else {
+					//Main.PlaySound( SoundID.Zombie, -1, -1, 45, 0.5f, 0f );
+				}
+
+				//
+
 				if( alertPlayer ) {
 					UtilityPanelsTabs.AddTabAlert( MessagesMod.UtilityPanelsTabName, false );
 

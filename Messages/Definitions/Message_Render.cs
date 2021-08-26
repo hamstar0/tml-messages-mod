@@ -21,7 +21,7 @@ namespace Messages.Definitions {
 			}
 
 			IEnumerable<string> descLines = description.Split( '\n' );
-			descLines = descLines.Select( s => s.Length >= 2 ? "\n"+s+"\n" : s );
+			descLines = descLines.Select( s => s.Length >= 2 ? "\""+s+"\"" : s );
 			string desc = string.Join( "\n", descLines );
 
 			return "[c/FFFF80:"+npcName+" says]: "+desc;
