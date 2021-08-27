@@ -101,22 +101,22 @@ namespace Messages {
 			//
 
 			if( result == "Success." ) {
-				if( isImportant ) {
-					Main.PlaySound( SoundID.Zombie, -1, -1, 70, 0.5f, 0f );
-					Timers.SetTimer( 10, true, () => {
-						Main.PlaySound( type: SoundID.Zombie, x: -1, y: -1, Style: 70 );    //volumeScale: 0.5f
-						return false;
-					} );
-
-					Main.NewText( "Incoming message \""+title+"\"", new Color(255, 255, 128) );
-				} else {
-					//Main.PlaySound( SoundID.Zombie, -1, -1, 45, 0.5f, 0f );
-				}
-
-				//
-
 				if( alertPlayer ) {
-					UtilityPanelsTabs.AddTabAlert( MessagesMod.UtilityPanelsTabName, false );
+					if( isImportant ) {
+						Main.PlaySound( SoundID.Zombie, -1, -1, 70, 0.5f, 0f );
+						Timers.SetTimer( 10, true, () => {
+							Main.PlaySound( type: SoundID.Zombie, x: -1, y: -1, Style: 70 );    //volumeScale: 0.5f
+							return false;
+						} );
+
+						Main.NewText( "Incoming message \"" + title + "\"", new Color( 255, 255, 128 ) );
+					} else {
+						//Main.PlaySound( SoundID.Zombie, -1, -1, 45, 0.5f, 0f );
+					}
+
+					//
+
+					UtilityPanelsTabs.AddTabAlert( MessagesMod.UtilityPanelsTabName, isImportant );
 
 					MessagesMod.Instance.ShowAlert();
 				}
