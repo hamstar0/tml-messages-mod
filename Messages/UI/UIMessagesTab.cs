@@ -47,6 +47,12 @@ namespace Messages.UI {
 		public UIMessagesTab( UITheme theme ) : base( theme, UIMessagesTab.MyWidth ) {
 			this.Theme = theme;
 
+			this.OnOpenTab.Add( prevTab => {
+				if( prevTab != this ) {
+					this.OpenNextUnreadMessage();
+				}
+			} );
+
 			this.PreInitializeMe();
 		}
 
