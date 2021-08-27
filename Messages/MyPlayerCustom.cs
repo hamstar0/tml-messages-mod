@@ -49,15 +49,18 @@ namespace Messages {
 			this.SetReadMessage( mngr.EventsCategoryMsg.ID );
 			
 			MessagesMod.Instance.RunMessageCategoriesInitializeEvent();
+			
+			string id = "Messages_Intro";
 
 			MessagesAPI.AddMessage(
 				title: "Remember to set your key bindings!",
 				description: "You can assign key bindings in the Controls menu for any mods you have that add them "
 					+"(such as this Messages mod).",
 				modOfOrigin: MessagesMod.Instance,
+				alertPlayer: MessagesAPI.IsUnread(id),
 				isImportant: false,
 				parentMessage: MessagesAPI.ModInfoCategoryMsg,
-				alertPlayer: true
+				id: id
 			);
 		}
 

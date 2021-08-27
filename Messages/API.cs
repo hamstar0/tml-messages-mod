@@ -109,7 +109,7 @@ namespace Messages {
 							return false;
 						} );
 
-						Main.NewText( "Incoming message \"" + title + "\"", new Color( 255, 255, 128 ) );
+						Main.NewText( "Incoming message \""+title+"\"", new Color(255, 255, 128) );
 					} else {
 						//Main.PlaySound( SoundID.Zombie, -1, -1, 45, 0.5f, 0f );
 					}
