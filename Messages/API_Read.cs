@@ -16,7 +16,7 @@ namespace Messages {
 		public static bool IsUnread( string messageId ) {
 			var myplayer = CustomPlayerData.GetPlayerData<MessagesCustomPlayer>( Main.myPlayer );
 
-			return myplayer.IsMessageRead( messageId );
+			return !myplayer.IsMessageRead( messageId );
 		}
 
 		/// <summary>
