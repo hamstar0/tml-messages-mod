@@ -51,6 +51,8 @@ namespace Messages.UI {
 				if( prevTab != this ) {
 					this.OpenNextUnreadMessage();
 				}
+
+				MessagesMod.Instance.HideAlert();
 			} );
 
 			this.PreInitializeMe();

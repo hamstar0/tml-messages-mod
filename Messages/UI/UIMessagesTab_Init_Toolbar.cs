@@ -6,7 +6,7 @@ using ModLibsCore.Libraries.Debug;
 using ModLibsUI.Classes.UI.Elements;
 using ModUtilityPanels.Internals.UtilityPanels;
 using Messages.Logic;
-
+using Microsoft.Xna.Framework;
 
 namespace Messages.UI {
 	partial class UIMessagesTab : UIUtilityPanelsTab {
@@ -32,6 +32,7 @@ namespace Messages.UI {
 			getUnreadButton.Top.Set( -10f, 0f );
 			getUnreadButton.Left.Set( leftOrigin + 4f, 0f );
 			getUnreadButton.Width.Set( 108f, 0f );
+			getUnreadButton.TextColor = Color.White;
 			getUnreadButton.OnClick += (_, __) => this.OpenNextUnreadMessage();
 			toolbar.Append( (UIElement)getUnreadButton );
 			
@@ -39,6 +40,7 @@ namespace Messages.UI {
 			allReadButton.Top.Set( -10f, 0f );
 			allReadButton.Left.Set( leftOrigin + 116f, 0f );
 			allReadButton.Width.Set( 108f, 0f );
+			allReadButton.TextColor = Color.White;
 			allReadButton.OnClick += ( _, __ ) => this.SetAllMessagesRead();
 			toolbar.Append( (UIElement)allReadButton );
 
@@ -46,6 +48,7 @@ namespace Messages.UI {
 			thisUnreadButton.Top.Set( -10f, 0f );
 			thisUnreadButton.Left.Set( leftOrigin + 228f, 0f );
 			thisUnreadButton.Width.Set( 108f, 0f );
+			thisUnreadButton.TextColor = Color.White;
 			thisUnreadButton.OnClick += ( _, __ ) => this.SetCurrentMessageUnread();
 			toolbar.Append( (UIElement)thisUnreadButton );
 			
@@ -55,6 +58,7 @@ namespace Messages.UI {
 			catLabel.Top.Set( -8f, 1f );
 			catLabel.Left.Set( -400f, 1f );
 			catLabel.Width.Set( 108f, 0f );
+			catLabel.TextColor = Color.White;
 			toolbar.Append( (UIElement)catLabel );
 
 			//
@@ -63,6 +67,7 @@ namespace Messages.UI {
 			modsCatButton.Top.Set( -10f, 0f );
 			modsCatButton.Left.Set( -372f + 72f, 1f );
 			modsCatButton.Width.Set( 60f, 0f );
+			modsCatButton.TextColor = Color.White;
 			modsCatButton.OnClick += ( _, __ ) => this.OpenMessage( mngr.ModInfoCategoryMsg.ID, true );
 			toolbar.Append( (UIElement)modsCatButton );
 
@@ -70,6 +75,7 @@ namespace Messages.UI {
 			tipsCatButton.Top.Set( -10f, 0f );
 			tipsCatButton.Left.Set( -372f + 136f, 1f );
 			tipsCatButton.Width.Set( 60f, 0f );
+			tipsCatButton.TextColor = Color.White;
 			tipsCatButton.OnClick += ( _, __ ) => this.OpenMessage( mngr.HintsTipsCategoryMsg.ID, true );
 			toolbar.Append( (UIElement)tipsCatButton );
 
@@ -77,6 +83,7 @@ namespace Messages.UI {
 			gameCatButton.Top.Set( -10f, 0f );
 			gameCatButton.Left.Set( -372f + 200f, 1f );
 			gameCatButton.Width.Set( 60f, 0f );
+			gameCatButton.TextColor = Color.White;
 			gameCatButton.OnClick += ( _, __ ) => this.OpenMessage( mngr.GameInfoCategoryMsg.ID, true );
 			toolbar.Append( (UIElement)gameCatButton );
 			toolbar.Append( (UIElement)tipsCatButton );
@@ -85,6 +92,7 @@ namespace Messages.UI {
 			loreCatButton.Top.Set( -10f, 0f );
 			loreCatButton.Left.Set( -372f + 264f, 1f );
 			loreCatButton.Width.Set( 60f, 0f );
+			loreCatButton.TextColor = Color.White;
 			loreCatButton.OnClick += ( _, __ ) => this.OpenMessage( mngr.StoryLoreCategoryMsg.ID, true );
 			toolbar.Append( (UIElement)loreCatButton );
 
@@ -92,6 +100,7 @@ namespace Messages.UI {
 			eventsCatButton.Top.Set( -10f, 0f );
 			eventsCatButton.Left.Set( -372f + 328f, 1f );
 			eventsCatButton.Width.Set( 60f, 0f );
+			eventsCatButton.TextColor = Color.White;
 			eventsCatButton.OnClick += ( _, __ ) => this.OpenMessage( mngr.EventsCategoryMsg.ID, true );
 			toolbar.Append( (UIElement)eventsCatButton );
 
