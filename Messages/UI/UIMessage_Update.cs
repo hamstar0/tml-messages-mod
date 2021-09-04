@@ -63,7 +63,7 @@ namespace Messages.UI {
 			Message msg = mngr.MessagesByID[ this.Message.ID ];
 
 			var myplayer = CustomPlayerData.GetPlayerData<MessagesCustomPlayer>( Main.myPlayer );
-			bool isUnread = myplayer.IsMessageRead( msg.ID );
+			bool isUnread = !myplayer.IsMessageRead( msg.ID );
 
 			if( isUnread ) {
 				this.UpdateForUnreadState();

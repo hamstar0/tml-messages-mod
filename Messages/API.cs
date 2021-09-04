@@ -99,7 +99,7 @@ namespace Messages {
 			);
 
 			//
-
+			
 			if( result == "Success." ) {
 				if( alertPlayer ) {
 					if( isImportant ) {
