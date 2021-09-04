@@ -76,6 +76,10 @@ namespace Messages.UI {
 		////////////////
 
 		private void UpdateForUnreadState() {
+			this.TitleElem.TextColor = Color.Yellow;
+		}
+
+		private void UpdateForReadState() {
 			var mngr = ModContent.GetInstance<MessageManager>();
 
 			if( mngr.MessagesTabUI.RecentMessageID == this.Message.ID ) {
@@ -83,10 +87,6 @@ namespace Messages.UI {
 			} else {
 				this.TitleElem.TextColor = Color.Gray;
 			}
-		}
-
-		private void UpdateForReadState() {
-			this.TitleElem.TextColor = Color.Yellow;
 
 			//
 
