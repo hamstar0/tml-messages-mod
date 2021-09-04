@@ -120,6 +120,8 @@ namespace Messages {
 
 					MessagesMod.Instance.ShowAlert();
 				}
+			} else {
+				LogLibraries.AlertOnce( "Message failed ('"+title+"'): "+result );
 			}
 
 			return (msg, result);
