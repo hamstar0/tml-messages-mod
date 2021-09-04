@@ -100,8 +100,11 @@ namespace Messages {
 
 			//
 			
+//Main.NewText( "1 "+title+" - "+result );
 			if( result == "Success." ) {
+//Main.NewText( "2 alertPlayer:" + alertPlayer );
 				if( alertPlayer ) {
+//Main.NewText( "3 isImportant:" + isImportant );
 					if( isImportant ) {
 						Main.PlaySound( SoundID.Zombie, -1, -1, 70, 0.5f, 0f );
 						Timers.SetTimer( 10, true, () => {
@@ -121,7 +124,7 @@ namespace Messages {
 					MessagesMod.Instance.ShowAlert();
 				}
 			} else {
-				LogLibraries.AlertOnce( "Message failed ('"+title+"'): "+result );
+				//LogLibraries.AlertOnce( "Message failed ('"+title+"'): "+result );
 			}
 
 			return (msg, result);

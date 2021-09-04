@@ -103,14 +103,14 @@ namespace Messages.Logic {
 					int weight = 0 ) {
 			if( id != null ) {
 				if( this.MessagesByID.ContainsKey(id) ) {
-					result = "Message already exists by ID.";
+					result = "Message already exists by ID ("+id+").";
 					return (null, null);
 				}
 			}
 
 			id = Message.GenerateMessageID( title, modOfOrigin );
 			if( this.MessagesByID.ContainsKey(id) ) {
-				result = "Message already exists by ID (message title + mod name).";
+				result = "Message already exists by genned ID ("+id+").";
 				return (null, null);
 			}
 

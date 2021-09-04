@@ -83,7 +83,7 @@ namespace Messages.Definitions {
 		public bool IsUnread() {
 			var myplayer = CustomPlayerData.GetPlayerData<MessagesCustomPlayer>( Main.myPlayer );
 
-			return myplayer.IsMessageRead( this.ID );
+			return !myplayer.IsMessageRead( this.ID );
 		}
 
 
