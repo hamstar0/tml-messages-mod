@@ -38,15 +38,18 @@ namespace Messages {
 
 		private void DrawMessageAlertIf( SpriteBatch spriteBatch ) {
 			var mngr = ModContent.GetInstance<MessageManager>();
-			int messageCount = mngr.GetUnreadMessages( out ISet<string> important )
-				.Count;
+			int messageCount = mngr.GetUnreadMessages( out ISet<string> important ).Count;
 			if( messageCount == 0 ) {
 				this.AlertTickDuration = 0;
 
 				return;
 			}
 
-			Rectangle buttonArea = this.DrawMessageAlert( spriteBatch, messageCount, important.Count >= 1 );
+			Rectangle buttonArea = this.DrawMessageAlert(
+				spriteBatch,
+				messageCount,
+				important.Count >= 1
+			);
 
 			if( buttonArea.Contains( Main.mouseX, Main.mouseY ) ) {
 				Main.LocalPlayer.mouseInterface = true;

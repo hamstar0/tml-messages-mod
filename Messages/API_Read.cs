@@ -15,6 +15,9 @@ namespace Messages {
 		/// <returns></returns>
 		public static bool IsUnread( string messageId ) {
 			var myplayer = CustomPlayerData.GetPlayerData<MessagesCustomPlayer>( Main.myPlayer );
+			if( myplayer == null ) {
+				throw new ModLibsException( "Custom player data not loaded." );
+			}
 
 			return !myplayer.IsMessageRead( messageId );
 		}
