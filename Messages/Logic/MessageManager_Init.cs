@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Xna.Framework;
 using Terraria;
 using ModLibsCore.Classes.Loadable;
 using ModLibsCore.Libraries.Debug;
@@ -12,6 +13,7 @@ namespace Messages.Logic {
 			(Message msg, UIMessage msgElem) = this.AddMessage(
 				title: "Mod Info",
 				description: "",
+				color: Color.Lerp( Color.Aquamarine, Color.Black, 0.5f ),
 				parent: null,
 				modOfOrigin: MessagesMod.Instance,
 				isImportant: false,
@@ -25,6 +27,7 @@ namespace Messages.Logic {
 			(msg, msgElem) = this.AddMessage(
 				title: "Hints & Tips",
 				description: "",
+				color: Color.Lerp( Color.Chartreuse, Color.Black, 0.5f ),
 				parent: null,
 				modOfOrigin: MessagesMod.Instance,
 				isImportant: false,
@@ -38,6 +41,7 @@ namespace Messages.Logic {
 			(msg, msgElem) = this.AddMessage(
 				title: "Game Info",
 				description: "",
+				color: Color.Lerp( Color.DarkOrange, Color.Black, 0.5f ),
 				modOfOrigin: MessagesMod.Instance,
 				isImportant: false,
 				parent: null,
@@ -51,6 +55,7 @@ namespace Messages.Logic {
 			(msg, msgElem) = this.AddMessage(
 				title: "Story & Lore",
 				description: "",
+				color: Color.Lerp( Color.Fuchsia, Color.Black, 0.5f ),
 				modOfOrigin: MessagesMod.Instance,
 				isImportant: false,
 				parent: null,
@@ -64,6 +69,7 @@ namespace Messages.Logic {
 			(msg, msgElem) = this.AddMessage(
 				title: "Events & Interactions",
 				description: "",
+				color: Color.Lerp( Color.LightSalmon, Color.Black, 0.5f ),
 				modOfOrigin: MessagesMod.Instance,
 				isImportant: false,
 				parent: null,

@@ -19,8 +19,13 @@ namespace Messages.UI {
 			this.HAlign = 0f;
 			this.SetPadding( 0f );
 
+			if( this.Message.Color.HasValue ) {
+				this.BackgroundColor = this.Message.Color.Value;
+				this.BorderColor = Color.Lerp( this.Message.Color.Value, Color.Black, 0.25f );
+			}
+
 			//
-			
+
 			this.InfoContainer = new UIElement();
 			{
 				this.TreeIconElem = new UIThemedText( this.Theme, false, "+" );

@@ -38,7 +38,7 @@ namespace Messages {
 		////////////////
 
 		/// <summary>
-		/// Indicates if the current, local player has their messages loaded.
+		/// Indicates if the current, local player has their read messages loaded.
 		/// </summary>
 		/// <returns></returns>
 		public static bool AreMessagesLoadedForCurrentPlayer() {
@@ -62,13 +62,48 @@ namespace Messages {
 		/// <param name="description"></param>
 		/// <param name="modOfOrigin"></param>
 		/// <param name="alertPlayer"></param>
+		/// <param name="isImportant">Creates a different type of alert for the given message.</param>
+		/// <param name="parentMessage">"Folder" message (`Message`) for the current message to belong to.</param>
+		/// <returns>A non-null `Message` if message was registered successfully (i.e. no duplicates found).</returns>
 		/// <param name="id">Allows for duplicate messages. Defaults to using `title` if null.</param>
 		/// <param name="weight">Sort order priority of message in descending order.</param>
-		/// <param name="parent">"Folder" message (`Message`) for the current message to belong to.</param>
-		/// <returns>A non-null `Message` if message was registered successfully (i.e. no duplicates found).</returns>
 		public static (Message msg, string result) AddMessage(
 					string title,
 					string description,
+					Mod modOfOrigin,
+					bool alertPlayer,
+					bool isImportant,
+					Message parentMessage,
+					string id = null,
+					int weight = 0 ) {
+			return MessagesAPI.AddMessage(
+				title,
+				description,
+				null,
+				modOfOrigin,
+				alertPlayer,
+				isImportant,
+				parentMessage,
+				id,
+				weight
+			);
+		}
+
+		/// <summary>Adds a message to the list. Note: Messages that area already read will not be added.</summary>
+		/// <param name="title"></param>
+		/// <param name="description"></param>
+		/// <param name="color"></param>
+		/// <param name="modOfOrigin"></param>
+		/// <param name="alertPlayer"></param>
+		/// <param name="isImportant">Creates a different type of alert for the given message.</param>
+		/// <param name="parentMessage">"Folder" message (`Message`) for the current message to belong to.</param>
+		/// <returns>A non-null `Message` if message was registered successfully (i.e. no duplicates found).</returns>
+		/// <param name="id">Allows for duplicate messages. Defaults to using `title` if null.</param>
+		/// <param name="weight">Sort order priority of message in descending order.</param>
+		public static (Message msg, string result) AddMessage(
+					string title,
+					string description,
+					Color? color,
 					Mod modOfOrigin,
 					bool alertPlayer,
 					bool isImportant,
@@ -90,6 +125,7 @@ namespace Messages {
 			(Message msg, UIMessage msgElem) = mngr.AddMessage(
 				title: title,
 				description: description,
+				color: color,
 				parent: parentMessage as Message,
 				isImportant: isImportant,
 				result: out string result,

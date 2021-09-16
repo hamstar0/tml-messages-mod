@@ -95,6 +95,7 @@ namespace Messages.Logic {
 		public (Message, UIMessage) AddMessage(
 					string title,
 					string description,
+					Color? color,
 					Mod modOfOrigin,
 					bool isImportant,
 					Message parent,
@@ -119,6 +120,7 @@ namespace Messages.Logic {
 			var msg = new Message(
 				title: title,
 				description: description,
+				color: color,
 				modOfOrigin: modOfOrigin,
 				id: id,
 				weight: weight
