@@ -56,7 +56,7 @@ namespace Messages.UI {
 
 			//
 
-			this.MessageElems[ id ].DisplayMessageBody( true );
+			this.MessageElems[ id ].BeginDisplayingMessageBody( true );
 
 			//
 

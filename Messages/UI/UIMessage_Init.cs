@@ -28,11 +28,11 @@ namespace Messages.UI {
 
 			this.InfoContainer = new UIElement();
 			{
-				this.TreeIconElem = new UIThemedText( this.Theme, false, "+" );
+				this.TreeIconElem = new UIThemedText( this.Theme, false, "+", true );
 				this.TreeIconElem.TextColor = Color.White;
 				this.InfoContainer.Append( this.TreeIconElem );
 				
-				this.UnreadTextElem = new UIThemedText( this.Theme, false, "" + this.UnreadHere.Count, 0.75f );
+				this.UnreadTextElem = new UIThemedText( this.Theme, false, "" + this.UnreadHere.Count, true, 0.75f );
 				this.UnreadTextElem.MarginTop = -6f;
 				this.UnreadTextElem.MarginLeft = 4f;
 				this.UnreadTextElem.TextColor = this.UnreadHere.Count == 0 ? Color.Gray : Color.Yellow;
@@ -90,7 +90,7 @@ namespace Messages.UI {
 				title += "...";
 			}
 
-			var elem = new UIThemedText( this.Theme, false, title, scale, false );
+			var elem = new UIThemedText( this.Theme, false, title, true, scale, false );
 			elem.TextColor = Color.Yellow;
 			elem.Width.Set( 0f, 1f );
 			elem.HAlign = 0f;
@@ -107,7 +107,7 @@ namespace Messages.UI {
 			height = Main.fontMouseText.MeasureString( desc ).Y;
 			height *= 1f / descScale;
 
-			var elem = new UIThemedText( this.Theme, false, desc, descScale, false );
+			var elem = new UIThemedText( this.Theme, false, desc, true, descScale, false );
 			elem.TextColor = Color.White;
 			elem.Width.Set( 0f, 1f );
 			elem.Height.Set( this.DescriptionHeight, 0f );

@@ -54,7 +54,7 @@ namespace Messages.UI {
 			
 			//
 
-			var catLabel = new UIThemedText( this.Theme, false, "Categories:", 0.85f );
+			var catLabel = new UIThemedText( this.Theme, false, "Categories:", true, 0.85f );
 			catLabel.Top.Set( -8f, 1f );
 			catLabel.Left.Set( -400f, 1f );
 			catLabel.Width.Set( 108f, 0f );

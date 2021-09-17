@@ -10,10 +10,12 @@ using Messages.UI;
 namespace Messages.Logic {
 	partial class MessageManager : ILoadable {
 		internal void InitializeCategories() {
+			var uiBlue = new Color( 25, 40, 88 );
+
 			(Message msg, UIMessage msgElem) = this.AddMessage(
 				title: "Mod Info",
 				description: "",
-				color: Color.Lerp( Color.Aquamarine, Color.Black, 0.5f ),
+				color: Color.Lerp( Color.Aquamarine, uiBlue, 0.75f ),
 				parent: null,
 				modOfOrigin: MessagesMod.Instance,
 				isImportant: false,
@@ -27,7 +29,7 @@ namespace Messages.Logic {
 			(msg, msgElem) = this.AddMessage(
 				title: "Hints & Tips",
 				description: "",
-				color: Color.Lerp( Color.Chartreuse, Color.Black, 0.5f ),
+				color: Color.Lerp( Color.Chartreuse, uiBlue, 0.75f ),
 				parent: null,
 				modOfOrigin: MessagesMod.Instance,
 				isImportant: false,
@@ -41,7 +43,7 @@ namespace Messages.Logic {
 			(msg, msgElem) = this.AddMessage(
 				title: "Game Info",
 				description: "",
-				color: Color.Lerp( Color.DarkOrange, Color.Black, 0.5f ),
+				color: Color.Lerp( Color.DarkOrange, uiBlue, 0.75f ),
 				modOfOrigin: MessagesMod.Instance,
 				isImportant: false,
 				parent: null,
@@ -55,7 +57,7 @@ namespace Messages.Logic {
 			(msg, msgElem) = this.AddMessage(
 				title: "Story & Lore",
 				description: "",
-				color: Color.Lerp( Color.Fuchsia, Color.Black, 0.5f ),
+				color: Color.Lerp( Color.Fuchsia, uiBlue, 0.75f ),
 				modOfOrigin: MessagesMod.Instance,
 				isImportant: false,
 				parent: null,
@@ -69,7 +71,7 @@ namespace Messages.Logic {
 			(msg, msgElem) = this.AddMessage(
 				title: "Events & Interactions",
 				description: "",
-				color: Color.Lerp( Color.LightSalmon, Color.Black, 0.5f ),
+				color: Color.Lerp( Color.LightSalmon, uiBlue, 0.75f ),
 				modOfOrigin: MessagesMod.Instance,
 				isImportant: false,
 				parent: null,

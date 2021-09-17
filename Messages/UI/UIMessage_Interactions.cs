@@ -20,7 +20,7 @@ namespace Messages.UI {
 				}
 			}
 
-			this.DisplayMessageBody( true );
+			this.BeginDisplayingMessageBody( true );
 
 			if( recalcContainer ) {
 				for( UIElement parent = this.Parent; parent != null; parent = parent.Parent ) {
@@ -34,7 +34,7 @@ namespace Messages.UI {
 
 		////////////////
 
-		public void DisplayMessageBody( bool viaInterface ) {
+		public void BeginDisplayingMessageBody( bool viaInterface ) {
 			var mycustomplayer = CustomPlayerData.GetPlayerData<MessagesCustomPlayer>( Main.myPlayer );
 			mycustomplayer.SetReadMessage( this.Message.ID );
 
@@ -47,7 +47,7 @@ namespace Messages.UI {
 			title.Height.Set( 56f, 0f );
 
 			string subtitleText = "From mod: "+this.Message.ModOfOrigin.DisplayName;
-			var subtitle = new UIThemedText( this.Theme, false, subtitleText, 0.75f, false );
+			var subtitle = new UIThemedText( this.Theme, false, subtitleText, true, 0.75f, false );
 			subtitle.PaddingTop = 24f;
 			subtitle.Width.Set( 0f, 1f );
 			subtitle.TextColor = Color.White * 0.35f;
