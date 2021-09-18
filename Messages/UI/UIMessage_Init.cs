@@ -21,7 +21,7 @@ namespace Messages.UI {
 
 			if( this.Message.Color.HasValue ) {
 				this.BackgroundColor = this.Message.Color.Value;
-				this.BorderColor = Color.Lerp( this.Message.Color.Value, Color.Black, 0.25f );
+				this.BorderColor = Color.Lerp( this.Message.Color.Value, Color.Black, 0.65f );
 			}
 
 			//
