@@ -155,7 +155,7 @@ namespace Messages {
 
 					UtilityPanelsTabs.AddTabAlert( MessagesMod.UtilityPanelsTabName, isImportant );
 
-					MessagesMod.Instance.ShowAlert();
+					MessagesMod.Instance.ShowAlert( isImportant );
 				}
 			} else {
 				//LogLibraries.AlertOnce( "Message failed ('"+title+"'): "+result );

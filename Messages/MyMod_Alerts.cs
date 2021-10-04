@@ -10,8 +10,12 @@ using Messages.Logic;
 
 namespace Messages {
 	public partial class MessagesMod : Mod {
-		public void ShowAlert() {
+		public void ShowAlert( bool isImportant ) {
 			this.AlertTickDuration = 60 * 15;
+
+			if( isImportant ) {
+				this.AlertTickDuration += 60 * 10;
+			}
 		}
 
 		public void HideAlert() {

@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.UI;
 using Terraria.ModLoader;
@@ -6,7 +7,7 @@ using ModLibsCore.Libraries.Debug;
 using ModLibsUI.Classes.UI.Elements;
 using ModUtilityPanels.Internals.UtilityPanels;
 using Messages.Logic;
-using Microsoft.Xna.Framework;
+
 
 namespace Messages.UI {
 	partial class UIMessagesTab : UIUtilityPanelsTab {
