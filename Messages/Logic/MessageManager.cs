@@ -72,6 +72,10 @@ namespace Messages.Logic {
 
 			try {
 				var mycustomplayer = CustomPlayerData.GetPlayerData<MessagesCustomPlayer>( Main.myPlayer );
+				if( mycustomplayer == null ) {
+					return new HashSet<string>();
+				}
+
 				ISet<string> readMsgIds = mycustomplayer.GetReadMessageIdsForCurrentWorld();
 
 				unreadMsgIds = new HashSet<string>(
