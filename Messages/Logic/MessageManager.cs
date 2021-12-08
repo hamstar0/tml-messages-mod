@@ -83,6 +83,8 @@ namespace Messages.Logic {
 						.Keys
 						.Where( id => !readMsgIds.Contains(id) )
 				);
+//DebugLibraries.Print( "unread", string.Join(", ", unreadMsgIds) );
+
 				important = new HashSet<string>(
 					unreadMsgIds.Where( id => this.ImportantMessagesByID.Contains(id) )
 				);

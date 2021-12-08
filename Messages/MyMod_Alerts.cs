@@ -11,10 +11,10 @@ using Messages.Logic;
 namespace Messages {
 	public partial class MessagesMod : Mod {
 		public void ShowAlert( bool isImportant ) {
-			this.AlertTickDuration = 60 * 15;
-
 			if( isImportant ) {
-				this.AlertTickDuration += 60 * 10;
+				this.AlertTickDuration = 60 * 60 * 5;	// 5 minutes of being annoying
+			} else {
+				this.AlertTickDuration = 60 * 15;
 			}
 		}
 
