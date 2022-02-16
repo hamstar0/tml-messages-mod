@@ -7,7 +7,7 @@ using Terraria.GameContent.UI.Elements;
 using ModLibsCore.Libraries.Debug;
 using ModLibsUI.Classes.UI.Theme;
 using ModLibsUI.Classes.UI.Elements;
-using ModUtilityPanels.Internals.UtilityPanels;
+using ModUtilityPanels.Classes.UI;
 
 
 namespace Messages.UI {

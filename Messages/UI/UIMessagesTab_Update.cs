@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.ModLoader;
 using ModLibsCore.Classes.PlayerData;
 using ModLibsCore.Libraries.Debug;
-using ModUtilityPanels.Internals.UtilityPanels;
+using ModUtilityPanels.Classes.UI;
 using Messages.Logic;
 
 
