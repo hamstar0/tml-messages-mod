@@ -126,6 +126,7 @@ namespace Messages {
 				title: title,
 				description: description,
 				color: color,
+				bigTitle: false,
 				parent: parentMessage as Message,
 				isImportant: isImportant,
 				result: out string result,

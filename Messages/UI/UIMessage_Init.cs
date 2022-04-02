@@ -90,7 +90,7 @@ namespace Messages.UI {
 				title += "...";
 			}
 
-			var elem = new UIThemedText( this.Theme, false, title, true, scale, false );
+			var elem = new UIThemedText( this.Theme, false, title, true, scale, this.Message.BigTitle );
 			elem.TextColor = Color.Yellow;
 			elem.Width.Set( 0f, 1f );
 			elem.HAlign = 0f;

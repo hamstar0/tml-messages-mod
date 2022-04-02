@@ -9,7 +9,6 @@ using Terraria.ModLoader;
 using ModLibsCore.Classes.Loadable;
 using ModLibsCore.Classes.PlayerData;
 using ModLibsCore.Libraries.Debug;
-using ModLibsCore.Services.Timers;
 using ModLibsUI.Classes.UI.Theme;
 using ModUtilityPanels;
 using ModUtilityPanels.Services.UI.UtilityPanels;
@@ -102,6 +101,7 @@ namespace Messages.Logic {
 					string title,
 					string description,
 					Color? color,
+					bool bigTitle,
 					Mod modOfOrigin,
 					bool isImportant,
 					Message parent,
@@ -127,6 +127,7 @@ namespace Messages.Logic {
 				title: title,
 				description: description,
 				color: color,
+				bigTitle: bigTitle,
 				modOfOrigin: modOfOrigin,
 				id: id,
 				weight: weight

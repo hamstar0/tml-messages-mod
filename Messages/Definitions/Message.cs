@@ -53,6 +53,10 @@ namespace Messages.Definitions {
 		public Color? Color { get; protected set; }
 
 		////
+
+		public bool BigTitle { get; protected set; }
+
+		////
 		
 		public Mod ModOfOrigin { get; protected set; }
 
@@ -69,7 +73,18 @@ namespace Messages.Definitions {
 
 		////////////////
 
-		public Message( string title, string description, Color? color, Mod modOfOrigin, string id, int weight=0 ) {
+		[Obsolete]
+		public Message( string title, string description, Color? color, Mod modOfOrigin, string id, int weight=0 )
+			: this( title, description, color, false, modOfOrigin, id, weight ) { }
+
+		public Message(
+					string title,
+					string description,
+					Color? color,
+					bool bigTitle,
+					Mod modOfOrigin,
+					string id,
+					int weight=0 ) {
 			this.ID = id;
 
 			this._Children = new List<Message>();
@@ -78,6 +93,7 @@ namespace Messages.Definitions {
 			this.Title = title;
 			this.Description = description;
 			this.Color = color;
+			this.BigTitle = bigTitle;
 			this.ModOfOrigin = modOfOrigin;
 			this.Weight = weight;
 		}

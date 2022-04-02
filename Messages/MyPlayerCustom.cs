@@ -50,6 +50,8 @@ namespace Messages {
 			
 			MessagesMod.Instance.RunMessageCategoriesInitializeEvent();
 			
+			//
+
 			string id = "Messages_Intro";
 
 			MessagesAPI.AddMessage(
