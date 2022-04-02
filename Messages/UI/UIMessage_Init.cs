@@ -80,15 +80,22 @@ namespace Messages.UI {
 		////////////////
 
 		private UIThemedText CreateTitleElement() {
-			float scale = 0.8f;
+			float scale = this.Message.BigTitle
+				? 0.5f
+				: 0.8f;
+
 			int maxWidth = 200;
 			maxWidth = (int)((float)maxWidth * (1f / scale));
+
+			//
 
 			IList<string> titleLines = FontLibraries.FitText( Main.fontMouseText, this.Message.Title, maxWidth );
 			string title = titleLines.FirstOrDefault() ?? "";
 			if( titleLines.Count >= 2 ) {
 				title += "...";
 			}
+
+			//
 
 			var elem = new UIThemedText( this.Theme, false, title, true, scale, this.Message.BigTitle );
 			elem.TextColor = Color.Yellow;
@@ -99,13 +106,17 @@ namespace Messages.UI {
 		}
 
 		private UIThemedText CreateDescriptionElement( out float height ) {
-			float descScale = 0.8f;
-
 			IList<string> descLines = FontLibraries.FitText( Main.fontMouseText, this.Message.Description, 560 );
 			string desc = descLines.ToStringJoined( "\n" );
 
+			//
+
+			float descScale = 0.8f;
+
 			height = Main.fontMouseText.MeasureString( desc ).Y;
 			height *= 1f / descScale;
+
+			//
 
 			var elem = new UIThemedText( this.Theme, false, desc, true, descScale, false );
 			elem.TextColor = Color.White;
