@@ -1,6 +1,6 @@
 displayName = Messages
 author = hamstar
-version = 1.4.0
+version = 1.5.0
 modReferences = ModLibsCore@1.2.0, ModLibsGeneral@1.2.0, ModLibsUI@1.1.0, ModUtilityPanels@2.0.0
 weakReferences = HUDElementsLib@4.3.1
 buildIgnore = *.csproj, *.user, *.bat, obj\*, bin\*, .vs\*, .git\*
