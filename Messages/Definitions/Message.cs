@@ -10,7 +10,7 @@ using ModLibsCore.Classes.PlayerData;
 namespace Messages.Definitions {
 	public partial class Message {
 		public static string GenerateMessageID( string title, Mod modOfOrigin ) {
-			return modOfOrigin.Name + " - " + title;
+			return $"{modOfOrigin.Name} - {title}";
 		}
 
 

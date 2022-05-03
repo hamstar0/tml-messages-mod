@@ -65,6 +65,13 @@ namespace Messages {
 
 		////////////////
 
+		public override object Call( params object[] args ) {
+			return ModBoilerplateLibraries.HandleModCall( typeof(MessagesAPI), args );
+		}
+
+
+		////////////////
+
 		internal void RunMessagesInitializeEvent() {
 			this.IsMessageTabInitialized = true;
 			this.OnMessageTabInitialize?.Invoke();

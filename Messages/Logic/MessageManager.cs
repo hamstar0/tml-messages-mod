@@ -110,15 +110,18 @@ namespace Messages.Logic {
 					int weight = 0 ) {
 			if( id != null ) {
 				if( this.MessagesByID.ContainsKey(id) ) {
-					result = "Message already exists by ID ("+id+").";
+					result = $"Message already exists by ID ({id}).";
 					return (null, null);
 				}
-			}
+			} else {
+				id = Message.GenerateMessageID( title, modOfOrigin );
 
-			id = Message.GenerateMessageID( title, modOfOrigin );
-			if( this.MessagesByID.ContainsKey(id) ) {
-				result = "Message already exists by genned ID ("+id+").";
-				return (null, null);
+				//
+
+				if( this.MessagesByID.ContainsKey(id) ) {
+					result = $"Message already exists by genned ID ({id}).";
+					return (null, null);
+				}
 			}
 
 			//

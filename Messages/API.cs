@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -56,7 +57,7 @@ namespace Messages {
 
 
 		////////////////
-
+		
 		/// <summary>Adds a message to the list. Note: Messages that area already read will not be added.</summary>
 		/// <param name="title"></param>
 		/// <param name="description"></param>
