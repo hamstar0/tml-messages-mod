@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ModLibsCore.Libraries.TModLoader.Mods;
+using Messages.Logic;
 
 
 namespace Messages {
@@ -67,6 +68,16 @@ namespace Messages {
 
 		public override object Call( params object[] args ) {
 			return ModBoilerplateLibraries.HandleModCall( typeof(MessagesAPI), args );
+		}
+
+
+		////////////////
+
+		public override void PostUpdateEverything() {
+			if( !Main.dedServ && Main.netMode != NetmodeID.Server ) {
+				ModContent.GetInstance<MessageManager>()
+					.Update();
+			}
 		}
 
 

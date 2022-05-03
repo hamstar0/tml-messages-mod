@@ -30,7 +30,7 @@ namespace Messages.Logic {
 
 		private object PriorityMessageWidget_Raw;
 		
-		private UIText PriorityMessageTextElem;
+		private UIText PriorityMessageWidgetTextElem;
 
 		////
 
@@ -65,12 +65,7 @@ namespace Messages.Logic {
 
 		void ILoadable.OnPostModsLoad() {
 			if( !Main.dedServ && Main.netMode != NetmodeID.Server ) {
-				if( ModLoader.GetMod("HUDElementsLib") != null ) {
-					MessageManager.LoadWidget_WeakRef(
-						out this.PriorityMessageWidget_Raw,
-						out this.PriorityMessageTextElem
-					);
-				}
+				this.LoadWidget_If();
 			}
 		}
 
@@ -80,7 +75,7 @@ namespace Messages.Logic {
 		////////////////
 
 		internal void Update() {
-			MessageManager.UpdateWidget_If( this.PriorityMessageWidget_Raw, this.PriorityMessageTextElem );
+			this.UpdateWidget_If();
 		}
 	}
 }

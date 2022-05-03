@@ -16,13 +16,16 @@ namespace Messages.Logic {
 	partial class MessageManager : ILoadable {
 		public ISet<string> GetUnreadMessages( out ISet<string> important ) {
 			ISet<string> unreadMsgIds = null;
-			important = null;
 
 			try {
 				var mycustomplayer = CustomPlayerData.GetPlayerData<MessagesCustomPlayer>( Main.myPlayer );
 				if( mycustomplayer == null ) {
+					important = new HashSet<string>();
+
 					return new HashSet<string>();
 				}
+
+				//
 
 				ISet<string> readMsgIds = mycustomplayer.GetReadMessageIdsForCurrentWorld();
 
@@ -33,12 +36,18 @@ namespace Messages.Logic {
 				);
 //DebugLibraries.Print( "unread", string.Join(", ", unreadMsgIds) );
 
+				//
+
 				important = new HashSet<string>(
 					unreadMsgIds.Where( id => this.ImportantMessagesByID.Contains(id) )
 				);
 			} catch( Exception e ) {
+				important = new HashSet<string>();
+
 				LogLibraries.Warn( e.ToString() );
 			}
+
+			//
 
 			return unreadMsgIds ?? new HashSet<string>();
 		}
