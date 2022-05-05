@@ -89,14 +89,21 @@ namespace Messages.Logic {
 
 		private void UpdateWidget_If() {
 			if( this.PriorityMessageWidget_Raw != null ) {
-				MessageManager.UpdateWidget_WeakRef(
+				MessageManager.UpdateWidget_If_WeakRef(
 					this.PriorityMessageWidget_Raw,
 					this.PriorityMessageWidgetTextElem 
 				);
 			}
 		}
 
-		private static void UpdateWidget_WeakRef( object rawWidget, UIText widgetTextElem ) {
+		private static void UpdateWidget_If_WeakRef( object rawWidget, UIText widgetTextElem ) {
+			HUDElementsLib.HUDElement widget = rawWidget as HUDElementsLib.HUDElement;
+			if( !widget.IsEnabled() ) {
+				return;
+			}
+
+			//
+
 			MessagesAPI.GetUnreadMessageIDs( out ISet<string> msgIds );
 
 			//
@@ -105,9 +112,8 @@ namespace Messages.Logic {
 
 			//
 
-			HUDElementsLib.HUDElement widget = rawWidget as HUDElementsLib.HUDElement;
-
 			if( widget.IsMouseHovering ) {
+				Main.LocalPlayer.mouseInterface = true;
 				widgetTextElem.TextColor = MessageManager.GetTextColor( true );
 			} else {
 				widgetTextElem.TextColor = MessageManager.GetTextColor( false );
