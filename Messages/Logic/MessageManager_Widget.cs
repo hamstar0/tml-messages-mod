@@ -11,6 +11,19 @@ using ModUtilityPanels.Services.UI.UtilityPanels;
 
 namespace Messages.Logic {
 	partial class MessageManager : ILoadable {
+		public static Color GetTextColor( bool isLit ) {
+			if( !isLit ) {
+				return new Color( 160, 160, 160 );
+			} else {
+				float pulse = (float)Main.mouseTextColor / 255f;
+				return new Color( 255, 255, (byte)(pulse * pulse * pulse * pulse * 255f) );
+			}
+		}
+
+
+
+		////////////////
+
 		private void LoadWidget_If() {
 			if( ModLoader.GetMod("HUDElementsLib") == null ) {
 				return;
@@ -53,10 +66,21 @@ namespace Messages.Logic {
 				}
 			);
 
-			widget.Append( textElem );
+
+			//
+
+			widget.OnMouseOver += ( _, __ ) => {
+				textElem.TextColor = MessageManager.GetTextColor( true );
+			};
+			widget.OnMouseOut += ( _, __ ) => {
+				textElem.TextColor = MessageManager.GetTextColor( false );
+			};
+
 			widget.OnClick += (_, __) => {
 				UtilityPanelsTabs.OpenTab( MessagesMod.UtilityPanelsTabName );
 			};
+
+			widget.Append( textElem );
 
 			//
 
@@ -82,10 +106,7 @@ namespace Messages.Logic {
 
 			//
 
-			float pulse = (float)Main.mouseTextColor / 255f;
-
 			this.PriorityMessageWidgetTextElem.SetText( "Important Messages: "+msgIds.Count );
-			this.PriorityMessageWidgetTextElem.TextColor = new Color(255, 255, (byte)(pulse*pulse*pulse*pulse*255f) );
 		}
 	}
 }
