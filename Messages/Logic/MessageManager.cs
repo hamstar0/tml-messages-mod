@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Concurrent;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.GameContent.UI.Elements;
@@ -22,15 +23,16 @@ namespace Messages.Logic {
 
 		////////////////
 
-		public ConcurrentDictionary<string, Message> MessagesByID { get; } = new ConcurrentDictionary<string, Message>();
-
-		public ISet<string> ImportantMessagesByID { get; } = new HashSet<string>();
-
-		////
-
 		private object PriorityMessageWidget_Raw;
 		
 		private UIText PriorityMessageWidgetTextElem;
+
+
+		////////////////
+
+		public ConcurrentDictionary<string, Message> MessagesByID { get; } = new ConcurrentDictionary<string, Message>();
+
+		public ISet<string> ImportantMessagesByID { get; } = new HashSet<string>();
 
 		////
 
@@ -73,9 +75,18 @@ namespace Messages.Logic {
 
 
 		////////////////
-
+		
 		internal void Update() {
 			this.UpdateWidget_If();
+		}
+
+
+		////////////////
+
+		public void PostDrawInterface( SpriteBatch spriteBatch ) {
+			if( this.IsWidgetMouseHovering ) {
+				Main.LocalPlayer.mouseInterface = true;
+			}
 		}
 	}
 }

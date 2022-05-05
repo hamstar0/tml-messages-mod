@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.UI;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ModLoader;
 using ModLibsCore.Classes.Loadable;
@@ -19,6 +20,13 @@ namespace Messages.Logic {
 				return new Color( 255, 255, (byte)(pulse * pulse * pulse * pulse * 255f) );
 			}
 		}
+
+
+
+		////////////////
+		
+		public bool IsWidgetMouseHovering => (this.PriorityMessageWidget_Raw as UIElement)?
+			.IsMouseHovering ?? false;
 
 
 
@@ -68,6 +76,10 @@ namespace Messages.Logic {
 
 			widget.OnClick += (_, __) => {
 				UtilityPanelsTabs.OpenTab( MessagesMod.UtilityPanelsTabName );
+
+				ModContent.GetInstance<MessageManager>()
+					.MessagesTabUI
+					.OpenNextUnreadMessage();
 			};
 
 			//
@@ -113,7 +125,6 @@ namespace Messages.Logic {
 			//
 
 			if( widget.IsMouseHovering ) {
-				Main.LocalPlayer.mouseInterface = true;
 				widgetTextElem.TextColor = MessageManager.GetTextColor( true );
 			} else {
 				widgetTextElem.TextColor = MessageManager.GetTextColor( false );

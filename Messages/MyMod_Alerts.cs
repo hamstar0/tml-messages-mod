@@ -25,22 +25,20 @@ namespace Messages {
 
 		////////////////
 
-		public override void PostDrawInterface( SpriteBatch spriteBatch ) {
-			if( Main.gameMenu ) {
+		private void DrawMessageAlertForDuration_If( SpriteBatch spriteBatch ) {
+			if( this.AlertTickDuration <= 0 ) {
 				return;
 			}
 
-			if( this.AlertTickDuration >= 1 ) {
-				this.AlertTickDuration--;
+			this.AlertTickDuration--;
 
-				this.DrawMessageAlertIf( spriteBatch );
-			}
+			this.DrawMessageAlert_If( spriteBatch );
 		}
 
 
 		////////////////
 
-		private void DrawMessageAlertIf( SpriteBatch spriteBatch ) {
+		private void DrawMessageAlert_If( SpriteBatch spriteBatch ) {
 			var mngr = ModContent.GetInstance<MessageManager>();
 			int messageCount = mngr.GetUnreadMessages( out ISet<string> important ).Count;
 			if( messageCount == 0 ) {

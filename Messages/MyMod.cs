@@ -83,6 +83,24 @@ namespace Messages {
 
 		////////////////
 
+		public override void PostDrawInterface( SpriteBatch spriteBatch ) {
+			if( Main.gameMenu ) {
+				return;
+			}
+
+			//
+
+			this.DrawMessageAlertForDuration_If( spriteBatch );
+
+			//
+
+			ModContent.GetInstance<MessageManager>()?.PostDrawInterface( spriteBatch );
+		}
+
+
+
+		////////////////
+
 		internal void RunMessagesInitializeEvent() {
 			this.IsMessageTabInitialized = true;
 			this.OnMessageTabInitialize?.Invoke();
