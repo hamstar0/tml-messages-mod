@@ -66,19 +66,11 @@ namespace Messages.Logic {
 				}
 			);
 
-
-			//
-
-			widget.OnMouseOver += ( _, __ ) => {
-				textElem.TextColor = MessageManager.GetTextColor( true );
-			};
-			widget.OnMouseOut += ( _, __ ) => {
-				textElem.TextColor = MessageManager.GetTextColor( false );
-			};
-
 			widget.OnClick += (_, __) => {
 				UtilityPanelsTabs.OpenTab( MessagesMod.UtilityPanelsTabName );
 			};
+
+			//
 
 			widget.Append( textElem );
 
@@ -96,17 +88,30 @@ namespace Messages.Logic {
 		////////////////
 
 		private void UpdateWidget_If() {
-			if( this.PriorityMessageWidget_Raw == null ) {
-				return;
+			if( this.PriorityMessageWidget_Raw != null ) {
+				MessageManager.UpdateWidget_WeakRef(
+					this.PriorityMessageWidget_Raw,
+					this.PriorityMessageWidgetTextElem 
+				);
 			}
+		}
 
-			//
-
+		private static void UpdateWidget_WeakRef( object rawWidget, UIText widgetTextElem ) {
 			MessagesAPI.GetUnreadMessageIDs( out ISet<string> msgIds );
 
 			//
 
-			this.PriorityMessageWidgetTextElem.SetText( "Important Messages: "+msgIds.Count );
+			widgetTextElem.SetText( "Important Messages: "+msgIds.Count );
+
+			//
+
+			HUDElementsLib.HUDElement widget = rawWidget as HUDElementsLib.HUDElement;
+
+			if( widget.IsMouseHovering ) {
+				widgetTextElem.TextColor = MessageManager.GetTextColor( true );
+			} else {
+				widgetTextElem.TextColor = MessageManager.GetTextColor( false );
+			}
 		}
 	}
 }
