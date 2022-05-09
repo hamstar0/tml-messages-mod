@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using Terraria.UI;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ModLoader;
@@ -99,13 +100,23 @@ namespace Messages.Logic {
 
 		////////////////
 
-		private void UpdateWidget_If() {
-			if( this.PriorityMessageWidget_Raw != null ) {
-				MessageManager.UpdateWidget_If_WeakRef(
-					this.PriorityMessageWidget_Raw,
-					this.PriorityMessageWidgetTextElem 
-				);
+		private void UpdateWidget_Local_If() {
+			if( Main.dedServ || Main.netMode == NetmodeID.Server ) {
+				return;
 			}
+
+			//
+
+			if( this.PriorityMessageWidget_Raw == null ) {
+				return;
+			}
+
+			//
+
+			MessageManager.UpdateWidget_If_WeakRef(
+				this.PriorityMessageWidget_Raw,
+				this.PriorityMessageWidgetTextElem 
+			);
 		}
 
 		private static void UpdateWidget_If_WeakRef( object rawWidget, UIText widgetTextElem ) {

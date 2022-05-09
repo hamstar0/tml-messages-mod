@@ -74,10 +74,7 @@ namespace Messages {
 		////////////////
 
 		public override void PostUpdateEverything() {
-			if( !Main.dedServ && Main.netMode != NetmodeID.Server ) {
-				ModContent.GetInstance<MessageManager>()
-					.Update();
-			}
+			ModContent.GetInstance<MessageManager>().Update_Local();
 		}
 
 

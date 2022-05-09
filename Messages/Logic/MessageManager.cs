@@ -76,8 +76,14 @@ namespace Messages.Logic {
 
 		////////////////
 		
-		internal void Update() {
-			this.UpdateWidget_If();
+		internal void Update_Local() {
+			if( Main.dedServ || Main.netMode == NetmodeID.Server ) {
+				return;
+			}
+
+			//
+
+			this.UpdateWidget_Local_If();
 		}
 
 
