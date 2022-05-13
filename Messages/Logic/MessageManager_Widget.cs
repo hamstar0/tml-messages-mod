@@ -51,19 +51,20 @@ namespace Messages.Logic {
 					out UIText priorityMessageTextElem ) {
 			var dim = new Vector2( 224f, 52f );
 			var pos = new Vector2(
-				((float)Main.screenWidth - dim.X) * 0.5f,
-				((float)Main.screenHeight - dim.Y) - 64f
+				-dim.X * 0.5f,
+				-dim.Y - 64f
 			);
 
 			//
-			
+
 			var textElem = new UIText( "Important Messages: 0" );
 			textElem.HAlign = 0.5f;
 			textElem.Top.Set( -12f, 0.5f );
 
 			var widget = new HUDElementsLib.HUDElement(
 				name: "Priority Messages",
-				position: pos,
+				positionOffset: pos,
+				positionPercent: new Vector2( 0.5f, 1f ),
 				dimensions: dim,
 				enabler: () => {
 					if( !Main.playerInventory ) {
