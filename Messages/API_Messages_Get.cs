@@ -41,6 +41,8 @@ namespace Messages {
 			return mngr.GetUnreadMessages( out important );
 		}
 
+		////
+
 		/// <summary></summary>
 		/// <returns></returns>
 		public static int GetUnreadMessageCount() {
