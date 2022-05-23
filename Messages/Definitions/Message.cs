@@ -73,9 +73,16 @@ namespace Messages.Definitions {
 
 		////////////////
 
-		[Obsolete]
+		[Obsolete("use alt", true)]
 		public Message( string title, string description, Color? color, Mod modOfOrigin, string id, int weight=0 )
-			: this( title, description, color, false, modOfOrigin, id, weight ) { }
+			: this(
+					title: title,
+					description: description,
+					color: color,
+					bigTitle: false,
+					modOfOrigin: modOfOrigin,
+					id: id,
+					weight: weight ) { }
 
 		public Message(
 					string title,

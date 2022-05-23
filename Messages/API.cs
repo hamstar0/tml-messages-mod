@@ -51,6 +51,8 @@ namespace Messages {
 				return false;
 			}
 
+			//
+
 			var myplayer = CustomPlayerData.GetPlayerData<MessagesCustomPlayer>( Main.myPlayer );
 			return myplayer != null;
 		}
@@ -78,15 +80,15 @@ namespace Messages {
 					string id = null,
 					int weight = 0 ) {
 			return MessagesAPI.AddMessage(
-				title,
-				description,
-				null,
-				modOfOrigin,
-				alertPlayer,
-				isImportant,
-				parentMessage,
-				id,
-				weight
+				title: title,
+				description: description,
+				color: null,
+				modOfOrigin: modOfOrigin,
+				alertPlayer: alertPlayer,
+				isImportant: isImportant,
+				parentMessage: parentMessage,
+				id: id,
+				weight: weight
 			);
 		}
 
@@ -121,6 +123,8 @@ namespace Messages {
 				throw new ModLibsException( "Invalid parentMessage." );
 			}
 
+			//
+
 			var mngr = ModContent.GetInstance<MessageManager>();
 			
 			(Message msg, UIMessage msgElem) = mngr.AddMessage(
@@ -128,21 +132,18 @@ namespace Messages {
 				description: description,
 				color: color,
 				bigTitle: false,
-				parent: parentMessage as Message,
-				isImportant: isImportant,
-				result: out string result,
 				modOfOrigin: modOfOrigin,
+				isImportant: isImportant,
+				parent: parentMessage as Message,
+				result: out string result,
 				id: id,
 				weight: weight
 			);
 
 			//
 			
-//Main.NewText( "1 "+title+" - "+result );
 			if( result == "Success." ) {
-//Main.NewText( "2 alertPlayer:" + alertPlayer );
 				if( alertPlayer ) {
-//Main.NewText( "3 isImportant:" + isImportant );
 					if( isImportant ) {
 						Main.PlaySound( SoundID.Zombie, -1, -1, 70, 0.5f, 0f );
 						Timers.SetTimer( 10, true, () => {
@@ -182,6 +183,8 @@ namespace Messages {
 				throw new ModLibsException( "Invalid message object." );
 			}
 
+			//
+
 			var mngr = ModContent.GetInstance<MessageManager>();
 
 			mngr.RemoveMessage( message as Message, forceIncomplete );
@@ -198,6 +201,8 @@ namespace Messages {
 			if( !MessagesMod.Instance.IsMessageTabCategoriesInitialized ) {
 				throw new ModLibsException( "Message display not finished initializing." );
 			}
+
+			//
 
 			var mngr = ModContent.GetInstance<MessageManager>();
 

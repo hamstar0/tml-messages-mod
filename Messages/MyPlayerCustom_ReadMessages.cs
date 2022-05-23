@@ -14,6 +14,7 @@ namespace Messages {
 			if( !this.ReadMessagesByIdsPerWorld.ContainsKey(worldUid) ) {
 				return false;
 			}
+
 			return this.ReadMessagesByIdsPerWorld[ worldUid ].Contains( id );
 		}
 

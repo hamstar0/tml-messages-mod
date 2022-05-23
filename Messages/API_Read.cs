@@ -22,6 +22,7 @@ namespace Messages {
 			return !myplayer.IsMessageRead( messageId );
 		}
 
+
 		/// <summary>
 		/// Sets a message as read or unread.
 		/// </summary>
