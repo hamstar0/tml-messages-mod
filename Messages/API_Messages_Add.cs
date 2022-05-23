@@ -61,7 +61,7 @@ namespace Messages {
 		/// <returns>A non-null `Message` if message was registered successfully (i.e. no duplicates found).</returns>
 		/// <param name="id">Allows for duplicate messages. Defaults to using `title` if null.</param>
 		/// <param name="weight">Sort order priority of message in descending order.</param>
-		public static (Message msg, string result) AddColoredMessage(
+		public static (Message msg, string result) AddMessageWithColor(
 					string title,
 					string description,
 					Color color,

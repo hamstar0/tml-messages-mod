@@ -47,7 +47,7 @@ namespace Messages {
 					Message parentMessage,
 					string id = null,
 					int weight = 0 ) {
-			return MessagesAPI.AddColoredMessage(
+			return MessagesAPI.AddMessageWithColor(
 				title: title,
 				description: description,
 				color: color.HasValue ? color.Value : Color.White,
