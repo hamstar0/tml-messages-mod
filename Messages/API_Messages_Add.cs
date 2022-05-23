@@ -50,7 +50,8 @@ namespace Messages {
 			);
 		}
 
-		/// <summary>Adds a message to the list. Note: Messages that area already read will not be added.</summary>
+		/// <summary>Adds a message to the list with custom color. Note: Messages that area already read will not be
+		/// added.</summary>
 		/// <param name="title"></param>
 		/// <param name="description"></param>
 		/// <param name="color"></param>
