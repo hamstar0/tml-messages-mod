@@ -59,7 +59,7 @@ namespace Messages {
 
 
 		////////////////
-		
+
 		/// <summary>Adds a message to the list. Note: Messages that area already read will not be added.</summary>
 		/// <param name="title"></param>
 		/// <param name="description"></param>
@@ -79,10 +79,10 @@ namespace Messages {
 					Message parentMessage,
 					string id = null,
 					int weight = 0 ) {
-			return MessagesAPI.AddMessage(
+			return MessagesAPI.AddColoredMessage(
 				title: title,
 				description: description,
-				color: null,
+				color: (Color?)null,
 				modOfOrigin: modOfOrigin,
 				alertPlayer: alertPlayer,
 				isImportant: isImportant,
@@ -92,6 +92,30 @@ namespace Messages {
 			);
 		}
 
+		[Obsolete("use AddColoredMessage", true)]
+		public static (Message msg, string result) AddMessage(
+					string title,
+					string description,
+					Color? color,
+					Mod modOfOrigin,
+					bool alertPlayer,
+					bool isImportant,
+					Message parentMessage,
+					string id = null,
+					int weight = 0 ) {
+			return MessagesAPI.AddColoredMessage(
+				title: title,
+				description: description,
+				color: color.HasValue ? color.Value : (Color?)null,
+				modOfOrigin: modOfOrigin,
+				alertPlayer: alertPlayer,
+				isImportant: isImportant,
+				parentMessage: parentMessage,
+				id: id,
+				weight: weight
+			);
+		}
+		
 		/// <summary>Adds a message to the list. Note: Messages that area already read will not be added.</summary>
 		/// <param name="title"></param>
 		/// <param name="description"></param>
@@ -103,7 +127,7 @@ namespace Messages {
 		/// <returns>A non-null `Message` if message was registered successfully (i.e. no duplicates found).</returns>
 		/// <param name="id">Allows for duplicate messages. Defaults to using `title` if null.</param>
 		/// <param name="weight">Sort order priority of message in descending order.</param>
-		public static (Message msg, string result) AddMessage(
+		public static (Message msg, string result) AddColoredMessage(
 					string title,
 					string description,
 					Color? color,

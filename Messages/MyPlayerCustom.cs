@@ -28,8 +28,8 @@ namespace Messages {
 				this.ReadMessagesByIdsPerWorld = ((JObject)data)
 					.ToObject<Dictionary<string, string[]>>()
 					.ToDictionary( kv=>kv.Key, kv=>new HashSet<string>( kv.Value ) );
-//LogLibraries.Log( $"LOAD MESSAGES FOR {this.Player.name}: {JsonConvert.SerializeObject(this.ReadMessagesByIdsPerWorld)}" );
 			}
+//LogLibraries.Log( $"LOAD MESSAGES FOR {this.Player.name}: {JsonConvert.SerializeObject(this.ReadMessagesByIdsPerWorld)}" );
 
 /*LogLibraries.Log( "OnEnter "+isCurrentPlayer+" "+this.PlayerWho
 	+Main.gameMenu
